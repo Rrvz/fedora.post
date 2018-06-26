@@ -1,2 +1,12 @@
+git config --global user.name "Ricardo"
+git config --global user.name
+
+git config --global user.email "rrvzero@gmail.com"
+git config --global user.email
+
+#
+ssh-keygen -t rsa -b 4096 -C "rrvzero@gmail.com"
+
+
 curl -u 'USER' https://api.github.com/user/repos -d '{"name":"REPO"}'
 curl -u 'Rrvz' https://api.github.com/user/repos -d '{"name":"fedora.post"}'
