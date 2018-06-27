@@ -11,7 +11,7 @@ if grep -Eq  "$VarX0" "$FileX0"
 then
     echo "Code found in $FileX0"
 else
-    echo "Code not found in $FileX0"
+    echo "Code not found in $FileX0, installing code for poweline from source"
 cat >> ~/.bashrc <<-'EOF'
  if [ -f 'which powerline-daemon' ]; then
   powerline-daemon -q
@@ -26,9 +26,9 @@ fi
 File="$HOME/.local/share/fonts/DejaVu Sans Mono for Powerline.ttf"
 if [ -f "$File" ]
     then
-        echo "Powerline Fonts already installed"
+        echo "Powerline Fonts already installed..."
 else
-        echo "Installing Powerline Fonts from source"
+        echo "Installing Powerline Fonts from source..."
 # clone
 git clone https://github.com/powerline/fonts.git --depth=1
 # install
@@ -85,11 +85,11 @@ EOF
 fi
 
 
-File="$HOME/.local/share/fonts/DejaVu Sans Mono for Powerline.ttf"
-if [ -f "$File" ]
-then
-    echo "$File found."
-else
-    echo "$File not found."
-fi
+#ile="$HOME/.local/share/fonts/DejaVu Sans Mono for Powerline.ttf"
+#f [ -f "$File" ]
+#hen
+#   echo "$File found."
+#lse
+#   echo "$File not found."
+#i
 
