@@ -38,7 +38,7 @@ cd fonts
 cd .. && rm -rf fonts
 fi
 
-
+#check if code/word for powerline exists for local .vimrc file 
 VarX0='set laststatus=2'
 FileX0=~/.vimrc
 
@@ -58,7 +58,7 @@ set t_Co=256
 EOF
 fi
 
-
+#check if code/word for tabs exists for local .vimrc file 
 VarX0='set tabstop=4'
 FileX0=~/.vimrc
 
@@ -70,7 +70,6 @@ else
 cat >> ~/.vimrc <<-'EOF'
 
 ""#To avoid pasting commented on all lines when you have one commented line
-
 ""On pressing tab, insert 4 spaces
 set expandtab
 ""tab is equal to 4 and autoindent is mark with > 
