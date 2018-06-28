@@ -21,13 +21,25 @@ dnf -y install unrar p7zip p7zip-plugins
 #imagenes
 sudo dnf -y install converseen gimp 
 
-
 #text editor
 sudo dnf -y install atom 
 
 sudo dnf install -y vlc shutter youtube-dl 
+
+#Update pip to work wi th latest stable python version 
+sudo dnf install python3-pip
+pip3
+sudo python3 -m pip install -U pip
+
+sudo pip install --upgrade python
+sudo pip install pathlib2 lxml requests-ftp wrapt
+sudo pip install --upgrade pip
+
+
+
+
 #shell extensions
-sudo dnf install -y chrome-gnome-shell gnome-shell-extension-dash-to-dock gir1.2-clutter
+#udo dnf install -y chrome-gnome-shell gnome-shell-extension-dash-to-dock gir1.2-clutter
 
 #drivers
 
