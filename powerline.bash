@@ -4,22 +4,27 @@ pip install --user --upgrade lxml
 pip install --user git+git://github.com/powerline/powerline
 pip show powerline-status
 
-VarX0='powerline-daemon -q'
+VarX0="powerline-daemon -q"
 FileX0=~/.bashrc
+PPathX0=bindings/bash/powerline.sh
+repository_root=$(pip show powerline-status | grep Location | awk '{print $2;}')
+
 
 if grep -Eq  "$VarX0" "$FileX0"
 then
     echo "Code found in $FileX0"
 else
     echo "Code not found in $FileX0, installing code for poweline from source"
-cat >> ~/.bashrc <<-'EOF'
- if [ -f 'which powerline-daemon' ]; then
+cat >> ~/.bashrc << EOF
+ if [ -f `which powerline-daemon` ]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
-  . ~/.local/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+. $repository_root/powerline/bindings/bash/powerline.sh 
 fi
 EOF
+
+
 fi
 
 #check if file powerline font exists or directory 
@@ -33,7 +38,7 @@ else
 git clone https://github.com/powerline/fonts.git --depth=1
 # install
 cd fonts
-    ./install.sh
+./install.sh
 # clean-up a bit
 cd .. && rm -rf fonts
 fi
@@ -48,12 +53,14 @@ then
 else
     echo "Code not found in $FileX0"
 cat >> ~/.vimrc <<-'EOF'
+"powerline-status vim statusline
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set  rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
 set t_Co=256
 EOF
 fi
