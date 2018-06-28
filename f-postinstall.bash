@@ -55,15 +55,19 @@ sudo pip install --upgrade pip
 # Task Warrior and  
 sudo dnf install task bugwarrior python3-taskw python2-taskw
 
+
+
+
+
 #shell extensions
 #udo dnf install -y chrome-gnome-shell gnome-shell-extension-dash-to-dock gir1.2-clutter
 
 #drivers
 
-sudo su
+#sudo su
 
-sudo bach -c "echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf"
-sudo dracut /boot/initramfs-$(uname -r).img $(uname -r) --force
+#sudo bach -c "echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf"
+#sudo dracut /boot/initramfs-$(uname -r).img $(uname -r) --force
 
-dnf install xorg-x11-drv-nouveau
+#dnf install xorg-x11-drv-nouveau
 
