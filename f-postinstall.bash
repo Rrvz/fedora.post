@@ -3,8 +3,8 @@
 
 File_X0="/etc/dnf/dnf.conf"
 String_X0="strict="
+String_X1="strict=False"
 if [ ! -z $(grep "$String_X0" "$File_X0") ]; then 
-    String_X1="strict=False"
     if [ ! -z $(grep "$String_X0" "$File_X0") ]; then
         echo "$String_X1 value is already in file"
     else
@@ -56,9 +56,9 @@ sudo pip install --upgrade pip
 sudo dnf install -y task bugwarrior python3-taskw python2-taskw
 
 #Command-line fuzzy finder
-#git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-#~/.fzf/install --all
-#source ~/.bashrc
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --all
+source ~/.bashrc
 
 #shell extensions
 #udo dnf install -y chrome-gnome-shell gnome-shell-extension-dash-to-dock gir1.2-clutter
