@@ -5,7 +5,7 @@ File_X0="/etc/dnf/dnf.conf"
 String_X0="strict="
 String_X1="strict=False"
 if [ ! -z $(grep "$String_X0" "$File_X0") ]; then 
-    if [ ! -z $(grep "$String_X0" "$File_X0") ]; then
+    if [ ! -z $(grep "$String_X1" "$File_X0") ]; then
         echo "$String_X1 value is already in file"
     else
         sudo sed -i "/$String_X0/c $String_X1" $File_X0
