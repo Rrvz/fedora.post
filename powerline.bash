@@ -9,10 +9,9 @@ FileX0=~/.bashrc
 PPathX0=bindings/bash/powerline.sh
 repository_root=$(pip show powerline-status | grep Location | awk '{print $2;}')
 
-
 if grep -Eq  "$VarX0" "$FileX0"
 then
-    echo "Code found in $FileX0"
+    echo "Powerline Code found in $FileX0"
 else
     echo "Code not found in $FileX0, installing code for poweline from source"
 cat >> ~/.bashrc << EOF
@@ -23,8 +22,6 @@ cat >> ~/.bashrc << EOF
 . $repository_root/powerline/bindings/bash/powerline.sh 
 fi
 EOF
-
-
 fi
 
 #check if file powerline font exists or directory 
@@ -73,7 +70,7 @@ if grep -Eq  "$VarX0" "$FileX0"
 then
     echo "Code found in $FileX0"
 else
-    echo "Code not found in $FileX0"
+    echo "Code not found in $FileX0 inserting code in file anteriormente mencionado"
 cat >> ~/.vimrc <<-'EOF'
 
 ""#To avoid pasting commented on all lines when you have one commented line

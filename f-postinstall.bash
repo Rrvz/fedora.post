@@ -25,8 +25,8 @@ sudo dnf -y install gstreamer-plugins-base gstreamer1-plugins-base gstreamer-plu
 
 #install desktop environment
 sudo dnf install -y switchdesk switchdesk-gui
-sudo dnf install -y @kde-desktop-environment
-sudo dnf install -y @mate-desktop-environment
+#sudo dnf install -y @kde-desktop-environment
+#sudo dnf install -y @mate-desktop-environment
 
 #codecs
 sudo dnf -y install ffmpeg2theora ffmpeg mencoder
@@ -45,7 +45,7 @@ sudo dnf install -y vlc shutter youtube-dl
 
 #Update pip to work wi th latest stable python version 
 sudo dnf install python3-pip
-pip3
+#which pip3
 sudo python3 -m pip install -U pip
 
 sudo pip install --upgrade python
@@ -53,11 +53,12 @@ sudo pip install pathlib2 lxml requests-ftp wrapt
 sudo pip install --upgrade pip
 
 # Task Warrior and  
-sudo dnf install task bugwarrior python3-taskw python2-taskw
+sudo dnf install -y task bugwarrior python3-taskw python2-taskw
 
-
-
-
+#Command-line fuzzy finder
+#git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+#~/.fzf/install --all
+#source ~/.bashrc
 
 #shell extensions
 #udo dnf install -y chrome-gnome-shell gnome-shell-extension-dash-to-dock gir1.2-clutter
