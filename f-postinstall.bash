@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Fix dnf problem unable to install because a : No match for argument: 
 #gir1.2-clutter, error: Unable to find a match 
 
@@ -33,7 +35,7 @@ sudo dnf -y install ffmpeg2theora ffmpeg mencoder
 sudo dnf -y install libdvdread libdvdnav lsdvd libdvdcss
 
 # Compression utilities
-dnf -y install unrar p7zip p7zip-plugins tar
+sudo dnf -y install unrar p7zip p7zip-plugins tar
 
 #imagenes las mejores :)
 sudo dnf -y install converseen gimp 
@@ -61,7 +63,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 source ~/.bashrc
 
 #shell extensions
-#udo dnf install -y chrome-gnome-shell gnome-shell-extension-dash-to-dock gir1.2-clutter
+sudo dnf install -y chrome-gnome-shell #nome-shell-extension-dash-to-dock gir1.2-clutter
 
 #drivers
 
