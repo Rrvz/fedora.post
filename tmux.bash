@@ -16,7 +16,7 @@ cd
 sudo rm tmux -rf
 
 #
-cd
+#cd
 #git clone https://github.com/gpakosz/.tmux.git
 #ln -s -f .tmux/.tmux.conf
 #cp .tmux/.tmux.conf.local .
@@ -24,6 +24,6 @@ cd
 #Search for and comment regular glyphs and uncomment powerline fonts
 
 # status left/right sections separators
-cd
+#cd
 #vim .tmux.conf.local
 
