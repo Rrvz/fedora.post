@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #libs to install
 sudo yum install gcc kernel-devel make ncurses-devel libevent libevent-devel -y
