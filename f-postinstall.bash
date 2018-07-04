@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#Fix dnf problem unable to install because a : No match for argument: 
-#gir1.2-clutter, error: Unable to find a match 
+#Fix dnf problem unable to install because a : No match for argument:
+#gir1.2-clutter, error: Unable to find a match
 
 File_X0="/etc/dnf/dnf.conf"
 String_X0="strict="
 String_X1="strict=False"
-if [ ! -z $(grep "$String_X0" "$File_X0") ]; then 
+if [ ! -z $(grep "$String_X0" "$File_X0") ]; then
     if [ ! -z $(grep "$String_X1" "$File_X0") ]; then
         echo "$String_X1 value is already in file"
     else
@@ -38,14 +38,14 @@ sudo dnf -y install libdvdread libdvdnav lsdvd libdvdcss
 sudo dnf -y install unrar p7zip p7zip-plugins tar
 
 #imagenes las mejores :)
-sudo dnf -y install converseen gimp 
+sudo dnf -y install converseen gimp
 
 #text editor
-sudo dnf -y install atom 
+sudo dnf -y install atom
 #Recorder, player, and downloader
-sudo dnf install -y vlc shutter youtube-dl 
+sudo dnf install -y vlc shutter youtube-dl
 
-#Update pip to work wi th latest stable python version 
+#Update pip to work wi th latest stable python version
 sudo dnf install python3-pip
 #which pip3
 sudo python3 -m pip install -U pip
@@ -54,13 +54,15 @@ sudo pip install --upgrade python
 sudo pip install pathlib2 lxml requests-ftp wrapt
 sudo pip install --upgrade pip
 
-# Task Warrior and  
+# Task Warrior and
 sudo dnf install -y task bugwarrior python3-taskw python2-taskw
 
 #Command-line fuzzy finder
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
 source ~/.bashrc
+
+dnf install the_silver_searcher
 
 #shell extensions
 sudo dnf install -y chrome-gnome-shell #nome-shell-extension-dash-to-dock gir1.2-clutter
@@ -81,4 +83,6 @@ sudo dnf install -y python-pip python2-pip python3-pip git
 sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
 sudo yum update -y
+
+
 
