@@ -27,3 +27,14 @@ sudo rm tmux -rf
 #cd
 #vim .tmux.conf.local
 
+# Set italics on in tmux
+set -g default-terminal "tmux" # colors!
+
+# https://github.com/tmux/tmux/issues/1246
+
+# important！24 bit color
+#set -g default-terminal "tmux-256color"
+#set -ga terminal-overrides ",*256col*:Tc"
+set -g default-terminal "tmux-256color"
+# enable 24 bit support
+set -g terminal-overrides ',xterm-256color:Tc'
