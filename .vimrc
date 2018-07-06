@@ -42,6 +42,7 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'tag': '*' }
 
 " Plugin options
@@ -96,8 +97,15 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " The Silver Searcher
 
+" Asynchronous Lint Engin
 Plug 'w0rp/ale'
+
+" Code formater from google
 Plug 'google/yapf'
+
+" Code formater for python
+Plug 'ambv/black'
+
 Plug 'tpope/vim-fugitive'
 
 Plug 'scrooloose/syntastic'
@@ -133,8 +141,10 @@ Plug 'djoshea/vim-autoread'
 " Initialize plugin system
 call plug#end()
 
-
-" config part for modules
+"""""""""""""""""""""""""""""""""""""""""""""
+"   Config section for modules and Plugins  "
+"   --------------------------------------  "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " Tmux config arrow fix and other scape character problems
 " Put your terminal to match OS and tmux
@@ -166,7 +176,7 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 " List of colors that you do not want. ANSI code or #RRGGBB for Rainbow
 let g:rainbow#blacklist = [233, 234]
 
-" Syntax hightlight mode freak ON
+" Syntax hightlight mode, get you freak ON!!!
 syntax on
 
 " Set truecolor
@@ -202,13 +212,14 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 
+" yapf config for python
 autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
 
 " Setup gitgutter
 "set updatetime=100
-let g:gitgutter_max_signs = 500     " default value
+"let g:gitgutter_max_signs = 500     " default value
 "let g:gitgutter_enabled = 1
 "let g:gitgutter_signs = 1
 "set g:gitgutter_highlight_lines = 1
@@ -250,8 +261,6 @@ let g:fzf_colors =
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-
 
 nnoremap <leader>p :History<CR>
 nnoremap <leader>b :Buffers<CR>
@@ -295,4 +304,8 @@ let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 
-
+" ALE Enable completion where available.
+let g:ale_completion_enabled = 1
+" Ale sings, si quieres cambiarlos
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
