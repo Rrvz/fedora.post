@@ -39,8 +39,11 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-master branch
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'tag': '*' }
@@ -55,6 +58,7 @@ Plug 'junegunn/fzf.vim'
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
+" A small sensible Vim configuration and pair programming .vimrc file
 Plug 'tpope/vim-sensible'
 
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
@@ -81,15 +85,27 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 
-" Custom
-Plug 'airblade/vim-gitgutter'
+" Custom git status in vim
+"Plug 'airblade/vim-gitgutter'
+
+" Comment functions so powerful—no comment necessary.
+Plug 'scrooloose/nerdcommenter'
 
 " Dev icons and ultra mega awesome fonts
 Plug 'ryanoasis/vim-devicons'
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
 
+Plug 'mhinz/vim-startify'
+
+" vim-nerdtree-syntax-highlight
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
 " Git Stuff
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" VimWorkspace tabs for everyone
+"Plug 'bagrat/vim-workspace'
+
 
 " Tags
 "Plug 'universal-ctags/ctags'
@@ -104,11 +120,13 @@ Plug 'w0rp/ale'
 Plug 'google/yapf'
 
 " Code formater for python
-Plug 'ambv/black'
+"Plug 'ambv/black'
 
+" View any blob, tree, commit, or tag in the repository with :Gedit (and :Gsplit, :Gvsplit, :Gtabedit,)
 Plug 'tpope/vim-fugitive'
 
 Plug 'scrooloose/syntastic'
+" The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
 
 " Rainbow Parentheses
@@ -137,6 +155,29 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'djoshea/vim-autoread'
+
+" Vim Online Thesaurus - not working belog try junun
+"Plug 'beloglazov/vim-online-thesaurus'
+"Plug 'junegunn/vim-online-thesaurus'
+
+" Uncover usage problems in your writing
+Plug 'reedes/vim-wordy'
+
+" Syntax highlighting for Dockerfiles
+Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+
+" Vim enable an auto-close chars feature for you
+Plug 'Townk/vim-autoclose'
+
+" Auto close parentheses and repeat by dot dot dot...
+"Plug  'cohama/lexima.vim'
+
+"  Auto close (X)HTML tags
+Plug 'alvan/vim-closetag'
+
+" Writing plugins
+"Plug 'davidbeckingsale/writegood.vim'
+"Plug 'dbmrq/vim-ditto'
 
 " Initialize plugin system
 call plug#end()
@@ -208,8 +249,8 @@ colorscheme gruvbox
 
 " Nerdtree
 "autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 
 " yapf config for python
@@ -309,3 +350,169 @@ let g:ale_completion_enabled = 1
 " Ale sings, si quieres cambiarlos
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
+
+" vim online Thesaurus
+" By default the :OnlineThesaurusCurrentWord command is mapped to <LocalLeader>K.
+" If you haven't remapped <LocalLeader>, it defaults to \. To close the split, just press q.
+"let g:online_thesaurus_map_keys = 0
+"nnoremap <your key binding> :OnlineThesaurusCurrentWord<CR>
+"
+
+" Surround.vim
+"It's easiest to explain with examples. Press cs"' inside of 'Hola mundo'
+" To remove the delimiters entirely, press ds".
+"Hola mundo"
+
+
+" closetag.vim
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+
+
+" NerdCommenter Usages
+" Comment out the current line or text selected in visual mode.
+" leader >cc
+" uncomment in visual mode  leader >c space
+
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+
+"--------------------------------------------
+" VimDevIcons adds Icons to Your Plugins    -
+" -------------------------------------------
+" enable folder/directory glyph flag (disabled by default with 0)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
+" Force extra padding in NERDTree so that the filetype icons line up vertically
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+" enable pattern matching glyphs on folder/directory (enabled by default with 1)
+let g:DevIconsEnableFolderPatternMatching = 1
+" enable file extension pattern matching glyphs on folder/directory (disabled by default with 0)
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+" the amount of space to use after the glyph character (default ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+
+
+" " NERDTress File highlighting
+" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+"  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+"  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+" endfunction
+"
+" call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+" call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+" call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+" call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+" call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+" call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+" call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+" call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', '#151515')
+" call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
+" call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
+" call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
+" call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
+"
+" autocmd VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+
+"option 1 is having lag at this momment 2018/July
+"let g:NERDTreeLimitedSyntax = 1
+"Fix lag bit not highlight files :(
+"let g:NERDTreeHighlightCursorline = 0
+ let g:NERDTreeSyntaxDisableDefaultExtensions = 1
+ let g:NERDTreeDisableExactMatchHighlight = 1
+ let g:NERDTreeDisablePatternMatchHighlight = 1
+ let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'php', 'json', 'js', 'css,', 'py', 'bash'] " example
+"
+" Tabs not buffer
+map  <C-l> :tabn<CR>
+map  <C-h> :tabp<CR>
+map  <C-i> :tabnew<CR>
+
+" config workspace
+" let g:workspace_powerline_separators = 1
+" let g:workspace_tab_icon = "\uf00a"
+" let g:workspace_left_trunc_icon = "\uf0a8"
+" let g:workspace_right_trunc_icon = "\uf0a9"
+
+
+"git nerdtree config
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+
+
+" How do I solve issues after re-sourcing my vimrc : Try adding this to the bottom of your vimrc
+" if exists("g:loaded_webdevicons")
+"   call webdevicons#refresh()
+" endif
+"
