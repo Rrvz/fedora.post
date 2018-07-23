@@ -19,12 +19,12 @@ cat >> ~/.bashrc << EOF
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
-. $repository_root/powerline/bindings/bash/powerline.sh 
+. $repository_root/powerline/bindings/bash/powerline.sh
 fi
 EOF
 fi
 
-#check if file powerline font exists or directory 
+#check if file powerline font exists or directory
 File="$HOME/.local/share/fonts/DejaVu Sans Mono for Powerline.ttf"
 if [ -f "$File" ]
     then
@@ -40,7 +40,7 @@ cd fonts
 cd .. && rm -rf fonts
 fi
 
-#check if code/word for powerline exists for local .vimrc file 
+#check if code/word for powerline exists for local .vimrc file
 VarX0='set laststatus=2'
 FileX0=~/.vimrc
 
@@ -62,7 +62,7 @@ set t_Co=256
 EOF
 fi
 
-#check if code/word for tabs exists for local .vimrc file 
+#check if code/word for tabs exists for local .vimrc file
 VarX0='set tabstop=4'
 FileX0=~/.vimrc
 
@@ -76,13 +76,13 @@ cat >> ~/.vimrc <<-'EOF'
 ""#To avoid pasting commented on all lines when you have one commented line
 ""On pressing tab, insert 4 spaces
 set expandtab
-""tab is equal to 4 and autoindent is mark with > 
+""tab is equal to 4 and autoindent is mark with >
 filetype plugin indent on
 ""show existing tab with 4 spaces width
 set tabstop=4
 ""when indenting with '>', use 4 spaces width
 set shiftwidth=4
-""set  paste disable autoindent in vim 
+""set  paste disable autoindent in vim
 set pastetoggle=<F2>
 EOF
 fi
@@ -94,5 +94,5 @@ fi
 #   echo "$File found."
 #lse
 #   echo "$File not found."
-#i
 
+"Not in here"
