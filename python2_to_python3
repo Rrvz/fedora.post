@@ -1,0 +1,11 @@
+which python
+which ipython
+
+sudo vim /usr/bin/ipython
+#change
+#!/usr/bin/python2
+to
+#!/usr/bin/python3
+
+
+
