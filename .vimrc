@@ -125,7 +125,9 @@ Plug 'google/yapf'
 " View any blob, tree, commit, or tag in the repository with :Gedit (and :Gsplit, :Gvsplit, :Gtabedit,)
 Plug 'tpope/vim-fugitive'
 
+" Syntastic is a syntax checking plugin similar to YCM
 Plug 'scrooloose/syntastic'
+
 " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
 
@@ -172,8 +174,17 @@ Plug 'Townk/vim-autoclose'
 " Auto close parentheses and repeat by dot dot dot...
 "Plug  'cohama/lexima.vim'
 
-"  Auto close (X)HTML tags
+" Auto close (X)HTML tags
 Plug 'alvan/vim-closetag'
+
+" Tabular
+Plug 'godlygeek/tabular'
+
+" You’ve got to love multiple selections.
+"Plug 'terryma/vim-multiple-cursors'
+
+" Emmet-vim
+"Plug 'mattn/emmet-vim'
 
 " Writing plugins
 "Plug 'davidbeckingsale/writegood.vim'
@@ -511,8 +522,19 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 
+
+" syntastic config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " How do I solve issues after re-sourcing my vimrc : Try adding this to the bottom of your vimrc
 " if exists("g:loaded_webdevicons")
 "   call webdevicons#refresh()
 " endif
-"
+
