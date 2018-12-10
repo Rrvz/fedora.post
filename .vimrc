@@ -1,3 +1,5 @@
+" set confirm
+
 "powerline-status vim statusline
 python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
@@ -20,6 +22,14 @@ set pastetoggle=<F2>
 " On pressing tab, insert 4 spaces
 set expandtab
 
+" set clipboard=unnamed
+"if has('clipboard')
+"    if has('unnamedplus')  " When possible use + register for copy-paste
+"        set clipboard=unnamed,unnamedplus
+"    else         " On mac and Windows, use * register for copy-paste
+"        set clipboard=unnamed
+"    endif
+"endif
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -29,94 +39,94 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" 001 Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
-" Any valid git URL is allowed
+" 002 Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
-" Multiple Plug commands can be written in a single line using | separators
+" 002 Multiple Plug commands can be written in a single line using | separators
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-" On-demand loading
+" 003 On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-" Using a non-master branch
+" 004 Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
-" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+" 005 Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'tag': '*' }
 
-" Plugin options
+" 006 Plugin options
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 
-" Plugin outside ~/.vim/plugged with post-update hook
+" 007 Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Unmanaged plugin (manually installed and updated)
+" 008 Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
-" A small sensible Vim configuration and pair programming .vimrc file
+" 009 A small sensible Vim configuration and pair programming .vimrc file
 Plug 'tpope/vim-sensible'
 
-" NERD tree will be loaded on the first invocation of NERDTreeToggle command
+" 010 NERD tree will be loaded on the first invocation of NERDTreeToggle command
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" Multiple commands
+" 011 Multiple commands
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 
-" Loaded when clojure file is opened
+" 012 Loaded when clojure file is opened
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-" Multiple file types
+" 013 Multiple file types
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
-" On-demand loading on both conditions
+" 014 On-demand loading on both conditions
 Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
 
-" Code to execute when the plugin is lazily loaded on demand
+" 015 Code to execute when the plugin is lazily loaded on demand
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 autocmd! User goyo.vim echom 'Goyo is now loaded!'
 
-" Post-update hooks
+" 016 Post-update hooks
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 
-" Custom git status in vim
+" 017 Custom git status in vim
 "Plug 'airblade/vim-gitgutter'
 
-" Comment functions so powerful—no comment necessary.
+" ID018 Comment functions so powerful—no comment necessary.
 Plug 'scrooloose/nerdcommenter'
 
-" Dev icons and ultra mega awesome fonts
+" ID019 Dev icons and ultra mega awesome fonts
 Plug 'ryanoasis/vim-devicons'
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
 
+" ID020
 Plug 'mhinz/vim-startify'
 
-" vim-nerdtree-syntax-highlight
+" ID021 vim-nerdtree-syntax-highlight
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-" Git Stuff
+" ID022 Git Stuff
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" VimWorkspace tabs for everyone
-"Plug 'bagrat/vim-workspace'
+" ID023 VimWorkspace tabs for everyone
+" Plug 'bagrat/vim-workspace'
 
-
-" Tags
+" ID024 Tags
 "Plug 'universal-ctags/ctags'
 "Plug 'ludovicchabant/vim-gutentags'
 
 " The Silver Searcher
 
-" Asynchronous Lint Engin
+" ID025 Asynchronous Lint Engin
 Plug 'w0rp/ale'
 
-" Code formater from google
+" ID+026 Code formater from google
 Plug 'google/yapf'
 
 " Code formater for python
@@ -126,7 +136,8 @@ Plug 'google/yapf'
 Plug 'tpope/vim-fugitive'
 
 " Syntastic is a syntax checking plugin similar to YCM
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
+Plug 'vim-syntastic/syntastic'
 
 " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
@@ -134,6 +145,8 @@ Plug 'tpope/vim-surround'
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 "Plug 'luochen1990/rainbow'
+" Too old
+"Plug 'kien/rainbow_parentheses.vim'
 
 " Syntax for languages Themes
 Plug 'sheerun/vim-polyglot'
@@ -152,13 +165,17 @@ Plug 'cocopon/iceberg.vim'
 Plug 'dikiaap/minimalist'
 Plug 'nightsense/snow'
 Plug 'altercation/vim-colors-solarized'
-
+Plug 'junegunn/seoul256.vim'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'dracula/vim'
+Plug 'jacoborus/tender.vim'
+Plug 'kcierzan/termina'
 " Clean Code
 Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'djoshea/vim-autoread'
 
-" Vim Online Thesaurus - not working belog try junun
+" Vim Online Thesaurus - not working belog tried junun
 "Plug 'beloglazov/vim-online-thesaurus'
 "Plug 'junegunn/vim-online-thesaurus'
 
@@ -169,10 +186,10 @@ Plug 'reedes/vim-wordy'
 Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 " Vim enable an auto-close chars feature for you
-Plug 'Townk/vim-autoclose'
+" Plug 'Townk/vim-autoclose'
 
 " Auto close parentheses and repeat by dot dot dot...
-"Plug  'cohama/lexima.vim'
+Plug  'cohama/lexima.vim'
 
 " Auto close (X)HTML tags
 Plug 'alvan/vim-closetag'
@@ -221,12 +238,12 @@ if has("autocmd")
 au BufReadPost * retab
 endif
 
-" Config for Rainbow Parentheses
-let g:rainbow#max_level = 16
-let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+" Customization for Rainbow Parentheses
+" let g:rainbow#max_level = 16
+" let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 " List of colors that you do not want. ANSI code or #RRGGBB for Rainbow
-let g:rainbow#blacklist = [233, 234]
+" let g:rainbow#blacklist = [233, 234]
 
 " Syntax hightlight mode, get you freak ON!!!
 syntax on
@@ -242,21 +259,41 @@ set background=dark    " Setting dark mode
 
 " Schemes Colours - the italics has to be enabled febore Theme/Scheme
 
-"let g:materialmonokai_italic=1
-"colorscheme material-monokai
-let g:gruvbox_italic=1
-colorscheme gruvbox
-"colorscheme carbonized-dark
-"colorscheme papaya
-"let g:papaya_gui_color='blue'
-"colorscheme perun
-"colorscheme onedark
-"colorscheme hydrangea
-"colorscheme deep-space             " it needs termguicolors
-"let g:deepspace_italics=1
-"colorscheme minimalist
-"colorscheme snow
-"colorscheme solarized
+" let g:materialmonokai_italic=1
+" colorscheme material-monokai
+ let g:gruvbox_italic=1
+ colorscheme gruvbox
+" colorscheme carbonized-dark
+" colorscheme papaya
+" let g:papaya_gui_color='blue'
+" colorscheme perun
+" colorscheme onedark
+" colorscheme hydrangea
+" colorscheme deep-space             " it needs termguicolors
+" let g:deepspace_italics=1
+" colorscheme minimalist
+" colorscheme snow
+" Solarized cofig
+" colorscheme solarized
+" set background=dark
+" colorscheme solarized
+" Comment Unified color scheme (default: dark)
+" colorscheme seoul256
+" Light color scheme
+" colo seoul256-light
+" colorscheme onehalfdark
+" let g:airline_theme='onehalfdark'
+" let g:onehalfdark_italic=1
+" color dracula
+" Does not work let g:dracula_italic=1
+" set lighline theme inside lightline config
+" colorscheme tender
+" let g:lightline = { 'colorscheme': 'tender' }
+" Activate italics no matter what colortheme the 1st the other are para diversion
+" highlight Comment cterm=italic
+" highlight Keyword cterm=italic gui=italic
+" highlight type cterm=italic gui=italic
+" colorscheme termina
 
 " Nerdtree
 "autocmd vimenter * NERDTree
@@ -283,10 +320,10 @@ let g:strip_whitespace_on_save=1
 
 
 " This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+"let g:fzf_action = {
+"  \ 'ctrl-t': 'tab split',
+"  \ 'ctrl-x': 'split',
+"  \ 'ctrl-v': 'vsplit' }
 
 " Default fzf layout
 " - down / up / left / right
@@ -308,6 +345,45 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+" Annoying temporary files
+set backupdir=/tmp//,.
+set directory=/tmp//,.
+if v:version >= 703
+  set undodir=/tmp//,.
+endif
+
+
+" Open new line below and above current line
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
+
+" Jump list (to newer position)
+" nnoremap <C-p> <C-i>
+
+" jk | Escaping!
+inoremap jk <Esc>
+xnoremap jk <Esc>
+cnoremap jk <C-c>
+
+" Save / save
+inoremap <C-s> <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
+nnoremap <leader>w :update<cr>
+
+" Quit / quit
+inoremap <C-Q>     <esc>:q<cr>
+nnoremap <C-Q>     :q<cr>
+vnoremap <C-Q>     <esc>
+nnoremap <Leader>q :q<cr>
+nnoremap <Leader>Q :qa!<cr>
+
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
+
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
@@ -320,8 +396,8 @@ nnoremap <leader>t :Files<CR>
 
 " Mapping selecting mappings
 "nmap <leader><tab> <plug>(fzf-maps-n)
-"xmap <leader><tab> <plug>(fzf-maps-x)
-"omap <leader><tab> <plug>(fzf-maps-o)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -329,8 +405,16 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" ----------------------------------------------------------------------------
+" Tabs
+" ----------------------------------------------------------------------------
+" nnoremap ]t :tabn<cr>
+" nnoremap [t :tabp<cr>
+
+" ----------------------------------------------------------------------------
+
 " Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+"inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " Search and switch buffers
 nmap <leader>b :Buffers<cr>
@@ -355,10 +439,9 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-
 " ALE Enable completion where available.
 let g:ale_completion_enabled = 1
-" Ale sings, si quieres cambiarlos
+" Ale sings, si quieres cambiarlos mierda
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
@@ -378,38 +461,29 @@ let g:ale_sign_warning = '--'
 " closetag.vim
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
-"
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
-"
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
-"
 let g:closetag_filetypes = 'html,xhtml,phtml'
 
 " filetypes like xml, xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
-"
 let g:closetag_xhtml_filetypes = 'xhtml,jsx'
 
 " integer value [0|1]
 " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-"
 let g:closetag_emptyTags_caseSensitive = 1
 
 " Shortcut for closing tags, default is '>'
-"
 let g:closetag_shortcut = '>'
 
 " Add > at current position without closing the current tag, default is ''
-"
 let g:closetag_close_shortcut = '<leader>>'
-
-
 
 " NerdCommenter Usages
 " Comment out the current line or text selected in visual mode.
@@ -494,16 +568,44 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
  let g:NERDTreeDisablePatternMatchHighlight = 1
  let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'php', 'json', 'js', 'css,', 'py', 'bash'] " example
 "
-" Tabs not buffer
-map  <C-l> :tabn<CR>
-map  <C-h> :tabp<CR>
-map  <C-i> :tabnew<CR>
+" Tabs not bufferi
+" help keycodes
+" map <C-F8>> :tabnext<CR>
+" map <C-F9> :tabp<CR>
+" map <C-F10> :tabnew<CR>
+
+" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-t>     <Esc>:tabnew<CR>
+
+" Tab nvigation leader or funtion <F5>,<F6>,<F7>
+" nnoremap <leader><F5> :tabprevious<CR>
+" nnoremap <leader><F6> :tabnext<CR>
+" nnoremap <leader><F7> :tabnew<CR>
+" inoremap <leader><F5> <Esc>:tabprevious<CR>i
+" inoremap <leader><F6> <Esc>:tabnext<CR>i
+" inoremap <leader><F7> <Esc>:tabnew<CR>
+
+nnoremap <F5> :tabprevious<CR>
+nnoremap <F6> :tabnext<CR>
+nnoremap <F7> :tabnew<CR>
+inoremap <F5> <Esc>:tabprevious<CR>i
+inoremap <F6> <Esc>:tabnext<CR>i
+inoremap <F7> <Esc>:tabnew<CR>
+
+" change buffer vim
+" map <F6> :bnex<CR>
+" map <F7> :bprev<CR>
 
 " config workspace
-" let g:workspace_powerline_separators = 1
-" let g:workspace_tab_icon = "\uf00a"
-" let g:workspace_left_trunc_icon = "\uf0a8"
-" let g:workspace_right_trunc_icon = "\uf0a9"
+let g:workspace_powerline_separators = 1
+let g:workspace_tab_icon = "\uf00a"
+let g:workspace_left_trunc_icon = "\uf0a8"
+let g:workspace_right_trunc_icon = "\uf0a9"
 
 
 "git nerdtree config
@@ -521,13 +623,12 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 
-
-
 " syntastic config
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+"let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1

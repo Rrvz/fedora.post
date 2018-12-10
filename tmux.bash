@@ -92,6 +92,9 @@ set -g @resurrect-capture-pane-contents 'on'
 # restore bash history
 set -g @resurrect-save-bash-history 'on'
 ### /tmux-resurrect extra settings ###
+# Custom key bindings
+# set -g @resurrect-save 'S'
+# set -g @resurrect-restore 'R'
 
 ######################################
 # tmux-continuum - automatically save and restore tmux sessions
@@ -101,7 +104,7 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 # Restore last saved enviroment
 set -g @continuum-restore 'on'
 # Set autosave interval
-set -g @continuum-save-interval '5'
+set -g @continuum-save-interval '15'
 # Show continiuum state in statusbar
 #set -g status-right 'Continuum status: #{continuum_status}'
 # Starting tmux with system https://github.com/tmux-plugins/tmux-continuum/blob/master/docs/automatic_start.md

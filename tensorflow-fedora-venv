@@ -1,0 +1,87 @@
+sudo dnf install conda -y
+sudo dnf install python-devel -y
+sudo dnf copr enable vbatts/bazel -y
+sudo dnf install bazel -y
+
+cd
+git clone git@github.com:tensorflow/tensorflow.git
+git clone https://github.com/tensorflow/tensorflow.git
+cd tensorflow
+i
+
+
+sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-nvidia.repo
+# yum-config-manager --add-repo=http://negativo17.org/repos/epel-nvidia.repo
+sudo dnf install -y cuda cuda-devel cuda-cudnn-devel
+sudo dnf install -y nvidia-settings kernel-devel dkms-nvidia vulkan nvidia-driver-libs nvidia-driver-cuda
+
+# disable rpmfusion drivers xorgs it conflicts with nvidia
+sudo dnf install --disablerepo="rpmfusion-nonfree*" nvidia-settings kernel-devel dkms-nvidia vulkan nvidia-driver-libs nvidia-driver-cuda
+
+# error
+#   - package nvidia-driver-libs-3:396.54-1.fc28.x86_64 conflicts with xorg-x11-drv-nvidia-libs provided by xorg-x11-drv-nvidia-libs-3:396.54-2.fc28.i686
+
+sudo remove -y xorg-x11-drv-nvidia-libs
+
+
+
+pip install tensorflow-gpu --user
+
+import tensorflow as tf
+sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+
+a = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name='a')
+b = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name='b')
+c = tf.matmul(a, b)
+print(sess.run(c))
+
+pip3 install http://download.pytorch.org/whl/cu92/torch-0.4.1-cp36-cp36m-linux_x86_64.whl
+pip3 install torchvision
+
+
+sudo dnf install cuda --disablerepo="rpmfusion-nonfree*" --disablerepo="fedora-nvidia"
+sudo dnf install -y cuda-toolkit-10-0
+sudo dnf install --disablerepo="rpmfusion-nonfree*" --disablerepo="fedora-nvidia" cuda-nvtx cuda-cli-tools cuda cuda-gcc-c++ cuda-cudnn cuda-cudart cuda-cudnn-devel cuda-extra-libs
+
+
+# downalod cudnn 10 extract and copy
+sudo cp cuda/include/cudnn.h /usr/local/cuda/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
+sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+
+
+sudo mkdir -p /usr/lib/x86_64-linux-gnu
+cd /usr/lib/x86_64-linux-gnu
+sudo cp TensorRT-5.0.0.10.Red-Hat.x86_64-gnu.cuda-10.0.cudnn7.3.tar.gz /usr/lib/x86_64-linux-gnu
+
+sudo tar xzvf TensorRT-5.0.0.10.Red-Hat.x86_64-gnu.cuda-10.0.cudnn7.3.tar.gz
+# create the symbolic link to lib directory
+sudo ln -s TensorRT-5.0.0.10/lib/ lib/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/TensorRT-5.0.0.10/lib
+cd /usr/lib/x86_64-linux-gnu/TensorRT-5.0.0.10/python
+pip3 install tensorrt-5.0.0.10-py2.py3-none-any.whl --user
+cd /usr/lib/x86_64-linux-gnu/TensorRT-5.0.0.10/uff
+pip3 install uff-0.5.1-py2.py3-none-any.whl --user
+cd /usr/lib/x86_64-linux-gnu/TensorRT-5.0.0.10/graphsurgeon
+pip3 install graphsurgeon-0.2.2-py2.py3-none-any.whl --user
+
+
+sudo cp nccl_2.3.5-2+cuda10.0_x86_64.txz /usr/local/cuda/
+cd /user/loca/cuda/
+sudo tar xvf nccl_2.3.5-2+cuda10.0_x86_64.txz
+sudo ln -s /usr/local/cuda/nccl_2.3.5-2+cuda10.0_x86_64/lib/ /usr/local/cuda-10.0/lib/
+sudo ln -s /usr/local/cuda/nccl_2.3.5-2+cuda10.0_x86_64/include/nccl.h /usr/local/cuda-10.0/include/nccl.h
+
+
+# install MPI
+sudo dnf -y install mpich
+
+# /usr/local/cuda/nccl_2.3.5-2+cuda10.0_x86_64
+
+# https://qiita.com/naoyuki_ichimura/items/37a88d2ab94f461f14e7
+
+# compiled from
+
+# https://gist.github.com/rootfs/aea15b78de5ada8a55702994d5106433
+
+

@@ -1,0 +1,10 @@
+toglee cap/lower: ~ or gU/gu
+change tabs:        F5, F6
+new tab:            f7
+save / update:      ESC + \w or \w
+save / update:      ESC + \W or \w
+Quit:               ESC + \q
+Quit all:           ESC + \Q
+insert new line:    ESC + \o
+insert new line:    ESC + \O
+

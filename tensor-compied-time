@@ -1,0 +1,24 @@
+NFO: From Compiling tensorflow/python/pywrap_tensorflow_internal.cc [for host]:
+bazel-out/host/bin/tensorflow/python/pywrap_tensorflow_internal.cc: In function 'PyObject* TF_GetColocationGroups(GItem)':
+bazel-out/host/bin/tensorflow/python/pywrap_tensorflow_internal.cc:4683:9: warning: unused variable 'i' [-Wunused-variable]
+     int i = 0;
+         ^
+bazel-out/host/bin/tensorflow/python/pywrap_tensorflow_internal.cc: In function 'PyObject* _wrap_PyRecordReader_New(PyObject*, PyObject*)':
+bazel-out/host/bin/tensorflow/python/pywrap_tensorflow_internal.cc:7501:12: warning: 'arg2' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     result = (tensorflow::io::PyRecordReader *)tensorflow::io::PyRecordReader::New((string const &)*arg1,arg2,(string const &)*arg3,arg4);
+     ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+At global scope:
+cc1plus: warning: unrecognized command line option '-Wno-self-assign'
+INFO: From Executing genrule //tensorflow/python/estimator/api:estimator_python_api_gen:
+tf.estimator package not installed.
+tf.estimator package not installed.
+Target //tensorflow/tools/pip_package:build_pip_package up-to-date:
+  bazel-bin/tensorflow/tools/pip_package/build_pip_package
+INFO: Elapsed time: 7333.739s, Critical Path: 308.11s
+INFO: 14014 processes: 14014 local.
+INFO: Build completed successfully, 14176 total actions
+
+real    122m13.771s
+user    0m0.705s
+sys     0m1.311s
+

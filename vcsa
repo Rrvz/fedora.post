@@ -1,0 +1,19 @@
+
+
+First, shut down the VCSA and take a snapshot.
+
+1. Start the appliance up and press the space bar to freeze the GRUB menu. Note that you need to be somewhat quick here.
+
+2. Press e to enable edit mode.
+
+3. Append rw init=/bin/bash to the list of options as shown in Fig. 2.
+
+4. Press F10 to reboot. The appliance will now boot up in bash or root shell.
+
+5. Type passwd to change the root password. Type it twice and press Enter to confirm.
+
+6. Optionally, you can unmount the file system using umount /
+
+7. Type in reboot -f
+
+

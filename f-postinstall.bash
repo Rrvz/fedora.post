@@ -88,5 +88,21 @@ sudo yum update -y
 # install fontforge
 sudo dnf install fontforge;
 
+# Installing Pipenv on Fedora
+sudo dnf install -y pipenv
 
-sudo dnf install pipenv
+sudo dnf install -y thonny
+
+
+sudo dnf install -y rubygems
+gem install lolcat
+
+ls -ls | lolcat
+
+# Chafa command line image converter and viewer
+sudo dnf install -y autoconf automake libtool gtk-doc glib2-devel ImageMagick-devel
+git clone https://github.com/hpjansson/chafa
+cd chafa
+./autogen.sh
+make
+sudo make install

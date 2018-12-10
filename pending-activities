@@ -1,0 +1,66 @@
+ # 1
+ do a cheat sheet with vim
+ # 2
+ fzf check
+ # 3
+remov tab shortcut from vim, activated from nerdtree, I guess????
+answer: remove map <C-I> #from vim, located map for tabs 17/10/2018 15:50
+
+# 4
+do a fzf lookup buffer inside vim
+
+#5 do a lookup function to look and match and move the entire line, and if a line is repeated insert a (x quantities of them))
+
+check if there are dates repeated and duplicate the first ones
+
+cat ocr | awk '{ print $1 }'
+i
+If 11 characters positions match the other 11 position then
+
+
+awk '//{ print $1, $2 }' swap|less
+
+awk '{print $0}' FILE
+
+# field 1 is equal to field 2
+awk '{print $1 == $2}' swap
+
+# state your problem
+if field #1 is not equal to field #2 then
+    then
+        make a insertion in filed #1 with the value of field #2
+        then moved entire line to the matched field
+
+
+# with python
+
+import sys
+
+f = sys.stdin
+# If you need to open a file instead:
+f = open('swap')
+for line in f:
+    fields = line.strip().split()
+    # Array indices start at 0 unlike AWK
+    print(fields[0])
+
+
+
+os.system("awk '{print $2}' swap")
+
+
+f = open('swap')
+for line in f:
+    fields = line.strip().split()
+# Array indices start at 0 unlike AWK
+    if (fields[0] == fields[1]):
+        print(fields[0])
+else:
+    print('not the same')
+
+if field A = B
+    conftinue looking the other line
+        else
+        cut the matching fild with the rest of the  line and paste
+        to the line matching it.
+

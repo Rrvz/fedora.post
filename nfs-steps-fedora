@@ -1,0 +1,47 @@
+
+showmount -e DNS or IPv6/IPv4
+ex:
+showmount -e srv1.local
+showmount -e 10.62.94.71
+showmount -e srv-nfs01.refidomsa.com.do
+showmount -e srv-nfs01.refidomsa.com.do
+
+
+sudo mkdir /mnt/nfs
+
+mount -t nfs 10.62.94.71:/nfs /mnt/nfs
+mount -t nfs srv-nfs01.refidomsa.com.do:/mnt/nfs /mnt/nfs
+
+
+
+nfs
+srv-nfs01.refidomsa.com.do:/mnt/nfs
+
+ucs-c240m4-huu-4.0.1c.iso
+srv-nfs01.refidomsa.com.do:/mnt/nfs/ucs-c240m4-huu-4.0.1c.iso
+
+2801:184:f:ff0::456a:/mnt/nfs/
+172.30.1.51:/mnt/nfs/
+
+scope vmedia
+map-nfs nfs-iso srv-nfs01.refidomsa.com.do:/mnt/nfs/ ucs-c240m4-huu-4.0.1c.iso
+map-nfs nfs-iso [2801:184:f:ff0::456a]:/mnt/nfs/ ucs-c240m4-huu-4.0.1c.iso
+map-nfs nfs-iso 172.30.1.51:/mnt/nfs/ ucs-c240m4-huu-4.0.1c.iso
+
+# Report IPv6 problem cisco.
+
+ssh ucs-3
+
+scope vmedia
+map-nfs nfs-iso 172.30.1.51:/mnt/nfs/ ucs-c240m4-huu-4.0.1c.iso
+unmap nfs-iso
+no
+
+map-nfs nfs-iso 172.30.1.51:/mnt/nfs/ ucs-c240m4-huu-3.0.3a.iso
+map-nfs nfs-iso 172.30.1.51:/mnt/nfs/ ucs-c240m4-huu-3.0.3a.iso
+
+
+
+
+
+

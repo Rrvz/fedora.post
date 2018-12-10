@@ -1,6 +1,10 @@
 which python
 which ipython
 
+
+which python
+ls -sf python3 python
+
 sudo vim /usr/bin/ipython
 #change
 #!/usr/bin/python2

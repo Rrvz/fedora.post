@@ -1,0 +1,18 @@
+
+#To change buffer
+:bprev
+:bnext
+
+
+
+sudo dnf install pulseaudio-libs-devel
+pip install textract --user
+
+
+import textract
+text = textract.process("/home/ricardo/Downloads/testnew.pdf")
+
+
+text
+
+19-07-2010 bien
