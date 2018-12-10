@@ -1,3 +1,9 @@
+" Defaults paratemers from vimrc
+set viminfo='20,\"50    " read/write a .viminfo file, don't store more
+            " than 50 lines of registers
+set history=500      " keep 50 lines of command line history
+set ruler       " show the cursor position all the time
+
 " set confirm
 
 "powerline-status vim statusline
@@ -94,7 +100,10 @@ autocmd! User goyo.vim echom 'Goyo is now loaded!'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
+Plug 'sillybun/vim-repl', {'do': './install.sh'}
+"
 " 017 Custom git status in vim
 "Plug 'airblade/vim-gitgutter'
 
@@ -137,7 +146,7 @@ Plug 'tpope/vim-fugitive'
 
 " Syntastic is a syntax checking plugin similar to YCM
 "Plug 'scrooloose/syntastic'
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 
 " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
@@ -188,14 +197,19 @@ Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 " Vim enable an auto-close chars feature for you
 " Plug 'Townk/vim-autoclose'
 
-" Auto close parentheses and repeat by dot dot dot...
-Plug  'cohama/lexima.vim'
+" Auto close parentheses and repeat by dot dot dot... *** The bes
+" Plug  'cohama/lexima.vim'
 
 " Auto close (X)HTML tags
 Plug 'alvan/vim-closetag'
 
 " Tabular
 Plug 'godlygeek/tabular'
+
+
+" restore buffers vim
+" Plug 'tpope/vim-obsession'
+" Plug 'dhruvasagar/vim-prosession'
 
 " You’ve got to love multiple selections.
 "Plug 'terryma/vim-multiple-cursors'
@@ -234,9 +248,21 @@ autocmd! bufwritepost .vimrc source %
 map <leader>F7 mzgg=G`z
 
 " Tabs to Spaces auto
+" if has("autocmd")
+" au BufReadPost * retab
+" endif
 if has("autocmd")
-au BufReadPost * retab
+    au BufReadPost * if &modifiable | retab | endif
 endif
+
+
+" REPL config / repl-vim
+nnoremap <leader>1 :REPLToggle<Cr>
+let g:sendtorepl_invoke_key = "<leader>2"
+let g:repl_program = {
+            \   "python": "ipython3",
+            \   "default": "bash"
+            \   }
 
 " Customization for Rainbow Parentheses
 " let g:rainbow#max_level = 16
@@ -361,15 +387,17 @@ nnoremap <leader>O O<esc>
 " nnoremap <C-p> <C-i>
 
 " jk | Escaping!
-inoremap jk <Esc>
-xnoremap jk <Esc>
-cnoremap jk <C-c>
+" inoremap jk <Esc>
+" xnoremap jk <Esc>
+" cnoremap jk <C-c>
 
 " Save / save
 inoremap <C-s> <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
+" file save
+" noremap <Leader>fs :w<CR>
 
 " Quit / quit
 inoremap <C-Q>     <esc>:q<cr>
@@ -383,6 +411,57 @@ if $TERM =~ 'screen'
   nnoremap <C-a> <nop>
   nnoremap <Leader><C-a> <C-a>
 endif
+
+" Tabs not buffers
+" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-t>     <Esc>:tabnew<CR>
+
+" Tab nvigation leader or funtion <F5>,<F6>,<F7>
+" nnoremap <leader><F5> :tabprevious<CR>
+" nnoremap <leader><F6> :tabnext<CR>
+" nnoremap <leader><F7> :tabnew<CR>
+" inoremap <leader><F5> <Esc>:tabprevious<CR>i
+" inoremap <leader><F6> <Esc>:tabnext<CR>i
+" inoremap <leader><F7> <Esc>:tabnew<CR>
+
+" nnoremap <F5> :tabprevious<CR>
+" nnoremap <F6> :tabnext<CR>
+" nnoremap <F7> :tabnew<CR>
+" inoremap <F5> <Esc>:tabprevious<CR>i
+" inoremap <F6> <Esc>:tabnext<CR>i
+" inoremap <F7> <Esc>:tabnew<CR>
+
+" Keep undo history and you switched from a buffer to another
+set hidden
+
+" change buffer vim defined in (FZF module)
+map <F5> :bnex<CR>
+map <F6> :bprev<CR>
+map <F7> :new<CR>
+map <F8> :enew<CR>
+" leader + b, list all buffer and select the one
+
+" Split, vsiplit and view are created as a buffer not as a tab
+" is define in :help split
+
+" Syntastic results open, close, next, previous (actually the location list)
+noremap <Leader>so :Errors<CR>
+noremap <Leader>sc :lclose<CR>
+noremap <Leader>sn :lnext<CR>
+noremap <Leader>sN :lNext<CR>
+" close quickfix, error, and preview windows
+" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
+
+" Background color switch
+noremap <Leader>bl :set background=light<CR>
+noremap <Leader>bd :set background=dark<CRn
+" toggle relative line numbers
+noremap <Leader>rn :set nu!<CR>
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
@@ -404,6 +483,13 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" copy /paste OS clipboard to copy and vice versa
+vmap <leader><F3> :!xclip -f -sel clip<CR>
+map <leader><F4> :-1r !xclip -o -sel clip<CR>
+
+" Focus, not defined 2018-10-04
+
 
 " ----------------------------------------------------------------------------
 " Tabs
@@ -440,10 +526,23 @@ let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 " ALE Enable completion where available.
-let g:ale_completion_enabled = 1
+" let g:ale_completion_enabled = 1
 " Ale sings, si quieres cambiarlos mierda
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
+" fix ale error for python 2, parenthesis
+" let g:ale_python_flake8_executable = 'python3'
+" Write this in your vimrc file
+" Check Python files with flake8 and pylint.
+let b:ale_linters = ['flake8', 'pylint']
+" Fix Python files with autopep8 and yapf.
+let b:ale_fixers = ['autopep8', 'yapf']
+" Disable warnings about trailing whitespace for Python files.
+" let b:ale_warn_about_trailing_whitespace = 0
+" Show 5 lines of errors (default: 10)
+let g:ale_list_window_size = 5
+let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
+let g:ale_python_flake8_options = '-m flake8'
 
 " vim online Thesaurus
 " By default the :OnlineThesaurusCurrentWord command is mapped to <LocalLeader>K.
@@ -488,8 +587,7 @@ let g:closetag_close_shortcut = '<leader>>'
 " NerdCommenter Usages
 " Comment out the current line or text selected in visual mode.
 " leader >cc
-" uncomment in visual mode  leader >c space
-
+" uncomment in visual mode leader >c space
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -567,39 +665,6 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
  let g:NERDTreeDisableExactMatchHighlight = 1
  let g:NERDTreeDisablePatternMatchHighlight = 1
  let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'php', 'json', 'js', 'css,', 'py', 'bash'] " example
-"
-" Tabs not bufferi
-" help keycodes
-" map <C-F8>> :tabnext<CR>
-" map <C-F9> :tabp<CR>
-" map <C-F10> :tabnew<CR>
-
-" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
-" nnoremap <C-S-tab> :tabprevious<CR>
-" nnoremap <C-tab>   :tabnext<CR>
-" nnoremap <C-t>     :tabnew<CR>
-" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-" inoremap <C-tab>   <Esc>:tabnext<CR>i
-" inoremap <C-t>     <Esc>:tabnew<CR>
-
-" Tab nvigation leader or funtion <F5>,<F6>,<F7>
-" nnoremap <leader><F5> :tabprevious<CR>
-" nnoremap <leader><F6> :tabnext<CR>
-" nnoremap <leader><F7> :tabnew<CR>
-" inoremap <leader><F5> <Esc>:tabprevious<CR>i
-" inoremap <leader><F6> <Esc>:tabnext<CR>i
-" inoremap <leader><F7> <Esc>:tabnew<CR>
-
-nnoremap <F5> :tabprevious<CR>
-nnoremap <F6> :tabnext<CR>
-nnoremap <F7> :tabnew<CR>
-inoremap <F5> <Esc>:tabprevious<CR>i
-inoremap <F6> <Esc>:tabnext<CR>i
-inoremap <F7> <Esc>:tabnew<CR>
-
-" change buffer vim
-" map <F6> :bnex<CR>
-" map <F7> :bprev<CR>
 
 " config workspace
 let g:workspace_powerline_separators = 1
@@ -624,15 +689,25 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 " syntastic config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+"
+" "let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_always_populate_loc_list = 1
+" " let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
-"let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" Put these lines at the very end of your vimrc file. ALE/ale
+
+" Load all plugins now.
+" Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
+
 
 " How do I solve issues after re-sourcing my vimrc : Try adding this to the bottom of your vimrc
 " if exists("g:loaded_webdevicons")
