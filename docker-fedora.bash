@@ -30,12 +30,14 @@ sudo dnf config-manager \
 
 sudo dnf install -y docker-ce
 
-# if error 
+# if error not sync because fedora 29 or newewr OS packages are not avaiblabe install the
+# enable test o nightly version
+
 # then 
 sudo dnf install -y docker-ce
 
 sudo systemctl start docker
-sudo systemctl sstatus docker
+sudo systemctl status docker
 sudo systemctl enable docker
 
 sudo usermod -aG docker $USER
