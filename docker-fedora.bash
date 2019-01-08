@@ -13,16 +13,25 @@ sudo dnf remove docker -y \
 # 1. Install the dnf-plugins-core package which provides the commands to manage your DNF repositories from the command line.
 sudo dnf -y install dnf-plugins-core
 
+# 2. 
 sudo dnf config-manager \
     --add-repo \
     https://download.docker.com/linux/fedora/docker-ce.repo
+    
+
 
 # enable edge and test optional
 # sudo dnf config-manager --set-enabled docker-ce-edge
 # sudo dnf config-manager --set-enabled docker-ce-test
+# sudo dnf config-manager --set-enabled docker-ce-nightly
+
 # disable edge and test
 # sudo dnf config-manager --set-disabled docker-ce-edge
 
+sudo dnf install -y docker-ce
+
+# if error 
+# then 
 sudo dnf install -y docker-ce
 
 sudo systemctl start docker
