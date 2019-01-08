@@ -10,6 +10,8 @@ sudo dnf remove docker -y \
                   docker-engine-selinux \
                   docker-engine
 
+# 1. Install the dnf-plugins-core package which provides the commands to manage your DNF repositories from the command line.
+sudo dnf -y install dnf-plugins-core
 
 sudo dnf config-manager \
     --add-repo \
