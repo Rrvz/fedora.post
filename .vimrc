@@ -13,7 +13,8 @@ python3 del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set  rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
+set rtp+=~/.local/lib/python3.7/site-packages/powerline/bindings/vim/
+"set rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
 set t_Co=256
 
 " To avoid pasting commented on all lines when you have one commented line

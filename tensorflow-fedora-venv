@@ -25,6 +25,24 @@ sudo remove -y xorg-x11-drv-nvidia-libs
 
 
 
+####
+
+20190109
+
+You can use the newer gcc v8.X, by passing the —override option to the .run file (assuming you downloaded the .run file for CUDA installation from the NVIDIA website). Otherwise if you have already installed as pointed in the other answer you can gcc-compat* to install the older version of gcc.
+
+sudo dnf install nvidia-settings kernel-devel dkms-nvidia vulkan nvidia-driver-libs
+
+sudo dnf install compat-gcc-34-c++
+sudo dnf -y install nvidia-driver nvidia-settings kernel-devel
+sudo dnf install cuda cuda-devel cuda-cudart -y
+
+sudo dnf install --disablerepo=&quot;rpmfusion-nonfree*&quot; nvidia-settings kernel-devel dkms-nvidia vulkan nvidia-driver-libs nvidia-driver-cuda -y
+
+
+
+
+
 pip install tensorflow-gpu --user
 
 import tensorflow as tf
