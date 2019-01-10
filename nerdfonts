@@ -3,4 +3,12 @@ sudo dnf install fontforge;
 
 #git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
 
+# go and download
+# https://nerdfonts.com/
 
+https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Hack.zip
+# install hack regular font
+
+Hack Regular Nerd Font Complete.ttf
+Momo nerd font
+# and change terminal font to hack regular and set font 11
