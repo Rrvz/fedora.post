@@ -106,3 +106,8 @@ cd chafa
 ./autogen.sh
 make
 sudo make install
+
+
+# vtop from Node JS
+sudo npm install -g vtop
+

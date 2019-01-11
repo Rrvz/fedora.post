@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 #libs to install
-sudo yum install gcc kernel-devel make ncurses-devel libevent libevent-devel -y
+sudo dnf install gcc kernel-devel make ncurses-devel libevent libevent-devel -y
 # yum install tmux -y
 
 cd
-sudo git clone https://github.com/tmux/tmux.git
+git clone https://github.com/tmux/tmux.git
 cd tmux
-sudo sh autogen.sh
-sudo ./configure
+sh autogen.sh
+./configure
 #./configure --prefix=/usr/local
-sudo make
+make
 sudo make install
 cd
 sudo rm tmux -rf
@@ -59,11 +59,12 @@ set -g default-terminal "xterm-256color"
 # reload configuration
 bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
 
-
+# install at OS Level
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 #####################################
 # Plugins
-#https://github.com/tmux-plugins/tpm
+# https://github.com/tmux-plugins/tpm
 ####################################
 
 #####################################
@@ -106,7 +107,7 @@ set -g @continuum-restore 'on'
 # Set autosave interval
 set -g @continuum-save-interval '15'
 # Show continiuum state in statusbar
-#set -g status-right 'Continuum status: #{continuum_status}'
+# set -g status-right 'Continuum status: #{continuum_status}'
 # Starting tmux with system https://github.com/tmux-plugins/tmux-continuum/blob/master/docs/automatic_start.md
 
 ######################################
