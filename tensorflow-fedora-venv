@@ -35,7 +35,7 @@ sudo dnf install nvidia-settings kernel-devel dkms-nvidia vulkan nvidia-driver-l
 
 sudo dnf install compat-gcc-34-c++
 sudo dnf -y install nvidia-driver nvidia-settings kernel-devel
-sudo dnf install cuda cuda-devel cuda-cudart -y
+sudo dnf install cuda cuda-devel cuda-cudart cuda-cudnn -y
 
 sudo dnf install --disablerepo=&quot;rpmfusion-nonfree*&quot; nvidia-settings kernel-devel dkms-nvidia vulkan nvidia-driver-libs nvidia-driver-cuda -y
 
