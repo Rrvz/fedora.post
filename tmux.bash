@@ -40,15 +40,9 @@ set -g default-terminal "tmux-256color"
 set -g terminal-overrides ',xterm-256color:Tc'
 
 
-
-
 #######################################################################
 
-
-
 #######################################################################
-
-
 
 
 # It has to be equal to the terminal that yo estoy usando Linux/MacOS

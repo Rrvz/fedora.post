@@ -100,3 +100,8 @@ fi
 #lse
 #   echo "$File not found."
 # "Not in here"
+
+# powerline-gitstatus
+pip3 install --user powerline-gitstatus
+
+vim /home/ricardo/.local/lib/python3.7/site-packages/powerline/config_files/colorschemes/shell/default.json powerline-gitstatus

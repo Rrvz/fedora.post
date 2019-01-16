@@ -1,0 +1,22 @@
+
+mkdir files_jde_scli01
+initial_year=2019
+#current_year=$(date +%Y)
+current_year=2022
+for ((y=initial_year;y<=current_year;++y)); do
+    mkdir -p "$y"/{01-January,02-February,03-March,04-April,05-May,06-June,07-July,08-August,09-September,10-October,11-November,12-December}
+done
+
+mkdir files_jde_scli02
+initial_year=2019
+#current_year=$(date +%Y)
+current_year=2022
+for ((y=initial_year;y<=current_year;++y)); do
+    mkdir -p "$y"/{01-January,02-February,03-March,04-April,05-May,06-June,07-July,08-August,09-September,10-October,11-November,12-December}
+done
+
+mkdir $(date '+%Y%m%d')
+
+if
+mkdir -p ~/files_jde_server01/$(date '+%Y%m%d')
+mkdir -p ~/files_jde_server02/$(date '+%Y%m%d')
