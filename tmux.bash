@@ -15,6 +15,13 @@ sudo make install
 cd
 sudo rm tmux -rf
 
+
+# install oh my tmux
+cd
+git clone https://github.com/gpakosz/.tmux.git
+ln -s -f .tmux/.tmux.conf
+cp .tmux/.tmux.conf.local
+
 #
 #cd
 #git clone https://github.com/gpakosz/.tmux.git
