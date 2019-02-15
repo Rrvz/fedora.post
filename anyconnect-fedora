@@ -1,0 +1,1 @@
+nmcli connection add con-name sslvpn.refidomsa.com.do type vpn vpn-type org.freedesktop.NetworkManager.openconnect ifname "*" connection.permissions user:${USER} vpn.data gateway=sslvpn.refidomsa.com.do:4433

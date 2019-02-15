@@ -1,0 +1,5 @@
+nmcli connection add ifname ens256 con-name ens256 ipv4.addresses 172.16.22.11/24 ipv4.gateway 172.16.22.1 type ethernet ipv4.method manual ipv4.route-metric 99
+
+
+nmcli connection add ifname ens34 con-name ens34 ipv4.addresses 172.16.22.12/24 ipv4.gateway 172.16.22.1 type ethernet ipv4.method manual ipv4.route-metric 99
+
