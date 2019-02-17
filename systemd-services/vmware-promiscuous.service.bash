@@ -1,5 +1,5 @@
 # create a bash script and copy it in /usr/bin/
-vmware-promiscuous-vmnet.bash
+# vmware-promiscuous-vmnet.bash
 # gave it execution permissions
 sudo bash -c "cat > /usr/bin/vmware-promiscuous-vmnet.bash" <<-'EOF'
 sudo chgrp $GROUPS /dev/vmnet*
