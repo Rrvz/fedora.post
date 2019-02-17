@@ -1,0 +1,27 @@
+heredoc with variable expansion:
+
+cat <<EOF
+some text, possibly with variables: ${HOME} / $(whoami)
+EOF
+
+some text, possibly with variables: /home/attie / attie
+
+heredoc without variable expansion:
+
+cat <<"EOF"
+some text, possibly with variables: ${HOME} / $(whoami)
+EOF
+
+some text, possibly with variables: ${HOME} / $(whoami)
+
+pipeline with variable expansion (note the quotes, "):
+
+echo "some text, possibly with variables: ${HOME} / $(whoami)" | cat
+
+some text, possibly with variables: /home/attie / attie
+
+pipeline without variable expansion (note the quotes, '):
+
+echo 'some text, possibly with variables: ${HOME} / $(whoami)' | cat
+
+some text, possibly with variables: ${HOME} / $(whoami)
