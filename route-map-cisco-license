@@ -1,0 +1,22 @@
+router eigrp 99
+ network 10.0.0.0
+ network 172.16.0.0 0.15.255.255
+ eigrp router-id 10.0.0.1
+ eigrp stub connected static summary redistributed leak-map r~MATCH_ANY
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.62.94.37
+!
+!
+!
+ip prefix-list p~MATCH_ANY seq 5 permit 0.0.0.0/0 le 32
+ipv6 route 2001:db8::/64 2001:db8:f:::AA30
+ipv6 route 2001:db8:a::/64 2001:db8:f:::AA30
+!
+route-map r~MATCH_ANY permit 10
+ match ip address prefix-list p~MATCH_ANY
+!
+
