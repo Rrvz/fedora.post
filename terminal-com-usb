@@ -1,0 +1,6 @@
+# conf for comm equiments
+
+sudo dnf install minicom putty -y
+# minicom -b 9600 -D /dev/ttyACM0
+
+minicom -b 9600 -D /dev/ttyUSB0
