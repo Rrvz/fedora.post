@@ -1,0 +1,80 @@
+# linux
+
+tracepath
+traceroute --mtu
+
+tracepath6
+traceroute6 --mtu
+
+Linux:
+ping -M do -s 8972 xxx.xxx.xxx.xxx
+
+OSX/BSD:
+ping -D -s 8184 xxx.xxx.xxx.xxx
+
+Windows:
+ping -f -l 9000 xxx.xxx.xxx.xxx
+
+ping -M do -s 8972
+
+ping -M do -s 8972 172.30.121.0
+ping -M do -s 8972 172.30.121.1
+ping -M do -s 8972 srv-jdedb01
+ping -M do -s 8972 srv-jdedb02
+ping6 -M do -s 8972 srv-jdedb02
+
+
+Vlan121          2801:184:f:a1::aa34                       up/up/up
+                 fe80::8e60:4fff:febe:41bc
+
+
+# VMware
+
+vmkping -I vmkX -s 8972 -d x.x.x.x
+
+# Windows
+
+
+
+netsh interface ipv4 show subinterface
+netsh interface ipv6 show subinterface
+
+Make a note of the name of the interface that you want to enable Jumbo frames on.
+
+2) Then type:
+netsh interface ipv4 set subinterface "TheNameOfYourInterface" mtu=9000 store=persistent
+netsh interface ipv6 set subinterface "TheNameOfYourInterface" mtu=9000 store=persistent
+
+
+netsh interface ipv6 set subinterface "Ethernet0" mtu=9000 store=persistent
+netsh interface ipv6 set subinterface "Ethernet2" mtu=9000 store=persistent
+
+3) Reboot your computer
+
+
+# https://techcommunity.microsoft.com/t5/Core-Infrastructure-and-Security/PSA-Incorrect-MTU-size-causes-connectivity-issues-with-Windows/ba-p/257636
+
+netsh interface ipv6 show interfaces
+netsh interface ipv6 set interface "Ethernet0" mtu=9000 store=persistent
+
+
+# output
+
+netsh interface ipv6 set interface "Ethernet0" mtu=9000 store=persistent
+PS C:\Users\Administrator> netsh interface ipv6 show int
+
+Idx     Met         MTU          State                Name
+---  ----------  ----------  ------------  ---------------------------
+  1          50  4294967295  connected     Loopback Pseudo-Interface 1
+ 12          50        1280  disconnected  isatap.{920B7D44-94CC-4E7A-A980-90EC73678DA1}
+ 16          50        1280  disconnected  isatap.{971A907B-F2BB-47C1-9F82-5E6FCBFC9237}
+ 13           5        9000  connected     Ethernet1
+ 14           5        1500  connected     Ethernet0
+ 15          10        1500  connected     Ethernet2
+
+
+
+
+# powershell
+Get-NetAdapterAdvancedProperty
+Get-NetAdapterAdvancedProperty -Name nic2 -RegistryKeyword "*jumbopacket" | Set-NetAdapterAdvancedProperty -RegistryValue 9000
