@@ -1,0 +1,125 @@
+
+# mod on db 01 IPv6
+nmcli connection delete ens192
+nmcli connection add con-name ens192 ifname ens192 type ethernet ipv6.method manual ipv6.addresses 2801:184:f:a0::ed0/64 ipv6.gateway 2801:184:f:a0::aa30
+nmcli connection modify ens192 ipv6.dns-options "timeout:2 attempts:1 rotate inet6"
+nmcli connection modify ens192 ipv6.dns-priority 1
+nmcli connection modify ens192 802-3-ethernet.mtu 9000
+nmcli connection modify ens192 ipv6.ignore-auto-dns yes
+nmcli connection modify ens192 ipv6.dns "2801:184:f:ff15::aaaa:1"
+nmcli connection modify ens192 +ipv6.dns "2801:184:f:ff15::aaaa:2"
+nmcli connection modify ens192 ipv6.dns-search refidomsa.com.do
+nmcli connection up ens192
+sudo systemctl restart NetworkManager
+cat /etc/resolv.conf
+
+nmcli connection delete ens224
+nmcli connection add con-name ens224 ifname ens224 type ethernet ipv6.method manual ipv6.addresses 2801:184:f:a1::ed0/64 ipv6.gateway 2801:184:f:a0::aa30
+nmcli connection modify ens224 ipv6.dns-options "timeout:2 attempts:1 rotate inet6"
+nmcli connection modify ens224 802-3-ethernet.mtu 9000
+nmcli connection modify ens224 ipv6.dns-priority 1
+nmcli connection modify ens224 ipv6.ignore-auto-dns yes
+nmcli connection modify ens224 ipv6.dns "2801:184:f:ff15::aaaa:1"
+nmcli connection modify ens224 +ipv6.dns "2801:184:f:ff15::aaaa:2"
+nmcli connection modify ens224 ipv6.dns-search refidomsa.com.do
+nmcli connection up ens224
+sudo systemctl restart NetworkManager
+
+
+
+# mod on db 02 IPv6
+nmcli connection delete ens192
+nmcli connection add con-name ens192 ifname ens192 type ethernet ipv6.method manual ipv6.addresses 2801:184:f:a0::ed1/64 ipv6.gateway 2801:184:f:a0::aa30
+nmcli connection modify ens192 ipv6.dns-options "timeout:2 attempts:1 rotate inet6"
+nmcli connection modify ens192 ipv6.dns-priority 1
+nmcli connection modify ens192 ipv6.ignore-auto-dns yes
+nmcli connection modify ens192 802-3-ethernet.mtu 9000
+nmcli connection modify ens192 ipv6.dns "2801:184:f:ff15::aaaa:1"
+nmcli connection modify ens192 +ipv6.dns "2801:184:f:ff15::aaaa:2"
+nmcli connection modify ens192 ipv6.dns-search refidomsa.com.do
+nmcli connection up ens192
+sudo systemctl restart NetworkManager
+cat /etc/resolv.conf
+
+nmcli connection delete ens224
+nmcli connection add con-name ens224 ifname ens224 type ethernet ipv6.method manual ipv6.addresses 2801:184:f:a1::ed1/64 ipv6.gateway 2801:184:f:a0::aa30
+nmcli connection modify ens224 ipv6.dns-options "timeout:2 attempts:1 rotate inet6"
+nmcli connection modify ens224 802-3-ethernet.mtu 9000
+nmcli connection modify ens224 ipv6.ignore-auto-dns yes
+nmcli connection modify ens224 ipv6.dns-priority 1
+mcli connection modify ens224 ipv6.dns "2801:184:f:ff15::aaaa:1"
+nmcli connection modify ens224 +ipv6.dns "2801:184:f:ff15::aaaa:2"
+nmcli connection modify ens224 ipv6.dns-search refidomsa.com.do
+nmcli connection up ens224
+sudo systemctl restart NetworkManager
+
+nmcli connection modify enp3s0  ipv6.dns "2801:184:f:ff15::aaaa:1"
+nmcli connection modify enp3s0 +ipv6.dns "2801:184:f:ff15::aaaa:2"
+
+# mod on db 01 IPv4
+nmcli connection modify ens192 ipv4.method manual ipv4.address 172.30.117.1/22 ipv4.gateway 172.30.116.30
+nmcli connection modify ens192 ipv4.ignore-auto-dns yes
+nmcli connection up ens192
+snmcli connection modify ens224 ipv4.method manual ipv4.address 172.30.221.1/22 ipv4.gateway 172.30.220.30
+nmcli connection modify ens224 ipv4.ignore-auto-dns yes
+nmcli connection up ens224
+sudo systemctl restart NetworkManager
+
+nmcli connection modify ens192 ipv4.method manual ipv4.address 172.30.117.0/22 ipv4.gateway 172.30.116.30
+nmcli connection modify ens192 ipv4.dns-priority 49
+nmcli connection modify ens192 ipv4.dns "170.81.9.3"
+nmcli connection modify ens192 -ipv4.dns "170.81.9.4"
+nmcli connection modify ens192 ipv4.dns-search refidomsa.com.do
+nmcli connection up ens192
+sudo systemctl restart NetworkManager
+
+nmcli connection modify ens224 ipv4.method manual ipv4.address 172.30.221.0/22 ipv4.gateway 172.30.221.30
+nmcli connection modify ens224 ipv4.dns-priority 49
+nmcli connection modify ens224 ipv4.dns "170.81.9.3"
+nmcli connection modify ens224 +ipv4.dns "170.81.9.4"
+nmcli connection modify ens224 ipv4.dns-search refidomsa.com.do
+nmcli connection up ens224
+sudo systemctl restart NetworkManager
+
+
+
+
+# use + or - to remove an existing entry, such as dns, ipv6, ipv4, etc...
+
+# disable from the creation
+nmcli connection add con-name ens224 ifname ens224 type ethernet ipv4.method disabled
+# have to delete ipv4 if assgined staticly
+nmcli connection modify ens192 ipv4.method disabled
+
+#You can’t remove a DNS server provided through DHCP with the previous command
+#(with the -ipv4.dns option for example), you will get this error message:
+# “Error: failed to remove a value from ipv4.dns: the property doesn’t contain
+# DNS server ‘192.168.1.1’.”.
+
+
+# go to https://developer.gnome.org/NetworkManager/stable/nm-settings.html
+man 5 resolv.conf
+
+nmcli connection modify ens192 ipv6.ignore-auto-dns yes
+nmcli connection modify ens192 ipv4.ignore-auto-dns yes
+
+
+# nslookup ipv6 and queery,
+nslookup -q=aaaa srv-jdedb01 2801:184:f:ff15::aaaa:1
+nslookup srv-jdedb01 2801:184:f:ff15::aaaa:1
+
+
+
+nmcli connection modify ens192 ipv6.addresses ""
+nmcli connection modify ens192 ipv6.addresses ""
+nmcli connection modify ens192 ipv6.method manual ipv6.addresses 2801:184:f:a0::ed0/64 ipv6.gateway 2801:184:f:a0::aa30
+nmcli connection modify ens192 ipv6.dns "2801:184:f:ff15::aaaa:1"
+nmcli connection modify ens192 ipv6.dns "2801:184:f:ff15::aaaa:2"
+nmcli connection up ens192
+nmcli connection modify ens224 ipv6.addresses ""
+nmcli connection modify ens224 ipv6.method manual ipv6.addresses 2801:184:f:a1::ed0/64 gw6 2801:184:f:a1::aa30
+nmcli connection modify ens224 ipv4.method manual ipv4.addresses 170.81.8.70/27 ipv4.gateway 170.81.8.65
+nmcli connection up ens224
+
+
+enp3s0
