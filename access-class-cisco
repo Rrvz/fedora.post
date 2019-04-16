@@ -1,0 +1,12 @@
+configure terminal
+ip access-list ACR00
+permit ip 10.0.0.0/8 any
+permit ip 172.16.0.0/12 any
+permit ip 170.81.9.11/22 any
+permit ip 192.168.0.0/16 any
+permit ip 197.167.0.0/16 any
+permit ip 190.166.0.0/17 any
+
+
+line vty
+ip access-class ACR00 IN
