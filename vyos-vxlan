@@ -1,0 +1,23 @@
+configure
+set interfaces ethernet eth0 address 10.62.94.1/24
+delete interfaces ethernet eth0 address 1.1.1.1/24
+set interfaces vxlan vxlan1 address 192.168.88.1/24
+set interfaces vxlan vxlan1 group 239.1.1.1
+set interfaces vxlan vxlan1 link eth0
+set interfaces vxlan vxlan1 vni 8888
+set system host-name vyos10
+commit
+save
+
+configure
+set interfaces ethernet eth0 address 10.62.94.2/24
+delete interfaces ethernet eth0 address 1.1.1.2/24
+set interfaces vxlan vxlan1 address 192.168.88.2/24
+set interfaces vxlan vxlan1 group 239.1.1.1
+set interfaces vxlan vxlan1 link eth0
+set interfaces vxlan vxlan1 vni 8888
+set system host-name vyos11
+commit
+save
+
+
