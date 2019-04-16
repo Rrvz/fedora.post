@@ -1,0 +1,7 @@
+sudo dnf install GraphicsMagick libicns-utils xz
+
+https://hyper.is/
+
+download the rpm based installation and sudo dnf install
+
+
