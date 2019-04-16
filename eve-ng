@@ -1,0 +1,40 @@
+error in eve-ng
+
+gnome boxes mouse integration is so slow.
+
+open a request
+
+vinagre,
+tigervnc
+realvnc
+vnc
+
+error for other vnc programs and RDP
+vnc://lab01.refidomsa.com.do:33029
+
+I am a totally noob, but in my case I use terminal TERMINATOR and I modified the eve-ng-integration file located at /usr/bin/eve-ng-integration to open the device in tabs instead of a new window for everyone.
+Probably there is a better way to do it, but here you are the "--new-tab" argument added to make it works.
+Under definition of method _terminal_emulator_cmd(self) modify the line
+
+    return ['x-terminal-emulator', '--new-tab','-e']
+
+does not work in gnome terminal
+
+
+sudo dnf install xdotool wmctrl
+
+
+for PORT in $(seq 2001 2010); do
+    gnome-terminal -e telnet localhost $PORT &
+    gnome-terminal -e telnet lab01.refidomsa.com.do $PORT &
+    telnet lab01.refidomsa.com.do 33025
+done
+
+cluster-ssh
+
+for i in {2001..2004};do xterm -e telnet localhost $i &;done
+
+
+#working on tilix
+return ['tilix', '-a', 'app-new-session','-e']
+
