@@ -1,18 +1,22 @@
+toglee cap/lower: ~ or gU/gu
+change tabs:        F5, F6
+new tab:            f7
+save / update:      ESC + \w or \w
+save / update:      ESC + \W or \w
+Quit:               ESC + \q
+Quit all:           ESC + \Q
+insert new line:    ESC + \o
+insert new line:    ESC + \O
+# copy and paste need xclip to function
+copy to console:    \ + F3
+paste to console:   \ + F4
 
-#To change buffer
-:bprev
-:bnext
-
-
-
-sudo dnf install pulseaudio-libs-devel
-pip install textract --user
-
-
-import textract
-text = textract.process("/home/ricardo/Downloads/testnew.pdf")
-
-
-text
-
-19-07-2010 bien
+Command     Action
+:sp filename    Open filename in horizontal split
+:vsp filename   Open filename in vertical split
+Ctrl-w h Ctrl-w ←   Shift focus to split on left of current
+Ctrl-w l Ctrl-w →   Shift focus to split on right of current
+Ctrl-w j Ctrl-w ↓   Shift focus to split below the current
+Ctrl-w k Ctrl-w ↑   Shift focus to split above the current
+Ctrl-w n+   Increase size of current split by n lines
+Ctrl-w n-   Decrease size of current split by n lines

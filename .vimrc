@@ -13,7 +13,7 @@ python3 del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2 " Always display the tabline, even if there is only one tab
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-set rtp+=~/.local/lib/python3.7/site-packages/powerline/bindings/vim/
+"set rtp+=~/.local/lib/python3.7/site-packages/powerline/bindings/vim/
 "set rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
 set t_Co=256
 
@@ -106,7 +106,7 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'sillybun/vim-repl', {'do': './install.sh'}
 "
 " 017 Custom git status in vim
-"Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " ID018 Comment functions so powerful—no comment necessary.
 Plug 'scrooloose/nerdcommenter'
@@ -130,6 +130,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " ID024 Tags
 "Plug 'universal-ctags/ctags'
 "Plug 'ludovicchabant/vim-gutentags'
+
 
 " The Silver Searcher
 
@@ -180,11 +181,11 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'dracula/vim'
 Plug 'jacoborus/tender.vim'
 Plug 'kcierzan/termina'
+
 " Clean Code
 Plug 'ntpeters/vim-better-whitespace'
 
 Plug 'djoshea/vim-autoread'
-
 " Vim Online Thesaurus - not working belog tried junun
 "Plug 'beloglazov/vim-online-thesaurus'
 "Plug 'junegunn/vim-online-thesaurus'
@@ -207,6 +208,8 @@ Plug 'alvan/vim-closetag'
 " Tabular
 Plug 'godlygeek/tabular'
 
+" PathPicker
+Plug 'facebook/PathPicker'
 
 " restore buffers vim
 " Plug 'tpope/vim-obsession'
@@ -288,8 +291,8 @@ set background=dark    " Setting dark mode
 
 " let g:materialmonokai_italic=1
 " colorscheme material-monokai
- let g:gruvbox_italic=1
- colorscheme gruvbox
+let g:gruvbox_italic=1
+colorscheme gruvbox
 " colorscheme carbonized-dark
 " colorscheme papaya
 " let g:papaya_gui_color='blue'
@@ -332,19 +335,61 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
+" ID002 vim-github-dashboard
+let g:github_dashboard = { 'username': 'Rrvz', 'password': $GITHUB_TOKEN }
 
-" Setup gitgutter
-"set updatetime=100
-"let g:gitgutter_max_signs = 500     " default value
-"let g:gitgutter_enabled = 1
-"let g:gitgutter_signs = 1
-"set g:gitgutter_highlight_lines = 1
+let g:github_dashboard = {}
+
+" Dashboard window position
+" - Options: tab, top, bottom, above, below, left, right
+" - Default: tab
+let g:github_dashboard['position'] = 'top'
+
+" Disable Emoji output
+" - Default: only enable on terminal Vim on Mac
+let g:github_dashboard['emoji'] = 0
+
+" Customize emoji (see http://www.emoji-cheat-sheet.com/)
+let g:github_dashboard['emoji_map'] = {
+\   'user_dashboard': 'blush',
+\   'user_activity':  'smile',
+\   'repo_activity':  'laughing',
+\   'ForkEvent':      'fork_and_knife'
+\ }
+
+" Command to open link URLs
+" - Default: auto-detect
+let g:github_dashboard['open_command'] = 'open'
+
+" API timeout in seconds
+" - Default: 10, 20
+let g:github_dashboard['api_open_timeout'] = 10
+let g:github_dashboard['api_read_timeout'] = 20
+
+" Do not set statusline
+" - Then you can customize your own statusline with github_dashboard#status()
+let g:github_dashboard['statusline'] = 0
+
+" GitHub Enterprise
+" let g:github_dashboard['api_endpoint'] = 'http://github.mycorp.com/api/v3'
+" let g:github_dashboard['web_endpoint'] = 'http://github.mycorp.com'
+
+
+
+" ID017 Setup gitgutter
+set updatetime=100
+let g:gitgutter_max_signs = 500     " default value
+let g:gitgutter_enabled = 1
+let g:gitgutter_signs = 1
+let g:gitgutter_highlight_lines = 1
 
 " vim-better-whitespace config
-let g:better_whitespace_ctermcolor='red'
-let g:better_whitespace_operator='_s'
+let g:better_whitespace_ctermcolor='yellow'
+let g:better_whitespace_guicolor='green'
+let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
-
+let g:better_whitespace_operator='_s'
+let g:strip_whitespace_confirm=0
 
 " This is the default extra key bindings
 "let g:fzf_action = {
@@ -356,7 +401,7 @@ let g:strip_whitespace_on_save=1
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~40%' }
 
-" Customize fzf colors to match your color scheme
+" " Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -378,7 +423,6 @@ set directory=/tmp//,.
 if v:version >= 703
   set undodir=/tmp//,.
 endif
-
 
 " Open new line below and above current line
 nnoremap <leader>o o<esc>
@@ -405,7 +449,7 @@ inoremap <C-Q>     <esc>:q<cr>
 nnoremap <C-Q>     :q<cr>
 vnoremap <C-Q>     <esc>
 nnoremap <Leader>q :q<cr>
-nnoremap <Leader>Q :qa!<cr>
+nnoremap <Leader>qq :qa!<cr>
 
 " Disable CTRL-A on tmux or on screen
 if $TERM =~ 'screen'
@@ -441,10 +485,10 @@ endif
 set hidden
 
 " change buffer vim defined in (FZF module)
-map <F5> :bnex<CR>
-map <F6> :bprev<CR>
+map <F5> :bprev<CR>
+map <F6> :bnex<CR>
 map <F7> :new<CR>
-map <F8> :enew<CR>
+map <F8> :enew<CR> "Edit a new, unnamed buffer.
 " leader + b, list all buffer and select the one
 
 " Split, vsiplit and view are created as a buffer not as a tab
