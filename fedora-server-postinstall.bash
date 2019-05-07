@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 # run as administrator or root
 
-sed -i '/NOPASSWD: ALL/a dorro2         ALL=(ALL)       NOPASSWD: ALL' /etc/sudoers | grep NOPASSWD
-sed -i '/NOPASSWD: ALL/a ricardo        ALL=(ALL)       NOPASSWD: ALL' /etc/sudoers | grep NOPASSWD
-sed -i '/NOPASSWD: ALL/a x              ALL=(ALL)       NOPASSWD: ALL' /etc/sudoers | grep NOPASSWD
+echo "
+## Allows people in group wheel to run all commands
+%wheel  ALL=(ALL)       ALL
 
+## Same thing without a password
+ricardo         ALL=(ALL)       NOPASSWD: ALL
+x               ALL=(ALL)       NOPASSWD: ALL
+" > ./local-sudoers
+sudo chown root:root ./local-sudoers
+sudo mv ./local-sudoers /etc/sudoers.d/
 
 sudo dnf update -y
 
@@ -30,7 +36,6 @@ sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-r
 
 # Install main packages
 sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
-
 sudo dnf install -y radvd tcpdump git
 
 # Install desktop environment
@@ -70,7 +75,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
 source ~/.bashrc
 
-dnf install -y the_silver_searcher
+sudo dnf install -y the_silver_searcher
 
 # shell extensions
 # sudo dnf install -y chrome-gnome-shell #nome-shell-extension-dash-to-dock gir1.2-clutter
@@ -117,3 +122,30 @@ ls -ls | lolcat
 # vtop from Node JS
 sudo dnf install -y npm
 sudo npm install -g vtop
+
+# Powerline for fedora install
+sudo dnf install -y powerline
+
+echo "
+# Source for powerline
+if [ -f `which powerline-daemon` ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  . /usr/share/powerline/bash/powerline.sh
+fi
+" >> ~/.bashrc
+
+# load git json module
+# mkdir -p ~/.config/powerline
+# cat <<-'EOF' > ~/.config/powerline/config.json
+# {
+#     "ext": {
+#         "shell": {
+#             "theme": "default_leftonly"
+#         }
+#     }
+# }
+# EOF
+
+powerline-daemon --replace
