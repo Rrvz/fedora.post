@@ -12,11 +12,6 @@ function reload! () {
 
 reload!
 
-
-
-
-
-
 #Vx0="Not empty Original session"
 #echo $Vx0
 #exec bash
@@ -27,6 +22,3 @@ reload!
 #echo "Test Orginal Variable" $Vx0
 #echo "Test Second Variable" $Vx1
 #
-
-
-
