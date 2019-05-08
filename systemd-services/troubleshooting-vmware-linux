@@ -12,3 +12,5 @@ fi
 # to correct this
 sudo --preserve-env=XDG_RUNTIME_DIR gedit
 
+# To remove this line
+xhost -si:localuser:root
