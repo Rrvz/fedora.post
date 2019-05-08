@@ -98,7 +98,6 @@ sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
 sudo yum update -y
 
-
 # install fontforge
 # sudo dnf install fontforge;
 

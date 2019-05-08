@@ -64,7 +64,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 
-
 " Custom
 Plug 'airblade/vim-gitguttern
 
@@ -98,6 +97,5 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']']]
 
 " List of colors that you do not want. ANSI code or #RRGGBB
 let g:rainbow#blacklist = [233, 234]
-
 
 EOF
