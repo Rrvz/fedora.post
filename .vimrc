@@ -1,33 +1,94 @@
-" Defaults paratemers from vimrc
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
+" ************************
+" * Ricardo's vim config *
+"
+" ************************
+
+" -----------------------------------------------------------------------------
+" Defaults paratemers from vimrc, terminal type, colours {{{
+" ----------------------------------------------------------------------------
+
 set viminfo='20,\"50    " read/write a .viminfo file, don't store more
-            " than 50 lines of registers
-set history=500      " keep 50 lines of command line history
-set ruler       " show the cursor position all the time
+                        " than 50 lines of registers
+set ruler               " show the cursor position all the time
+""set number            " Show line numbers in vim
+" set showcmd           " show leader when press and others command
+set hidden              " Keep undo history when switching between a buffers
 
-" set confirm
+" Reload .vimrc config
+autocmd! bufwritepost .vimrc source %
 
-"powerline-status vim statusline
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
-set laststatus=2 " Always display the statusline in all windows
-set showtabline=2 " Always display the tabline, even if there is only one tab
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-"set rtp+=~/.local/lib/python3.7/site-packages/powerline/bindings/vim/
-"set rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
-set t_Co=256
+" --- history / file handling ---
+set history=999             " Increase history (default = 20)
+set undolevels=999          " More undo (default=100)
+set autoread                " reload files if changed externally
 
-" To avoid pasting commented on all lines when you have one commented line
-" tab is equal to 4 and autoindent is mark with >
-filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" set  paste disable autoindent in vim
-set pastetoggle=<F2>
-" On pressing tab, insert 4 spaces
-set expandtab
+" ViM Terminal colours
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+" xterm and screen parameter for 256 colours
+" if &term == "xterm-256color"
+"   set t_Co=256
+" endif
+" if &term == "screen"
+"   set t_Co=256
+" endif
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+" Syntax hightlight mode, get you freak ON!!!
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" Set truecolor 24-bit true color: "888" colors (aka 16 milion)
+" set termguicolors
+" Support for 256 Colours
+" set t_Co=256
+
+" Annoying temporary files
+set backupdir=/tmp//,.
+set directory=/tmp//,.
+if v:version >= 703
+  set undodir=/tmp//,.
+endif
+
+" }}}
+
+" -----------------------------------------------------------------------------
+" UI {{{
+" -----------------------------------------------------------------------------
+
+filetype plugin on
+filetype plugin indent on " tab is equal to 4 and autoindent is mark with >
+
+set tabstop=4           " show existing tab with 4 spaces width
+set shiftwidth=4        " when indenting with '>', use 4 spaces width
+set pastetoggle=<F2>    " set paste disable autoindent in vim
+set expandtab           " On pressing tab, insert 4 spaces
+set smarttab            " At start of line, <Tab> inserts shift width
+" set autoindent " auto indent
+" set wrap " wrap lines
+" set linebreak " break lines on words
+" let &showbreak = '| ' " wrap character
+set hlsearch " highlight search results without conditional
+" set ignorecase " ignore case when searching
+set smartcase " use case if there are capitals
+
+" Line at 80 Charaters for help: :help guibg and :help ctermbg for console
+if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn guibg=#3c3836
+    highlight ColorColumn ctermbg=7
+endif
+
+" make funtion to toggle mouse use
+" set mouse=a
 
 " set clipboard=unnamed
 "if has('clipboard')
@@ -38,6 +99,73 @@ set expandtab
 "    endif
 "endif
 
+" powerline-status vim statusline
+" python3 from powerline.vim import setup as powerline_setup
+" python3 powerline_setup()
+" python3 del powerline_setup
+" set laststatus=2 " Always display the statusline in all windows
+" set showtabline=2 " Always display the tabline, even if there is only one tab
+" set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+" "set rtp+=~/.local/lib/python3.7/site-packages/powerline/bindings/vim/
+" "set rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
+
+" disable vim powerline
+" let g:powerline_loaded = 1
+
+" }}}
+
+" -----------------------------------------------------------------------------
+" Key Mappings {{{
+" -----------------------------------------------------------------------------
+
+" set <leader> mapping key
+" let mapleader = '\'
+" let mapleader      = ' '
+" let maplocalleader = ' '
+
+" man lookup is annoying sometimes
+" map K <nop>
+
+" map - n, v, o
+" map! - c, i
+" lmap - c, i, l
+
+" git diff
+" nnoremap <<F10> :!git diff --patch-with-stat -M90 --no-ext-diff --color=always HEAD<cr>
+" nnoremap <leader>g
+
+" dont use non-vi keys!
+
+" -----------------------------------------------------------------------------
+" Syntastic results open, close, next, previous (actually the location list)
+" -----------------------------------------------------------------------------
+noremap <Leader>so :Errors<CR>
+noremap <Leader>sc :lclose<CR>
+noremap <Leader>sn :lnext<CR>
+noremap <Leader>sN :lNext<CR>
+" close quickfix, error, and preview windows
+" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
+
+" }}}
+
+" -----------------------------------------------------------------------------
+" Quickfix {{{
+" -----------------------------------------------------------------------------
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
+nnoremap ]l :lnext<cr>zz
+nnoremap [l :lprev<cr>zz
+
+" Save
+inoremap <C-s>     <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
+nnoremap <leader>w :update<cr>
+" }}}
+
+
+" ----------------------------------------------------------------------------
+" " Vim-plug installers {{{
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -95,7 +223,8 @@ Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
 
 " 015 Code to execute when the plugin is lazily loaded on demand
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-autocmd! User goyo.vim echom 'Goyo is now loaded!'
+" autocmd! User goyo.vim echom 'Goyo is now loaded!'
+" To run Goyo just put :Goyo
 
 " 016 Post-update hooks
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
@@ -162,6 +291,9 @@ Plug 'junegunn/rainbow_parentheses.vim'
 " Syntax for languages Themes
 Plug 'sheerun/vim-polyglot'
 
+"
+" Plug 'itchyny/lightline.vim'
+
 " Schemes - themes for vim
 Plug 'morhetz/gruvbox'
 Plug 'nightsense/carbonized'
@@ -225,6 +357,18 @@ Plug 'facebook/PathPicker'
 "Plug 'davidbeckingsale/writegood.vim'
 "Plug 'dbmrq/vim-ditto'
 
+" Vim-airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Shameless rip from http://vim.wikia.com/wiki/Switch_color_schemes#Script
+" works but only with certain colors not all outdated
+" Plug 'felixhummel/setcolors.vim'
+
+
+" }}}
+
+
 " Initialize plugin system
 call plug#end()
 
@@ -235,18 +379,6 @@ call plug#end()
 
 " Tmux config arrow fix and other scape character problems
 " Put your terminal to match OS and tmux
-
-" Show line numbers in vim
-"set number
-
-" Line at 80 Charaters
-if (exists('+colorcolumn'))
-    set colorcolumn=80
-"    highlight ColorColumn ctermbg=111
-endif
-
-" Reload .vimrc config
-autocmd! bufwritepost .vimrc source %
 
 " Fix indentation - Map to ( backslash + F7 )
 map <leader>F7 mzgg=G`z
@@ -275,17 +407,9 @@ let g:repl_program = {
 " List of colors that you do not want. ANSI code or #RRGGBB for Rainbow
 " let g:rainbow#blacklist = [233, 234]
 
-" Syntax hightlight mode, get you freak ON!!!
-syntax on
-
-" Set truecolor
-set termguicolors
-" Support for 256 Colours
-set t_Co=256
-
 " Set background
-set background=dark    " Setting dark mode
-"set background=light   " Setting light mode
+set background=dark     " Setting dark mode
+" set background=light   " Setting light mode
 
 " Schemes Colours - the italics has to be enabled febore Theme/Scheme
 
@@ -314,12 +438,13 @@ colorscheme gruvbox
 " colorscheme onehalfdark
 " let g:airline_theme='onehalfdark'
 " let g:onehalfdark_italic=1
-" color dracula
-" Does not work let g:dracula_italic=1
+" set termguicolors
+" colorscheme dracula
+" let g:dracula_italic = 1
 " set lighline theme inside lightline config
 " colorscheme tender
 " let g:lightline = { 'colorscheme': 'tender' }
-" Activate italics no matter what colortheme the 1st the other are para diversion
+" Activate italics no matter what colortheme the 1st the other are pa' diversion
 " highlight Comment cterm=italic
 " highlight Keyword cterm=italic gui=italic
 " highlight type cterm=italic gui=italic
@@ -335,10 +460,53 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
+
+"  Scrolling the color schemes
+
+
+" Airline configs
+" let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#formatter = 'default'
+" let g:airline_statusline_ontop=1
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+" let g:airline_extensions = []
+" Theme for airline
+"let g:airline_theme='hybridline'
+
+" if !exists('g:airline_symbols')
+"     let g:airline_symbols = {}
+" endif
+"
+" " unicode symbols
+" let g:airline_left_sep = '»'
+" let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+" let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.whitespace = 'Ξ'
+"
+" " airline symbols
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = ''
+"
 " ID002 vim-github-dashboard
 let g:github_dashboard = { 'username': 'Rrvz', 'password': $GITHUB_TOKEN }
-
-let g:github_dashboard = {}
+" let g:github_dashboard = {}
 
 " Dashboard window position
 " - Options: tab, top, bottom, above, below, left, right
@@ -417,16 +585,11 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" Annoying temporary files
-set backupdir=/tmp//,.
-set directory=/tmp//,.
-if v:version >= 703
-  set undodir=/tmp//,.
-endif
 
 " Open new line below and above current line
-nnoremap <leader>o o<esc>
-nnoremap <leader>O O<esc>
+" nnoremap <leader>o o<esc>
+"
+" nnoremap <leader>O O<esc>
 
 " Jump list (to newer position)
 " nnoremap <C-p> <C-i>
@@ -481,30 +644,22 @@ endif
 " inoremap <F6> <Esc>:tabnext<CR>i
 " inoremap <F7> <Esc>:tabnew<CR>
 
-" Keep undo history and you switched from a buffer to another
-set hidden
+
 
 " change buffer vim defined in (FZF module)
 map <F5> :bprev<CR>
 map <F6> :bnex<CR>
 map <F7> :new<CR>
-map <F8> :enew<CR> "Edit a new, unnamed buffer.
+" map <F8> :enew<CR> "Edit a new, unnamed buffer.
 " leader + b, list all buffer and select the one
 
 " Split, vsiplit and view are created as a buffer not as a tab
 " is define in :help split
 
-" Syntastic results open, close, next, previous (actually the location list)
-noremap <Leader>so :Errors<CR>
-noremap <Leader>sc :lclose<CR>
-noremap <Leader>sn :lnext<CR>
-noremap <Leader>sN :lNext<CR>
-" close quickfix, error, and preview windows
-" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
-
 " Background color switch
 noremap <Leader>bl :set background=light<CR>
-noremap <Leader>bd :set background=dark<CRn
+noremap <Leader>bd :set background=dark<CR>
+
 " toggle relative line numbers
 noremap <Leader>rn :set nu!<CR>
 
