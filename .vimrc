@@ -61,7 +61,7 @@ endif
 " }}}
 
 " -----------------------------------------------------------------------------
-" UI {{{
+" User Interface - UI {{{
 " -----------------------------------------------------------------------------
 
 filetype plugin on
@@ -146,6 +146,91 @@ noremap <Leader>sN :lNext<CR>
 " close quickfix, error, and preview windows
 " noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
 
+" REPL config / repl-vim
+nnoremap <leader>1 :REPLToggle<Cr>
+let g:sendtorepl_invoke_key = "<leader>2"
+let g:repl_program = {
+            \   "python": "ipython3",
+            \   "default": "bash"
+            \   }
+
+" Open new line below and above current line
+" nnoremap <leader>o o<esc>
+"
+" nnoremap <leader>O O<esc>
+
+" Jump list (to newer position)
+" nnoremap <C-p> <C-i>
+
+" jk | Escaping!
+" inoremap jk <Esc>
+" xnoremap jk <Esc>
+" cnoremap jk <C-c>
+
+" Save / save
+inoremap <C-s> <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
+nnoremap <leader>w :update<cr>
+" file save
+" noremap <Leader>fs :w<CR>
+
+" Quit / quit
+inoremap <C-Q>     <esc>:q<cr>
+nnoremap <C-Q>     :q<cr>
+vnoremap <C-Q>     <esc>
+nnoremap <Leader>q :q<cr>
+nnoremap <Leader>qq :qa!<cr>
+
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
+
+" Tabs not buffers
+" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-t>     <Esc>:tabnew<CR>
+
+" Tab nvigation leader or funtion <F5>,<F6>,<F7>
+" nnoremap <leader><F5> :tabprevious<CR>
+" nnoremap <leader><F6> :tabnext<CR>
+" nnoremap <leader><F7> :tabnew<CR>
+" inoremap <leader><F5> <Esc>:tabprevious<CR>i
+" inoremap <leader><F6> <Esc>:tabnext<CR>i
+" inoremap <leader><F7> <Esc>:tabnew<CR>
+
+" nnoremap <F5> :tabprevious<CR>
+" nnoremap <F6> :tabnext<CR>
+" nnoremap <F7> :tabnew<CR>
+" inoremap <F5> <Esc>:tabprevious<CR>i
+" inoremap <F6> <Esc>:tabnext<CR>i
+" inoremap <F7> <Esc>:tabnew<CR>
+
+" change buffer vim defined in (FZF module)
+map <F5> :bprev<cr>
+map <F6> :bnex<cr>
+map <F7> :new<cr>
+" map <F8> :enew<CR> "Edit a new, unnamed buffer.
+" leader + b, list all buffer and select the one
+
+" Split, vsiplit and view are created as a buffer not as a tab
+" is define in :help split
+
+" Background color switch
+noremap <Leader>bl :set background=light<cr>
+noremap <Leader>bd :set background=dark<cr>
+
+" toggle relative line numbers
+noremap <Leader>rn :set nu!<cr>
+
+
+
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -161,11 +246,36 @@ inoremap <C-s>     <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
+
+" Fix indentation - Map to ( backslash + F7 )
+map <leader>F7 mzgg=G`z
+
+
+
+
+
 " }}}
 
+" -----------------------------------------------------------------------------
+" Autocmd configs {{{
+" -----------------------------------------------------------------------------
 
+" Tabs to Spaces aut o
+if has("autocmd")
+    au BufReadPost * if &modifiable | retab | endif
+endif
+
+" Automatic rename of tmux window
+if exists('$TMUX') && !exists('$NORENAME')
+    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+    au VimLeave * call system('tmux set-window automatic-rename on')
+endif" group vim not use if fedora group is used
+
+" }}}
+
+" -----------------------------------------------------------------------------
+" Vim-plug installers {{{
 " ----------------------------------------------------------------------------
-" " Vim-plug installers {{{
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -174,103 +284,101 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
-" 001 Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
-" 002 Any valid git URL is allowed
+" Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
-" 002 Multiple Plug commands can be written in a single line using | separators
+" Multiple Plug commands can be written in a single line using | separators
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-" 003 On-demand loading
+" On-demand loading
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-" 004 Using a non-master branch
+" Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
-" 005 Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'tag': '*' }
 
-" 006 Plugin options
+" Plugin options
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 
-" 007 Plugin outside ~/.vim/plugged with post-update hook
+" Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" 008 Unmanaged plugin (manually installed and updated)
+" Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
 
-" 009 A small sensible Vim configuration and pair programming .vimrc file
+" A small sensible Vim configuration and pair programming .vimrc file
 Plug 'tpope/vim-sensible'
 
-" 010 NERD tree will be loaded on the first invocation of NERDTreeToggle command
+" NERD tree will be loaded on the first invocation of NERDTreeToggle command
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-" 011 Multiple commands
+" Multiple commands
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 
-" 012 Loaded when clojure file is opened
+" Loaded when clojure file is opened
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
-" 013 Multiple file types
+" Multiple file types
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
-" 014 On-demand loading on both conditions
+" On-demand loading on both conditions
 Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
 
-" 015 Code to execute when the plugin is lazily loaded on demand
+" Code to execute when the plugin is lazily loaded on demand
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 " autocmd! User goyo.vim echom 'Goyo is now loaded!'
 " To run Goyo just put :Goyo
 
-" 016 Post-update hooks
+" Post-update hooks
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
+
 Plug 'sillybun/vim-repl', {'do': './install.sh'}
 "
-" 017 Custom git status in vim
+" Custom git status in vim
 Plug 'airblade/vim-gitgutter'
 
-" ID018 Comment functions so powerful—no comment necessary.
+" Comment functions so powerful—no comment necessary.
 Plug 'scrooloose/nerdcommenter'
 
-" ID019 Dev icons and ultra mega awesome fonts
+" Dev icons and ultra mega awesome fonts
 Plug 'ryanoasis/vim-devicons'
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
 
-" ID020
+" The fancy start screen for vim
 Plug 'mhinz/vim-startify'
 
-" ID021 vim-nerdtree-syntax-highlight
+" vim-nerdtree-syntax-highlight
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-" ID022 Git Stuff
+" Git Stuff
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" ID023 VimWorkspace tabs for everyone
+" VimWorkspace tabs for everyone
 " Plug 'bagrat/vim-workspace'
 
-" ID024 Tags
+" Tags
 "Plug 'universal-ctags/ctags'
 "Plug 'ludovicchabant/vim-gutentags'
 
-
-" The Silver Searcher
-
-" ID025 Asynchronous Lint Engin
+" Asynchronous Lint Engin
 Plug 'w0rp/ale'
 
-" ID+026 Code formater from google
+" Code formater from google
 Plug 'google/yapf'
 
 " Code formater for python
-"Plug 'ambv/black'
+" Plug 'ambv/black'
 
 " View any blob, tree, commit, or tag in the repository with :Gedit (and :Gsplit, :Gvsplit, :Gtabedit,)
 Plug 'tpope/vim-fugitive'
@@ -286,15 +394,11 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/rainbow_parentheses.vim'
 "Plug 'luochen1990/rainbow'
 " Too old
-"Plug 'kien/rainbow_parentheses.vim'
 
 " Syntax for languages Themes
 Plug 'sheerun/vim-polyglot'
 
-"
-" Plug 'itchyny/lightline.vim'
-
-" Schemes - themes for vim
+" Colours, Colorschemes and themes for vim
 Plug 'morhetz/gruvbox'
 Plug 'nightsense/carbonized'
 Plug 'nightsense/stellarized'
@@ -313,6 +417,10 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'dracula/vim'
 Plug 'jacoborus/tender.vim'
 Plug 'kcierzan/termina'
+
+" Vim-airline Lean & mean status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Clean Code
 Plug 'ntpeters/vim-better-whitespace'
@@ -357,10 +465,6 @@ Plug 'facebook/PathPicker'
 "Plug 'davidbeckingsale/writegood.vim'
 "Plug 'dbmrq/vim-ditto'
 
-" Vim-airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
 " Shameless rip from http://vim.wikia.com/wiki/Switch_color_schemes#Script
 " works but only with certain colors not all outdated
 " Plug 'felixhummel/setcolors.vim'
@@ -368,8 +472,9 @@ Plug 'vim-airline/vim-airline-themes'
 
 " }}}
 
-
-" Initialize plugin system
+" -----------------------------------------------------------------------------
+" Initialize plugin system installers {{{
+" -----------------------------------------------------------------------------
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -380,32 +485,36 @@ call plug#end()
 " Tmux config arrow fix and other scape character problems
 " Put your terminal to match OS and tmux
 
-" Fix indentation - Map to ( backslash + F7 )
-map <leader>F7 mzgg=G`z
-
-" Tabs to Spaces auto
-" if has("autocmd")
-" au BufReadPost * retab
-" endif
-if has("autocmd")
-    au BufReadPost * if &modifiable | retab | endif
-endif
-
-
-" REPL config / repl-vim
-nnoremap <leader>1 :REPLToggle<Cr>
-let g:sendtorepl_invoke_key = "<leader>2"
-let g:repl_program = {
-            \   "python": "ipython3",
-            \   "default": "bash"
-            \   }
-
 " Customization for Rainbow Parentheses
 " let g:rainbow#max_level = 16
 " let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 " List of colors that you do not want. ANSI code or #RRGGBB for Rainbow
 " let g:rainbow#blacklist = [233, 234]
+
+
+" -----------------------------------------------------------------------------
+" <F9> | Color scheme selector
+" -----------------------------------------------------------------------------
+" function! s:rotate_colors()
+"   if !exists('s:colors')
+"     let s:colors = s:colors()
+"   endif
+"   let name = remove(s:colors, 0)
+"   call add(s:colors, name)
+"   execute 'colorscheme' name
+"   redraw
+"   echo name
+" endfunction
+" nnoremap <silent> <F9> :call <SID>rotate_colors()<cr>
+"
+"
+" function! s:colors(...)
+"   return filter(map(filter(split(globpath(&rtp, 'colors/*.vim'), "\n"),
+"         \                  'v:val !~ "^/usr/"'),
+"         \           'fnamemodify(v:val, ":t:r")'),
+"         \       '!a:0 || stridx(v:val, a:1) >= 0')
+" endfunction
 
 " Set background
 set background=dark     " Setting dark mode
@@ -449,6 +558,7 @@ colorscheme gruvbox
 " highlight Keyword cterm=italic gui=italic
 " highlight type cterm=italic gui=italic
 " colorscheme termina
+
 
 " Nerdtree
 "autocmd vimenter * NERDTree
@@ -558,131 +668,6 @@ let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 let g:better_whitespace_operator='_s'
 let g:strip_whitespace_confirm=0
-
-" This is the default extra key bindings
-"let g:fzf_action = {
-"  \ 'ctrl-t': 'tab split',
-"  \ 'ctrl-x': 'split',
-"  \ 'ctrl-v': 'vsplit' }
-
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-
-" " Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-
-" Open new line below and above current line
-" nnoremap <leader>o o<esc>
-"
-" nnoremap <leader>O O<esc>
-
-" Jump list (to newer position)
-" nnoremap <C-p> <C-i>
-
-" jk | Escaping!
-" inoremap jk <Esc>
-" xnoremap jk <Esc>
-" cnoremap jk <C-c>
-
-" Save / save
-inoremap <C-s> <C-O>:update<cr>
-nnoremap <C-s>     :update<cr>
-nnoremap <leader>s :update<cr>
-nnoremap <leader>w :update<cr>
-" file save
-" noremap <Leader>fs :w<CR>
-
-" Quit / quit
-inoremap <C-Q>     <esc>:q<cr>
-nnoremap <C-Q>     :q<cr>
-vnoremap <C-Q>     <esc>
-nnoremap <Leader>q :q<cr>
-nnoremap <Leader>qq :qa!<cr>
-
-" Disable CTRL-A on tmux or on screen
-if $TERM =~ 'screen'
-  nnoremap <C-a> <nop>
-  nnoremap <Leader><C-a> <C-a>
-endif
-
-" Tabs not buffers
-" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
-" nnoremap <C-S-tab> :tabprevious<CR>
-" nnoremap <C-tab>   :tabnext<CR>
-" nnoremap <C-t>     :tabnew<CR>
-" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-" inoremap <C-tab>   <Esc>:tabnext<CR>i
-" inoremap <C-t>     <Esc>:tabnew<CR>
-
-" Tab nvigation leader or funtion <F5>,<F6>,<F7>
-" nnoremap <leader><F5> :tabprevious<CR>
-" nnoremap <leader><F6> :tabnext<CR>
-" nnoremap <leader><F7> :tabnew<CR>
-" inoremap <leader><F5> <Esc>:tabprevious<CR>i
-" inoremap <leader><F6> <Esc>:tabnext<CR>i
-" inoremap <leader><F7> <Esc>:tabnew<CR>
-
-" nnoremap <F5> :tabprevious<CR>
-" nnoremap <F6> :tabnext<CR>
-" nnoremap <F7> :tabnew<CR>
-" inoremap <F5> <Esc>:tabprevious<CR>i
-" inoremap <F6> <Esc>:tabnext<CR>i
-" inoremap <F7> <Esc>:tabnew<CR>
-
-
-
-" change buffer vim defined in (FZF module)
-map <F5> :bprev<CR>
-map <F6> :bnex<CR>
-map <F7> :new<CR>
-" map <F8> :enew<CR> "Edit a new, unnamed buffer.
-" leader + b, list all buffer and select the one
-
-" Split, vsiplit and view are created as a buffer not as a tab
-" is define in :help split
-
-" Background color switch
-noremap <Leader>bl :set background=light<CR>
-noremap <Leader>bd :set background=dark<CR>
-
-" toggle relative line numbers
-noremap <Leader>rn :set nu!<CR>
-
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-nnoremap <leader>p :History<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>t :Files<CR>
-
-" Mapping selecting mappings
-"nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " copy /paste OS clipboard to copy and vice versa
 vmap <leader><F3> :!xclip -f -sel clip<CR>
@@ -888,6 +873,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ }
 
 
+
 " syntastic config
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
@@ -909,8 +895,61 @@ packloadall
 silent! helptags ALL
 
 
+" -----------------------------------------------------------------------------
+" A command-line fuzzy finder {{{
+" -----------------------------------------------------------------------------
+
+" This is the default extra key bindings
+"let g:fzf_action = {
+"  \ 'ctrl-t': 'tab split',
+"  \ 'ctrl-x': 'split',
+"  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" " Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+nnoremap <leader>p :History<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>t :Files<CR>
+
+" Mapping selecting mappings
+"nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+" }}}
+
 " How do I solve issues after re-sourcing my vimrc : Try adding this to the bottom of your vimrc
 " if exists("g:loaded_webdevicons")
 "   call webdevicons#refresh()
 " endif
 
+" }}}
