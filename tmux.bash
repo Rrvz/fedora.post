@@ -63,10 +63,8 @@ bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
 # install at OS Level
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-#####################################
 # Plugins
 # https://github.com/tmux-plugins/tpm
-####################################
 
 #####################################
 # tpm plugin manager

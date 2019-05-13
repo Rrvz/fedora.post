@@ -49,8 +49,6 @@ done
 #done
 
 
-
-
 #if grep -q $PATTERN $FILE;
 # then
 #     echo "Here are the Strings with the Pattern '$PATTERN':"

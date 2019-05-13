@@ -8,3 +8,36 @@ if [ $XDG_SESSION_TYPE = "wayland" ]; then
     xhost +si:localuser:root
 fi
 
+
+# If error in yum or dnf
+#
+# /sbin/ldconfig: File /lib64/libkpmcore.so.7 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libreiserfscore.so is empty, not checked.
+# /sbin/ldconfig: File /lib64/libQt5TextToSpeech.so.5.11 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libnilfs.so.0.2.4 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libreiserfscore.so.0.0.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libQt5TextToSpeech.so.5 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libnilfsgc.so.0.2.1 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libpolkit-qt5-agent-1.so.1.112.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libnilfscleaner.so.0.1.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libdbusmenu-qt5.so.2 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libQt5TextToSpeech.so.5.11.3 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libpolkit-qt5-core-1.so.1.112.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libpolkit-qt5-core-1.so.1 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libnilfsgc.so.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libreiserfscore.so.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libkpmcore.so.3.3.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libnilfscleaner.so.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libnilfs.so.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libpolkit-qt5-agent-1.so.1 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libpolkit-qt5-gui-1.so.1.112.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libdbusmenu-qt5.so.2.6.0 is empty, not checked.
+# /sbin/ldconfig: File /lib64/libpolkit-qt5-gui-1.so.1 is empty, not checked.
+
+
+# do
+#
+rpm -qif /lib64/libpolkit-qt5-agent-1.so.1.112.0 /lib64/libdbusmenu-qt5.so.2 /lib64/libpolkit-qt5-core-1.so.1.112.0 /lib64/libpolkit-qt5-core-1.so.1 /lib64/libpolkit-qt5-agent-1.so.1 /lib64/libpolkit-qt5-gui-1.so.1.112.0 /lib64/libdbusmenu-qt5.so.2.6.0 /lib64/libpolkit-qt5-gui-1.so.1 | grep Name
+
+
+sudo dnf reinstall reiserfs-utils qt5-qtspeech nilfs-utils

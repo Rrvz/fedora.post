@@ -148,3 +148,5 @@ fi
 # EOF
 
 powerline-daemon --replace
+
+sudo dnf install tmux -y

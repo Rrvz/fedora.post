@@ -1,6 +1,5 @@
-
-
-First, shut down the VCSA and take a snapshot.
+# First, shut down the VCSA and take a snapshot.
+#now new line
 
 1. Start the appliance up and press the space bar to freeze the GRUB menu. Note that you need to be somewhat quick here.
 
