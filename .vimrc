@@ -5,6 +5,17 @@
 " ************************
 
 " -----------------------------------------------------------------------------
+" Comments and definitions {{{
+" -----------------------------------------------------------------------------
+
+" Comment out the current line or text selected in visual mode.
+" leader >cc
+" uncomment in visual mode leader >c space
+
+" -----------------------------------------------------------------------------
+" }}}
+
+" -----------------------------------------------------------------------------
 " Defaults paratemers from vimrc, terminal type, colours {{{
 " ----------------------------------------------------------------------------
 
@@ -24,11 +35,11 @@ set undolevels=999          " More undo (default=100)
 set autoread                " reload files if changed externally
 
 " ViM Terminal colours
-if has('termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+" if has('termguicolors')
+  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+" endif
 
 " xterm and screen parameter for 256 colours
 " if &term == "xterm-256color"
@@ -136,15 +147,6 @@ endif
 
 " dont use non-vi keys!
 
-" -----------------------------------------------------------------------------
-" Syntastic results open, close, next, previous (actually the location list)
-" -----------------------------------------------------------------------------
-noremap <Leader>so :Errors<CR>
-noremap <Leader>sc :lclose<CR>
-noremap <Leader>sn :lnext<CR>
-noremap <Leader>sN :lNext<CR>
-" close quickfix, error, and preview windows
-" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
 
 " REPL config / repl-vim
 nnoremap <leader>1 :REPLToggle<Cr>
@@ -229,13 +231,15 @@ noremap <Leader>bd :set background=dark<cr>
 " toggle relative line numbers
 noremap <Leader>rn :set nu!<cr>
 
+" Syntastic results open, close, next, previous (actually the location list)
+noremap <Leader>so :Errors<CR>
+noremap <Leader>sc :lclose<CR>
+noremap <Leader>sn :lnext<CR>
+noremap <Leader>sN :lNext<CR>
+" close quickfix, error, and preview windows
+" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
 
-
-" }}}
-
-" -----------------------------------------------------------------------------
-" Quickfix {{{
-" -----------------------------------------------------------------------------
+" error next and close
 nnoremap ]q :cnext<cr>zz
 nnoremap [q :cprev<cr>zz
 nnoremap ]l :lnext<cr>zz
@@ -249,10 +253,6 @@ nnoremap <leader>w :update<cr>
 
 " Fix indentation - Map to ( backslash + F7 )
 map <leader>F7 mzgg=G`z
-
-
-
-
 
 " }}}
 
@@ -276,6 +276,7 @@ endif" group vim not use if fedora group is used
 " -----------------------------------------------------------------------------
 " Vim-plug installers {{{
 " ----------------------------------------------------------------------------
+
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
@@ -286,51 +287,36 @@ call plug#begin('~/.vim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
-
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
 " Multiple Plug commands can be written in a single line using | separators
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
 " On-demand loading
-"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 " Using a non-master branch
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'tag': '*' }
-
 " Plugin options
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
 " Unmanaged plugin (manually installed and updated)
 Plug '~/my-prototype-plugin'
-
 " A small sensible Vim configuration and pair programming .vimrc file
 Plug 'tpope/vim-sensible'
-
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-
 " Multiple commands
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
-
 " Loaded when clojure file is opened
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
 " Multiple file types
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-
 " On-demand loading on both conditions
 Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
-
 " Code to execute when the plugin is lazily loaded on demand
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 " autocmd! User goyo.vim echom 'Goyo is now loaded!'
@@ -342,25 +328,11 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
-
-Plug 'sillybun/vim-repl', {'do': './install.sh'}
-"
 " Custom git status in vim
 Plug 'airblade/vim-gitgutter'
-
 " Comment functions so powerful—no comment necessary.
 Plug 'scrooloose/nerdcommenter'
-
 " Dev icons and ultra mega awesome fonts
-Plug 'ryanoasis/vim-devicons'
-"Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
-
-" The fancy start screen for vim
-Plug 'mhinz/vim-startify'
-
-" vim-nerdtree-syntax-highlight
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
 " Git Stuff
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -383,10 +355,6 @@ Plug 'google/yapf'
 " View any blob, tree, commit, or tag in the repository with :Gedit (and :Gsplit, :Gvsplit, :Gtabedit,)
 Plug 'tpope/vim-fugitive'
 
-" Syntastic is a syntax checking plugin similar to YCM
-"Plug 'scrooloose/syntastic'
-"Plug 'vim-syntastic/syntastic'
-
 " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
 
@@ -395,9 +363,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 "Plug 'luochen1990/rainbow'
 " Too old
 
-" Syntax for languages Themes
-Plug 'sheerun/vim-polyglot'
-
+" -----------------------------------------------------------------------------
 " Colours, Colorschemes and themes for vim
 Plug 'morhetz/gruvbox'
 Plug 'nightsense/carbonized'
@@ -418,38 +384,65 @@ Plug 'dracula/vim'
 Plug 'jacoborus/tender.vim'
 Plug 'kcierzan/termina'
 
-" Vim-airline Lean & mean status/tabline for vim that's light as air.
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-" Clean Code
-Plug 'ntpeters/vim-better-whitespace'
-
-Plug 'djoshea/vim-autoread'
-" Vim Online Thesaurus - not working belog tried junun
-"Plug 'beloglazov/vim-online-thesaurus'
-"Plug 'junegunn/vim-online-thesaurus'
+" -----------------------------------------------------------------------------
+" Writing plug installer block
 
 " Uncover usage problems in your writing
 Plug 'reedes/vim-wordy'
+" Tabular
+Plug 'godlygeek/tabular'
+" Syntax for languages Themes
+Plug 'sheerun/vim-polyglot'
+"Plug 'junegunn/vim-online-thesaurus'
+" Writing plugins
+"Plug 'davidbeckingsale/writegood.vim'
+"Plug 'dbmrq/vim-ditto'
+
+
+" -----------------------------------------------------------------------------
+" Enhancements block
+
+" Clean Code
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'djoshea/vim-autoread'
+" Vim enable an auto-close chars feature for you
+" Plug 'Townk/vim-autoclose'
+" Auto close parentheses and repeat by dot dot dot... *** The bes
+" Plug  'cohama/lexima.vim'
+" Auto close (X)HTML tags
+Plug 'alvan/vim-closetag'
+" PathPicker
+Plug 'facebook/PathPicker'
+" Read–Eval–Print Loop (REPL) vim 8.0 >
+Plug 'sillybun/vim-repl', {'do': './install.sh'}
+
+
+" -----------------------------------------------------------------------------
+" Highlighting and icons block
 
 " Syntax highlighting for Dockerfiles
 Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+" Syntastic is a syntax checking plugin similar to YCM
+"Plug 'scrooloose/syntastic'
+"Plug 'vim-syntastic/syntastic'
+" Adds file type glyphs/icons to popular Vim plugins
+Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
+" The fancy start screen for vim
+Plug 'mhinz/vim-startify'
+" vim-nerdtree-syntax-highlight
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-" Vim enable an auto-close chars feature for you
-" Plug 'Townk/vim-autoclose'
 
-" Auto close parentheses and repeat by dot dot dot... *** The bes
-" Plug  'cohama/lexima.vim'
 
-" Auto close (X)HTML tags
-Plug 'alvan/vim-closetag'
 
-" Tabular
-Plug 'godlygeek/tabular'
 
-" PathPicker
-Plug 'facebook/PathPicker'
+" -----------------------------------------------------------------------------
+" installer block
+
+" Vim-airline Lean & mean status/tabline for vim that's light as air.
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " restore buffers vim
 " Plug 'tpope/vim-obsession'
@@ -458,22 +451,14 @@ Plug 'facebook/PathPicker'
 " You’ve got to love multiple selections.
 "Plug 'terryma/vim-multiple-cursors'
 
-" Emmet-vim
-"Plug 'mattn/emmet-vim'
 
-" Writing plugins
-"Plug 'davidbeckingsale/writegood.vim'
-"Plug 'dbmrq/vim-ditto'
 
-" Shameless rip from http://vim.wikia.com/wiki/Switch_color_schemes#Script
-" works but only with certain colors not all outdated
-" Plug 'felixhummel/setcolors.vim'
-
+" -----------------------------------------------------------------------------
 
 " }}}
 
 " -----------------------------------------------------------------------------
-" Initialize plugin system installers {{{
+" Initialize plugin user installers {{{
 " -----------------------------------------------------------------------------
 call plug#end()
 
@@ -769,10 +754,8 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
 
+" -----------------------------------------------------------------------------
 " NerdCommenter Usages
-" Comment out the current line or text selected in visual mode.
-" leader >cc
-" uncomment in visual mode leader >c space
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -798,24 +781,8 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
-"--------------------------------------------
-" VimDevIcons adds Icons to Your Plugins    -
-" -------------------------------------------
-" enable folder/directory glyph flag (disabled by default with 0)
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-" enable open and close folder/directory glyph flags (disabled by default with 0)
-let g:DevIconsEnableFoldersOpenClose = 1
-" Force extra padding in NERDTree so that the filetype icons line up vertically
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-" enable pattern matching glyphs on folder/directory (enabled by default with 1)
-let g:DevIconsEnableFolderPatternMatching = 1
-" enable file extension pattern matching glyphs on folder/directory (disabled by default with 0)
-let g:DevIconsEnableFolderExtensionPatternMatching = 1
-" the amount of space to use after the glyph character (default ' ')
-let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 
-
-" " NERDTress File highlighting
+" NERDTress File highlighting
 " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 "  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
 "  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
@@ -842,14 +809,14 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 "
 " autocmd VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 
-"option 1 is having lag at this momment 2018/July
-"let g:NERDTreeLimitedSyntax = 1
-"Fix lag bit not highlight files :(
-"let g:NERDTreeHighlightCursorline = 0
- let g:NERDTreeSyntaxDisableDefaultExtensions = 1
- let g:NERDTreeDisableExactMatchHighlight = 1
- let g:NERDTreeDisablePatternMatchHighlight = 1
- let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'php', 'json', 'js', 'css,', 'py', 'bash'] " example
+" option 1 is having lag at this momment 2018/July
+" let g:NERDTreeLimitedSyntax = 1
+" Fix lag bit not highlight files :(
+let g:NERDTreeHighlightCursorline = 0
+let g:NERDTreeSyntaxDisableDefaultExtensions = 1
+let g:NERDTreeDisableExactMatchHighlight = 1
+let g:NERDTreeDisablePatternMatchHighlight = 1
+let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'php', 'json', 'js', 'css,', 'py', 'bash'] " example
 
 " config workspace
 let g:workspace_powerline_separators = 1
@@ -872,16 +839,31 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+"--------------------------------------------
+" VimDevIcons adds Icons to Your Plugins    -
+" -------------------------------------------
+" enable folder/directory glyph flag (disabled by default with 0)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
+" Force extra padding in NERDTree so that the filetype icons line up vertically
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+" enable pattern matching glyphs on folder/directory (enabled by default with 1)
+let g:DevIconsEnableFolderPatternMatching = 1
+" enable file extension pattern matching glyphs on folder/directory (disabled by default with 0)
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+" the amount of space to use after the glyph character (default ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 
 
 " syntastic config
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
-"
-" "let g:syntastic_always_populate_loc_list = 1
+
 " let g:syntastic_always_populate_loc_list = 1
-" " let g:syntastic_auto_loc_list = 1
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
 
