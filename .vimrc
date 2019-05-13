@@ -644,8 +644,6 @@ let g:github_dashboard['statusline'] = 0
 " let g:github_dashboard['api_endpoint'] = 'http://github.mycorp.com/api/v3'
 " let g:github_dashboard['web_endpoint'] = 'http://github.mycorp.com'
 
-
-
 " ID017 Setup gitgutter
 set updatetime=100
 let g:gitgutter_max_signs = 500     " default value
