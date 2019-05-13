@@ -711,13 +711,12 @@ let g:ale_python_flake8_options = '-m flake8'
 " If you haven't remapped <LocalLeader>, it defaults to \. To close the split, just press q.
 "let g:online_thesaurus_map_keys = 0
 "nnoremap <your key binding> :OnlineThesaurusCurrentWord<CR>
-"
+
 
 " Surround.vim
 "It's easiest to explain with examples. Press cs"' inside of 'Hola mundo'
 " To remove the delimiters entirely, press ds".
 "Hola mundo"
-
 
 " closetag.vim
 " filenames like *.xml, *.html, *.xhtml, ...
@@ -779,7 +778,7 @@ let g:NERDToggleCheckAllLines = 1
 "  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
 "  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 " endfunction
-"
+
 " call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 " call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
 " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
@@ -798,7 +797,7 @@ let g:NERDToggleCheckAllLines = 1
 " call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
-"
+
 " autocmd VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 
 " option 1 is having lag at this momment 2018/July
@@ -815,7 +814,6 @@ let g:workspace_powerline_separators = 1
 let g:workspace_tab_icon = "\uf00a"
 let g:workspace_left_trunc_icon = "\uf0a8"
 let g:workspace_right_trunc_icon = "\uf0a9"
-
 
 "git nerdtree config
 let g:NERDTreeIndicatorMapCustom = {
@@ -846,7 +844,6 @@ let g:DevIconsEnableFolderPatternMatching = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 " the amount of space to use after the glyph character (default ' ')
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-
 
 " syntastic config
 " set statusline+=%#warningmsg#
