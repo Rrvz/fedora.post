@@ -1,0 +1,31 @@
+printf "%d\n" {1..100}
+1
+2
+ifefefe4
+5
+9
+dd10
+11
+15dd
+18iiii
+26iiii
+27
+            44
+45
+55
+81iii
+82
+87
+88'
+
+
+
+i89
+91
+92ii
+9iiiiii5
+96
+97
+98iiiiii
+99iiii
+100

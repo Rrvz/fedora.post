@@ -649,9 +649,11 @@ let g:github_dashboard['statusline'] = 0
 
 " let g:gitgutter_sign_added = '+'
 " let g:gitgutter_sign_modified = '+'
-" let g:gitgutter_sign_removed = '-'
-" let g:gitgutter_sign_removed_first_line = '^^'
-" let g:gitgutter_sign_modified_removed = 'ww'
+" let g:gitgutter_sign_removed = '_'
+" " let g:gitgutter_sign_removed_first_line = '=-'
+" let g:gitgutter_sign_modified_removed = '=+'
+" let g:gitgutter_override_sign_column_highlight = 0
+
 
 set updatetime=100
 "set updatetime=100
@@ -659,8 +661,10 @@ let g:gitgutter_max_signs = 500     " default value
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
 " let g:gitgutter_highlight_lines = 1
+
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
+
 "" If you don't want vim-gitgutter to set up any mappings at all
 " let g:gitgutter_map_keys = 0
 " let g:gitgitter_suppress_warnings
@@ -673,12 +677,12 @@ let g:strip_whitespace_confirm=0
 
 
 " Emoji in Vim vim-emoji config
-let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
-let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
-let g:gitgutter_sign_removed = emoji#for('small_red_triangle')
-let g:gitgutter_sign_removed_first_line = emoji#for('x')
-let g:gitgutter_sign_modified_removed = emoji#for('collision')
-set completefunc=emoji#complete
+" let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
+" let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
+" let g:gitgutter_sign_removed = emoji#for('small_red_triangle')
+" let g:gitgutter_sign_removed_first_line = emoji#for('x')
+" let g:gitgutter_sign_modified_removed = emoji#for('collision')
+" set completefunc=emoji#complete
 
 
 " ----------------------------------------------------------------------------
