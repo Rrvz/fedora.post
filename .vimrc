@@ -562,8 +562,8 @@ colorscheme gruvbox
 map <C-n> :NERDTreeToggle<CR>
 
 " yapf config for python
-autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
-autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
+" autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
+" autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
 " Airline configs
 " let g:airline_powerline_fonts = 1
@@ -834,6 +834,11 @@ let g:NERDToggleCheckAllLines = 1
 " let g:NERDTreeDisableExactMatchHighlight = 1
 " let g:NERDTreeDisablePatternMatchHighlight = 1
 " let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'php', 'json', 'js', 'css,', 'py', 'bash'] " example
+
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+
 
 " config workspace
 let g:workspace_powerline_separators = 1
