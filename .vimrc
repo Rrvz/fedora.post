@@ -374,6 +374,8 @@ Plug 'junegunn/rainbow_parentheses.vim'
 
 " -----------------------------------------------------------------------------
 " Colours, Colorschemes and themes for vim
+" -----------------------------------------------------------------------------
+
 Plug 'morhetz/gruvbox'
 Plug 'nightsense/carbonized'
 Plug 'nightsense/stellarized'
@@ -395,6 +397,7 @@ Plug 'kcierzan/termina'
 
 " -----------------------------------------------------------------------------
 " Writing plug installer block
+" -----------------------------------------------------------------------------
 
 " Uncover usage problems in your writing
 Plug 'reedes/vim-wordy'
@@ -410,6 +413,7 @@ Plug 'sheerun/vim-polyglot'
 
 " -----------------------------------------------------------------------------
 " Enhancements block
+" -----------------------------------------------------------------------------
 
 " Clean Code
 Plug 'ntpeters/vim-better-whitespace'
@@ -428,6 +432,7 @@ Plug 'sillybun/vim-repl', {'do': './install.sh'}
 
 " -----------------------------------------------------------------------------
 " Highlighting and icons block
+" -----------------------------------------------------------------------------
 
 " Syntax highlighting for Dockerfiles
 Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
@@ -448,6 +453,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " -----------------------------------------------------------------------------
 " installer block
+" -----------------------------------------------------------------------------
 
 " Vim-airline Lean & mean status/tabline for vim that's light as air.
 Plug 'vim-airline/vim-airline'
@@ -565,7 +571,10 @@ map <C-n> :NERDTreeToggle<CR>
 " autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 " autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
+" -----------------------------------------------------------------------------
 " Airline configs
+" -----------------------------------------------------------------------------
+
 " let g:airline_powerline_fonts = 1
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -604,8 +613,11 @@ let g:airline_powerline_fonts = 1
 " let g:airline_symbols.branch = ''
 " let g:airline_symbols.readonly = ''
 " let g:airline_symbols.linenr = ''
-"
-" ID002 vim-github-dashboard
+
+" ----------------------------------------------------------------------------- 
+" vim-github-dashboard
+" -----------------------------------------------------------------------------
+
 let g:github_dashboard = { 'username': 'Rrvz', 'password': $GITHUB_TOKEN }
 " let g:github_dashboard = {}
 
@@ -641,19 +653,21 @@ let g:github_dashboard['statusline'] = 0
 
 " let g:github_dashboard['api_endpoint'] = 'http://github.mycorp.com/api/v3'
 
-" ID017 Setup gitgutter
+
+" ----------------------------------------------------------------------------- 
+" Setup gitgutter
+" -----------------------------------------------------------------------------
 
 " a git diff in the gutter (sign column) and stages/undoes hunks.
 " make a function or button
 " :GitGutterToggle
 
 " let g:gitgutter_sign_added = '+'
-" let g:gitgutter_sign_modified = '+'
-" let g:gitgutter_sign_removed = '_'
-" " let g:gitgutter_sign_removed_first_line = '=-'
+" let g:gitgutter_sign_modified = '+✚'
+let g:gitgutter_sign_removed = '–'
+" let g:gitgutter_sign_removed_first_line = '=-'
 " let g:gitgutter_sign_modified_removed = '=+'
 " let g:gitgutter_override_sign_column_highlight = 0
-
 
 set updatetime=100
 "set updatetime=100
@@ -668,13 +682,6 @@ nmap [h <Plug>GitGutterPrevHunk
 "" If you don't want vim-gitgutter to set up any mappings at all
 " let g:gitgutter_map_keys = 0
 " let g:gitgitter_suppress_warnings
-" vim-better-whitespace config
-let g:better_whitespace_ctermcolor='yellow'
-let g:better_whitespace_guicolor='green'
-let g:better_whitespace_enabled=1
-let g:better_whitespace_operator='_s'
-let g:strip_whitespace_confirm=0
-
 
 " Emoji in Vim vim-emoji config
 " let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
@@ -684,11 +691,28 @@ let g:strip_whitespace_confirm=0
 " let g:gitgutter_sign_modified_removed = emoji#for('collision')
 " set completefunc=emoji#complete
 
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+
+let g:better_whitespace_ctermcolor='yellow'
+let g:better_whitespace_guicolor='green'
+let g:better_whitespace_enabled=1
+let g:better_whitespace_operator='_s'
+let g:strip_whitespace_confirm=0
+
+
 
 " ----------------------------------------------------------------------------
 
 " Advanced customization using autoload functions
 "inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+
+
 
 " Search and switch buffers
 nmap <leader>b :Buffers<cr>
@@ -713,6 +737,13 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
+
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+
+
+
 " ALE Enable completion where available.
 " let g:ale_completion_enabled = 1
 " Ale sings, si quieres cambiarlos mierda
@@ -732,17 +763,33 @@ let g:ale_list_window_size = 5
 let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
 let g:ale_python_flake8_options = '-m flake8'
 
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+
+
+
 " vim online Thesaurus
 " By default the :OnlineThesaurusCurrentWord command is mapped to <LocalLeader>K.
 " If you haven't remapped <LocalLeader>, it defaults to \. To close the split, just press q.
 "let g:online_thesaurus_map_keys = 0
 "nnoremap <your key binding> :OnlineThesaurusCurrentWord<CR>
 
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
 
 " Surround.vim
 "It's easiest to explain with examples. Press cs"' inside of 'Hola mundo'
 " To remove the delimiters entirely, press ds".
 "Hola mundo"
+
+
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+
+
 
 " closetag.vim
 " filenames like *.xml, *.html, *.xhtml, ...
@@ -773,6 +820,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " -----------------------------------------------------------------------------
 " NerdCommenter Usages
+" -----------------------------------------------------------------------------
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -799,7 +847,10 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 
+" -----------------------------------------------------------------------------
 " NERDTress File highlighting
+" -----------------------------------------------------------------------------
+
 " function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 "  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
 "  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
@@ -840,11 +891,9 @@ let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 
 
-" config workspace
-let g:workspace_powerline_separators = 1
-let g:workspace_tab_icon = "\uf00a"
-let g:workspace_left_trunc_icon = "\uf0a8"
-let g:workspace_right_trunc_icon = "\uf0a9"
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
 
 "git nerdtree config
 let g:NERDTreeIndicatorMapCustom = {
@@ -860,9 +909,23 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
-"--------------------------------------------
-" VimDevIcons adds Icons to Your Plugins    -
-" -------------------------------------------
+
+" ----------------------------------------------------------------------------- 
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+
+" config workspace
+let g:workspace_powerline_separators = 1
+let g:workspace_tab_icon = "\uf00a"
+let g:workspace_left_trunc_icon = "\uf0a8"
+let g:workspace_right_trunc_icon = "\uf0a9"
+
+
+
+" ----------------------------------------------------------------------------- 
+" VimDevIcons adds Icons to Your Plugins
+" -----------------------------------------------------------------------------
+
 " enable folder/directory glyph flag (disabled by default with 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " enable open and close folder/directory glyph flags (disabled by default with 0)
@@ -875,6 +938,13 @@ let g:DevIconsEnableFolderPatternMatching = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 " the amount of space to use after the glyph character (default ' ')
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+" let g:webdevicons_conceal_nerdtree_brackets = 1
+" adding to vim-startify screen
+let g:webdevicons_enable_startify = 1
+
+" ----------------------------------------------------------------------------- 
+" VimDevIcons adds Icons to Your Plugins
+" -----------------------------------------------------------------------------
 
 " syntastic config
 " set statusline+=%#warningmsg#
@@ -887,14 +957,19 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
 
+
+" ----------------------------------------------------------------------------- 
+" ALE config at the end of vimrc file
+" -----------------------------------------------------------------------------
+
 " Put these lines at the very end of your vimrc file. ALE/ale
 
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
-packloadall
+" packloadall
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
-silent! helptags ALL
+" silent! helptags ALL
 
 
 " -----------------------------------------------------------------------------
@@ -948,6 +1023,11 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
+
+
+" ----------------------------------------------------------------------------- 
+" VimDevIcons adds Icons to Your Plugins
+" -----------------------------------------------------------------------------
 
 " How do I solve issues after re-sourcing my vimrc : Try adding this to the bottom of your vimrc
 " if exists("g:loaded_webdevicons")
