@@ -86,15 +86,15 @@ set smarttab            " At start of line, <Tab> inserts shift width
 " set wrap " wrap lines
 " set linebreak " break lines on words
 " let &showbreak = '| ' " wrap character
-set hlsearch " highlight search results without conditional
+" set hlsearch " highlight search results without conditional
 " set ignorecase " ignore case when searching
-set smartcase " use case if there are capitals
+" set smartcase " use case if there are capitals
 
 " Line at 80 Charaters for help: :help guibg and :help ctermbg for console
 if (exists('+colorcolumn'))
     set colorcolumn=80
     highlight ColorColumn guibg=#3c3836
-    highlight ColorColumn ctermbg=7
+    " highlight ColorColumn ctermbg=7
 endif
 
 " make funtion to toggle mouse use
@@ -224,11 +224,11 @@ map <F7> :new<cr>
 " is define in :help split
 
 " Background color switch
-noremap <Leader>bl :set background=light<cr>
-noremap <Leader>bd :set background=dark<cr>
+" noremap <Leader>bl :set background=light<cr>
+" noremap <Leader>bd :set background=dark<cr>
 
 " toggle relative line numbers
-noremap <Leader>rn :set nu!<cr>
+" noremap <Leader>rn :set nu!<cr>
 
 " Syntastic results open, close, next, previous (actually the location list)
 noremap <Leader>so :Errors<CR>
@@ -252,10 +252,9 @@ map <leader><F4> :-1r !xclip -o -sel clip<CR>
 
 " Focus, not defined 2018-10-04
 
-
-" ----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " Tabs
-" ----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 " nnoremap ]t :tabn<cr>
 " nnoremap [t :tabp<cr>
 
@@ -297,8 +296,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Multiple Plug commands can be written in a single line using | separators
 
-Plug 'junegunn/vim-emoji'
 
+Plug 'junegunn/vim-emoji'
 
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " On-demand loading
@@ -649,7 +648,11 @@ set updatetime=100
 let g:gitgutter_max_signs = 500     " default value
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
-let g:gitgutter_highlight_lines = 1
+" let g:gitgutter_highlight_lines = 1
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+"" If you don't want vim-gitgutter to set up any mappings at all
+let g:gitgutter_map_keys = 0
 
 " vim-better-whitespace config
 let g:better_whitespace_ctermcolor='yellow'
@@ -658,6 +661,13 @@ let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 let g:better_whitespace_operator='_s'
 let g:strip_whitespace_confirm=0
+
+
+let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
+let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
+let g:gitgutter_sign_removed = emoji#for('small_red_triangle')
+let g:gitgutter_sign_modified_removed = emoji#for('collision')
+
 
 " ----------------------------------------------------------------------------
 
