@@ -639,12 +639,22 @@ let g:github_dashboard['api_read_timeout'] = 20
 " - Then you can customize your own statusline with github_dashboard#status()
 let g:github_dashboard['statusline'] = 0
 
-" GitHub Enterprise
 " let g:github_dashboard['api_endpoint'] = 'http://github.mycorp.com/api/v3'
-" let g:github_dashboard['web_endpoint'] = 'http://github.mycorp.com'
 
 " ID017 Setup gitgutter
+
+" a git diff in the gutter (sign column) and stages/undoes hunks.
+" make a function or button
+" :GitGutterToggle
+
+" let g:gitgutter_sign_added = '+'
+" let g:gitgutter_sign_modified = '+'
+" let g:gitgutter_sign_removed = '-'
+" let g:gitgutter_sign_removed_first_line = '^^'
+" let g:gitgutter_sign_modified_removed = 'ww'
+
 set updatetime=100
+"set updatetime=100
 let g:gitgutter_max_signs = 500     " default value
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
@@ -652,21 +662,23 @@ let g:gitgutter_signs = 1
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 "" If you don't want vim-gitgutter to set up any mappings at all
-let g:gitgutter_map_keys = 0
-
+" let g:gitgutter_map_keys = 0
+" let g:gitgitter_suppress_warnings
 " vim-better-whitespace config
 let g:better_whitespace_ctermcolor='yellow'
 let g:better_whitespace_guicolor='green'
 let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=1
 let g:better_whitespace_operator='_s'
 let g:strip_whitespace_confirm=0
 
 
+" Emoji in Vim vim-emoji config
 let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
 let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
 let g:gitgutter_sign_removed = emoji#for('small_red_triangle')
+let g:gitgutter_sign_removed_first_line = emoji#for('x')
 let g:gitgutter_sign_modified_removed = emoji#for('collision')
+set completefunc=emoji#complete
 
 
 " ----------------------------------------------------------------------------
