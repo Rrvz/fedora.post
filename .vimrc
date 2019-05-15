@@ -17,7 +17,7 @@
 " -----------------------------------------------------------------------------
 " Defaults paratemers from vimrc, terminal type, colours {{{
 " ----------------------------------------------------------------------------
-
+set encoding=UTF-8
 set viminfo='20,\"50    " read/write a .viminfo file, don't store more
                         " than 50 lines of registers
 set ruler               " show the cursor position all the time
@@ -551,23 +551,21 @@ colorscheme gruvbox
 " Config section for modules and Plugins {{{
 " -----------------------------------------------------------------------------
 
-" Tmux config arrow fix and other scape character problems
-" Put your terminal to match OS and tmux
-
+" -----------------------------------------------------------------------------
 " Customization for Rainbow Parentheses
+" -----------------------------------------------------------------------------
+
 " let g:rainbow#max_level = 16
 " let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 " List of colors that you do not want. ANSI code or #RRGGBB for Rainbow
 " let g:rainbow#blacklist = [233, 234]
 
-" Nerdtree
-"autocmd vimenter * NERDTree
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
 
+" -----------------------------------------------------------------------------
 " yapf config for python
+" -----------------------------------------------------------------------------
+
 " autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 " autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 
@@ -583,6 +581,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
 " let g:airline_extensions = []
 " Theme for airline
 "let g:airline_theme='hybridline'
@@ -591,7 +590,7 @@ let g:airline_powerline_fonts = 1
 "     let g:airline_symbols = {}
 " endif
 "
-" " unicode symbols
+" unicode symbols
 " let g:airline_left_sep = '»'
 " let g:airline_left_sep = '▶'
 " let g:airline_right_sep = '«'
@@ -604,8 +603,8 @@ let g:airline_powerline_fonts = 1
 " let g:airline_symbols.paste = 'Þ'
 " let g:airline_symbols.paste = '∥'
 " let g:airline_symbols.whitespace = 'Ξ'
-"
-" " airline symbols
+
+" airline symbols
 " let g:airline_left_sep = ''
 " let g:airline_left_alt_sep = ''
 " let g:airline_right_sep = ''
@@ -613,6 +612,7 @@ let g:airline_powerline_fonts = 1
 " let g:airline_symbols.branch = ''
 " let g:airline_symbols.readonly = ''
 " let g:airline_symbols.linenr = ''
+
 
 " ----------------------------------------------------------------------------- 
 " vim-github-dashboard
@@ -691,6 +691,7 @@ nmap [h <Plug>GitGutterPrevHunk
 " let g:gitgutter_sign_modified_removed = emoji#for('collision')
 " set completefunc=emoji#complete
 
+
 " ----------------------------------------------------------------------------- 
 " vim-better-whitespace config
 " -----------------------------------------------------------------------------
@@ -702,17 +703,15 @@ let g:better_whitespace_operator='_s'
 let g:strip_whitespace_confirm=0
 
 
-
 " ----------------------------------------------------------------------------
 
 " Advanced customization using autoload functions
 "inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
+
 " ----------------------------------------------------------------------------- 
 " vim-better-whitespace config
 " -----------------------------------------------------------------------------
-
-
 
 " Search and switch buffers
 nmap <leader>b :Buffers<cr>
@@ -742,8 +741,6 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 " vim-better-whitespace config
 " -----------------------------------------------------------------------------
 
-
-
 " ALE Enable completion where available.
 " let g:ale_completion_enabled = 1
 " Ale sings, si quieres cambiarlos mierda
@@ -763,17 +760,17 @@ let g:ale_list_window_size = 5
 let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
 let g:ale_python_flake8_options = '-m flake8'
 
+
 " ----------------------------------------------------------------------------- 
 " vim-better-whitespace config
 " -----------------------------------------------------------------------------
-
-
 
 " vim online Thesaurus
 " By default the :OnlineThesaurusCurrentWord command is mapped to <LocalLeader>K.
 " If you haven't remapped <LocalLeader>, it defaults to \. To close the split, just press q.
 "let g:online_thesaurus_map_keys = 0
 "nnoremap <your key binding> :OnlineThesaurusCurrentWord<CR>
+
 
 " ----------------------------------------------------------------------------- 
 " vim-better-whitespace config
@@ -788,8 +785,6 @@ let g:ale_python_flake8_options = '-m flake8'
 " ----------------------------------------------------------------------------- 
 " vim-better-whitespace config
 " -----------------------------------------------------------------------------
-
-
 
 " closetag.vim
 " filenames like *.xml, *.html, *.xhtml, ...
@@ -817,6 +812,7 @@ let g:closetag_shortcut = '>'
 
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
+
 
 " -----------------------------------------------------------------------------
 " NerdCommenter Usages
@@ -848,13 +844,40 @@ let g:NERDToggleCheckAllLines = 1
 
 
 " -----------------------------------------------------------------------------
-" NERDTress File highlighting
+" Nerdtree, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
 
-" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-"  exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-"  exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-" endfunction
+autocmd vimenter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <C-n> :NERDTreeToggle<CR>
+" let NERDTreeQuitOnOpen = 1
+
+" Disable Highlighting
+" let g:NERDTreeDisableFileExtensionHighlight = 1
+" let g:NERDTreeDisableExactMatchHighlight = 1
+" let g:NERDTreeDisablePatternMatchHighlight = 1
+"
+" Highlight full name (not only icons). You need to add this if you don't have
+" vim-devicons and want highlight.
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+
+" " Highlight folders using exact match
+" let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
+" let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
+
+
+" let NERDTreeMinimalUI = 1
+" let NERDTreeDirArrows = 1
+
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
 
 " call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 " call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
@@ -872,23 +895,58 @@ let g:NERDToggleCheckAllLines = 1
 " call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
+" call NERDTreeHighlightFile('bash', 'Gray', 'none', '#fff7f7', 'NONE')
+call NERDTreeHighlightFile('bash', 'Gray', 'none', '#afd8ba', 'NONE')
 " call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
+
+"
+
+" NERDTress File highlighting
+" you can add these colors to your .vimrc to help customizing
+" let s:brown = "905532"
+" let s:aqua =  "3AFFDB"
+" let s:blue = "689FB6"
+" let s:darkBlue = "44788E"
+" let s:purple = "834F79"
+" let s:lightPurple = "834F79"
+" let s:red = "AE403F"
+" let s:beige = "F5C06F"
+" let s:yellow = "F09F17"
+" let s:orange = "D4843E"
+" let s:darkOrange = "F16529"
+" let s:pink = "CB6F6F"
+" let s:salmon = "EE6E73"
+" let s:green = "8FAA54"
+" let s:lightGreen = "31B53E"
+" let s:white = "FFFFFF"
+" let s:rspec_red = "FE405F"
+" let s:git_orange = "F54D27"
+"
+" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreeExtensionHighlightColor['bash'] = 'd5e0f2' " sets the color of css files to blue
+"
+" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
+"
+" let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
+"
+" let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
+
 
 " autocmd VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
 
 " option 1 is having lag at this momment 2018/July
 " let g:NERDTreeLimitedSyntax = 1
+
 " Fix lag bit not highlight files :(
-" let g:NERDTreeHighlightCursorline = 0
 " let g:NERDTreeSyntaxDisableDefaultExtensions = 1
 " let g:NERDTreeDisableExactMatchHighlight = 1
 " let g:NERDTreeDisablePatternMatchHighlight = 1
 " let g:NERDTreeSyntaxEnabledExtensions = ['c', 'h', 'c++', 'php', 'json', 'js', 'css,', 'py', 'bash'] " example
-
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
+" let g:NERDTreeHighlightCursorline = 0
 
 
 " ----------------------------------------------------------------------------- 
@@ -896,19 +954,20 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " -----------------------------------------------------------------------------
 
 "git nerdtree config
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-
+" let g:NERDTreeIndicatorMapCustom = {
+"     \ "Modified"  : "✹",
+"     \ "Staged"    : "✚",
+"     \ "Untracked" : "✭",
+"     \ "Renamed"   : "➜",
+"     \ "Unmerged"  : "═",
+"     \ "Deleted"   : "✖",
+"     \ "Dirty"     : "✗",
+"     \ "Clean"     : "✔︎",
+"     \ 'Ignored'   : '☒',
+"     \ "Unknown"   : "?"
+"     \ }
+"
+let g:NERDTreeShowIgnoredStatus = 1
 
 " ----------------------------------------------------------------------------- 
 " vim-better-whitespace config
@@ -919,7 +978,6 @@ let g:workspace_powerline_separators = 1
 let g:workspace_tab_icon = "\uf00a"
 let g:workspace_left_trunc_icon = "\uf0a8"
 let g:workspace_right_trunc_icon = "\uf0a9"
-
 
 
 " ----------------------------------------------------------------------------- 
@@ -938,9 +996,10 @@ let g:DevIconsEnableFolderPatternMatching = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 " the amount of space to use after the glyph character (default ' ')
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-" let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
 " adding to vim-startify screen
 let g:webdevicons_enable_startify = 1
+
 
 " ----------------------------------------------------------------------------- 
 " VimDevIcons adds Icons to Your Plugins
