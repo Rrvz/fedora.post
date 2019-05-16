@@ -17,7 +17,7 @@
 " -----------------------------------------------------------------------------
 " Defaults paratemers from vimrc, terminal type, colours {{{
 " ----------------------------------------------------------------------------
-set encoding=UTF-8
+" set encoding=UTF-8
 set viminfo='20,\"50    " read/write a .viminfo file, don't store more
                         " than 50 lines of registers
 set ruler               " show the cursor position all the time
@@ -172,7 +172,7 @@ let g:repl_program = {
 inoremap <C-s> <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
-nnoremap <leader>w :write<cr>
+nnoremap <leader>w :update<cr>
 " file save
 " noremap <Leader>fs :w<CR>
 
@@ -231,10 +231,10 @@ map <F7> :new<cr>
 " noremap <Leader>rn :set nu!<cr>
 
 " Syntastic results open, close, next, previous (actually the location list)
-noremap <Leader>so :Errors<CR>
-noremap <Leader>sc :lclose<CR>
-noremap <Leader>sn :lnext<CR>
-noremap <Leader>sN :lNext<CR>
+" noremap <Leader>so :Errors<CR>
+" noremap <Leader>sc :lclose<CR>
+" noremap <Leader>sn :lnext<CR>
+" noremap <Leader>sN :lNext<CR>
 " close quickfix, error, and preview windows
 " noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
 
@@ -246,11 +246,13 @@ nnoremap [l :lprev<cr>zz
 
 " Fix indentation - Map to ( backslash + F7 )
 map <leader>F7 mzgg=G`z
+
 " copy / paste OS clipboard to copy and vice versa
 vmap <leader><F3> :!xclip -f -sel clip<CR>
 map <leader><F4> :-1r !xclip -o -sel clip<CR>
 
 " Focus, not defined 2018-10-04
+
 
 " -----------------------------------------------------------------------------
 " Tabs
@@ -290,15 +292,46 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
+" -----------------------------------------------------------------------------
+" junegunn plugin installers    
+" -----------------------------------------------------------------------------
+
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Multiple Plug commands can be written in a single line using | separators
-
-
+" emoji
 Plug 'junegunn/vim-emoji'
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" Unmanaged plugin (manually installed and updated)
+Plug '~/my-prototype-plugin'
+" Multiple commands for git
+Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
+" Code to execute when the plugin is lazily loaded on demand
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+" autocmd! User goyo.vim echom 'Goyo is now loaded!'
+" To run Goyo just put :Goyo
 
+
+" -----------------------------------------------------------------------------
+" git plugin installers 
+" -----------------------------------------------------------------------------
+
+" Custom git status in vim
+Plug 'airblade/vim-gitgutter'
+" Git Stuff
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+
+" -----------------------------------------------------------------------------
+" other pluging installers 
+" -----------------------------------------------------------------------------
+
+" I can mix in one line the plug installers 
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -309,27 +342,15 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'fatih/vim-go', { 'tag': '*' }
 " Plugin options
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-" Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" Unmanaged plugin (manually installed and updated)
-Plug '~/my-prototype-plugin'
 " A small sensible Vim configuration and pair programming .vimrc file
 Plug 'tpope/vim-sensible'
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" Multiple commands
-Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 " Loaded when clojure file is opened
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 " Multiple file types
 Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 " On-demand loading on both conditions
-Plug 'junegunn/vader.vim',  { 'on': 'Vader', 'for': 'vader' }
-" Code to execute when the plugin is lazily loaded on demand
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-" autocmd! User goyo.vim echom 'Goyo is now loaded!'
-" To run Goyo just put :Goyo
 
 " Post-update hooks
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
@@ -337,13 +358,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
-" Custom git status in vim
-Plug 'airblade/vim-gitgutter'
 " Comment functions so powerful—no comment necessary.
 Plug 'scrooloose/nerdcommenter'
-" Dev icons and ultra mega awesome fonts
-" Git Stuff
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " VimWorkspace tabs for everyone
 " Plug 'bagrat/vim-workspace'
@@ -352,7 +368,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'universal-ctags/ctags'
 "Plug 'ludovicchabant/vim-gutentags'
 
-" Asynchronous Lint Engin
+" Asynchronous Lint Engine
 Plug 'w0rp/ale'
 
 " Code formater from google
@@ -367,10 +383,6 @@ Plug 'tpope/vim-fugitive'
 " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
 
-" Rainbow Parentheses
-Plug 'junegunn/rainbow_parentheses.vim'
-"Plug 'luochen1990/rainbow'
-" Too old
 
 " -----------------------------------------------------------------------------
 " Colours, Colorschemes and themes for vim
@@ -396,7 +408,7 @@ Plug 'jacoborus/tender.vim'
 Plug 'kcierzan/termina'
 
 " -----------------------------------------------------------------------------
-" Writing plug installer block
+" Writing pluging installer block
 " -----------------------------------------------------------------------------
 
 " Uncover usage problems in your writing
@@ -428,10 +440,12 @@ Plug 'alvan/vim-closetag'
 Plug 'facebook/PathPicker'
 " Read–Eval–Print Loop (REPL) vim 8.0 >
 Plug 'sillybun/vim-repl', {'do': './install.sh'}
+" Rainbow Parentheses
+Plug 'junegunn/rainbow_parentheses.vim'
 
 
 " -----------------------------------------------------------------------------
-" Highlighting and icons block
+" Nerdtree Highlighting and icons block
 " -----------------------------------------------------------------------------
 
 " Syntax highlighting for Dockerfiles
@@ -440,6 +454,7 @@ Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 "Plug 'scrooloose/syntastic'
 "Plug 'vim-syntastic/syntastic'
 " Adds file type glyphs/icons to popular Vim plugins
+" Dev icons and ultra mega awesome fonts
 Plug 'ryanoasis/vim-devicons'
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
 " The fancy start screen for vim
@@ -448,11 +463,8 @@ Plug 'mhinz/vim-startify'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 
-
-
-
 " -----------------------------------------------------------------------------
-" installer block
+" powerline and airline pluging installer
 " -----------------------------------------------------------------------------
 
 " Vim-airline Lean & mean status/tabline for vim that's light as air.
@@ -738,7 +750,7 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 
 " ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
+" Asynchronous Lint Engine - ALE plugin config
 " -----------------------------------------------------------------------------
 
 " ALE Enable completion where available.
@@ -868,6 +880,8 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
 " let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
 
+" remove lag from NERDTreeHighlightCursorline
+" let g:NERDTreeHighlightCursorline = 0
 
 " let NERDTreeMinimalUI = 1
 " let NERDTreeDirArrows = 1
@@ -896,11 +910,11 @@ endfunction
 " call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('bash', 'Gray', 'none', '#fff7f7', 'NONE')
-call NERDTreeHighlightFile('bash', 'Gray', 'none', '#afd8ba', 'NONE')
 " call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
+call NERDTreeHighlightFile('sh', 'gray', 'none', '#b999c6', 'NONE')
+call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 
-"
 
 " NERDTress File highlighting
 " you can add these colors to your .vimrc to help customizing
@@ -935,9 +949,6 @@ call NERDTreeHighlightFile('bash', 'Gray', 'none', '#afd8ba', 'NONE')
 " let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
 " let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
 
-
-" autocmd VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-
 " option 1 is having lag at this momment 2018/July
 " let g:NERDTreeLimitedSyntax = 1
 
@@ -968,6 +979,7 @@ call NERDTreeHighlightFile('bash', 'Gray', 'none', '#afd8ba', 'NONE')
 "     \ }
 "
 let g:NERDTreeShowIgnoredStatus = 1
+
 
 " ----------------------------------------------------------------------------- 
 " vim-better-whitespace config
