@@ -2,7 +2,8 @@
 " ************************
 " * Ricardo's vim config *
 " ************************
-
+        
+ 
 " -----------------------------------------------------------------------------
 " Comments and definitions {{{
 " -----------------------------------------------------------------------------
@@ -281,7 +282,7 @@ endif
 " }}}
 
 " -----------------------------------------------------------------------------
-" Vim-plug installers {{{
+" Vim-plug plugin installers {{{
 " ----------------------------------------------------------------------------
 
 " Specify a directory for plugins
@@ -293,7 +294,7 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
 " -----------------------------------------------------------------------------
-" junegunn plugin installers    
+" junegunn plugin installers
 " -----------------------------------------------------------------------------
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
@@ -318,7 +319,7 @@ Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 
 
 " -----------------------------------------------------------------------------
-" git plugin installers 
+" git plugin installers
 " -----------------------------------------------------------------------------
 
 " Custom git status in vim
@@ -328,10 +329,10 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
 " -----------------------------------------------------------------------------
-" other pluging installers 
+" other pluging installers
 " -----------------------------------------------------------------------------
 
-" I can mix in one line the plug installers 
+" I can mix in one line the plug installers
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -344,8 +345,6 @@ Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 " A small sensible Vim configuration and pair programming .vimrc file
 Plug 'tpope/vim-sensible'
-" NERD tree will be loaded on the first invocation of NERDTreeToggle command
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Loaded when clojure file is opened
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 " Multiple file types
@@ -358,11 +357,8 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
-" Comment functions so powerful—no comment necessary.
-Plug 'scrooloose/nerdcommenter'
-
-" VimWorkspace tabs for everyone
-" Plug 'bagrat/vim-workspace'
+" IDE-like Vim tabline
+" Plug 'bagrat/vim-buffet'
 
 " Tags
 "Plug 'universal-ctags/ctags'
@@ -407,6 +403,7 @@ Plug 'dracula/vim'
 Plug 'jacoborus/tender.vim'
 Plug 'kcierzan/termina'
 
+
 " -----------------------------------------------------------------------------
 " Writing pluging installer block
 " -----------------------------------------------------------------------------
@@ -442,6 +439,8 @@ Plug 'facebook/PathPicker'
 Plug 'sillybun/vim-repl', {'do': './install.sh'}
 " Rainbow Parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
+" Comment functions so powerful—no comment necessary.
+Plug 'scrooloose/nerdcommenter'
 
 
 " -----------------------------------------------------------------------------
@@ -459,6 +458,8 @@ Plug 'ryanoasis/vim-devicons'
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
 " The fancy start screen for vim
 Plug 'mhinz/vim-startify'
+" NERD tree will be loaded on the first invocation of NERDTreeToggle command
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " vim-nerdtree-syntax-highlight
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -564,6 +565,19 @@ colorscheme gruvbox
 " -----------------------------------------------------------------------------
 
 " -----------------------------------------------------------------------------
+" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+
+
+let g:better_whitespace_ctermcolor='yellow'
+let g:better_whitespace_guicolor='yellow'
+let g:better_whitespace_enabled = 1
+let g:strip_whitespace_on_save = 1
+let g:better_whitespace_operator='_s'
+" let g:strip_whitespace_confirm=0
+let g:strip_whitespace_confirm=0
+
+" -----------------------------------------------------------------------------
 " Customization for Rainbow Parentheses
 " -----------------------------------------------------------------------------
 
@@ -626,9 +640,10 @@ let g:airline_powerline_fonts = 1
 " let g:airline_symbols.linenr = ''
 
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " vim-github-dashboard
 " -----------------------------------------------------------------------------
+
 
 let g:github_dashboard = { 'username': 'Rrvz', 'password': $GITHUB_TOKEN }
 " let g:github_dashboard = {}
@@ -666,7 +681,7 @@ let g:github_dashboard['statusline'] = 0
 " let g:github_dashboard['api_endpoint'] = 'http://github.mycorp.com/api/v3'
 
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " Setup gitgutter
 " -----------------------------------------------------------------------------
 
@@ -704,25 +719,14 @@ nmap [h <Plug>GitGutterPrevHunk
 " set completefunc=emoji#complete
 
 
-" ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
-" -----------------------------------------------------------------------------
-
-let g:better_whitespace_ctermcolor='yellow'
-let g:better_whitespace_guicolor='green'
-let g:better_whitespace_enabled=1
-let g:better_whitespace_operator='_s'
-let g:strip_whitespace_confirm=0
-
-
 " ----------------------------------------------------------------------------
 
 " Advanced customization using autoload functions
 "inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 
-" ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+" fzf plugin config
 " -----------------------------------------------------------------------------
 
 " Search and switch buffers
@@ -749,7 +753,7 @@ let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " Asynchronous Lint Engine - ALE plugin config
 " -----------------------------------------------------------------------------
 
@@ -773,8 +777,8 @@ let g:ale_python_flake8_executable = 'python3'   " or 'python' for Python 2
 let g:ale_python_flake8_options = '-m flake8'
 
 
-" ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+" dictionary plugin config
 " -----------------------------------------------------------------------------
 
 " vim online Thesaurus
@@ -784,8 +788,8 @@ let g:ale_python_flake8_options = '-m flake8'
 "nnoremap <your key binding> :OnlineThesaurusCurrentWord<CR>
 
 
-" ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+" vim surround config
 " -----------------------------------------------------------------------------
 
 " Surround.vim
@@ -794,8 +798,8 @@ let g:ale_python_flake8_options = '-m flake8'
 "Hola mundo"
 
 
-" ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+" vim tag plugin config
 " -----------------------------------------------------------------------------
 
 " closetag.vim
@@ -859,7 +863,7 @@ let g:NERDToggleCheckAllLines = 1
 " Nerdtree, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
 
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
@@ -916,39 +920,6 @@ call NERDTreeHighlightFile('sh', 'gray', 'none', '#b999c6', 'NONE')
 call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 
 
-" NERDTress File highlighting
-" you can add these colors to your .vimrc to help customizing
-" let s:brown = "905532"
-" let s:aqua =  "3AFFDB"
-" let s:blue = "689FB6"
-" let s:darkBlue = "44788E"
-" let s:purple = "834F79"
-" let s:lightPurple = "834F79"
-" let s:red = "AE403F"
-" let s:beige = "F5C06F"
-" let s:yellow = "F09F17"
-" let s:orange = "D4843E"
-" let s:darkOrange = "F16529"
-" let s:pink = "CB6F6F"
-" let s:salmon = "EE6E73"
-" let s:green = "8FAA54"
-" let s:lightGreen = "31B53E"
-" let s:white = "FFFFFF"
-" let s:rspec_red = "FE405F"
-" let s:git_orange = "F54D27"
-"
-" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-" let g:NERDTreeExtensionHighlightColor['bash'] = 'd5e0f2' " sets the color of css files to blue
-"
-" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-" let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
-"
-" let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-" let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
-"
-" let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
-" let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
-
 " option 1 is having lag at this momment 2018/July
 " let g:NERDTreeLimitedSyntax = 1
 
@@ -960,8 +931,8 @@ call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 " let g:NERDTreeHighlightCursorline = 0
 
 
-" ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+" nerdtreegit config
 " -----------------------------------------------------------------------------
 
 "git nerdtree config
@@ -978,21 +949,21 @@ call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 "     \ "Unknown"   : "?"
 "     \ }
 "
-let g:NERDTreeShowIgnoredStatus = 1
+" let g:NERDTreeShowIgnoredStatus = 1
 
 
-" ----------------------------------------------------------------------------- 
-" vim-better-whitespace config
+" -----------------------------------------------------------------------------
+" vim-workspace config
 " -----------------------------------------------------------------------------
 
-" config workspace
-let g:workspace_powerline_separators = 1
-let g:workspace_tab_icon = "\uf00a"
-let g:workspace_left_trunc_icon = "\uf0a8"
-let g:workspace_right_trunc_icon = "\uf0a9"
+" " config workspace
+" let g:workspace_powerline_separators = 1
+" let g:workspace_tab_icon = "\uf00a"
+" let g:workspace_left_trunc_icon = "\uf0a8"
+" let g:workspace_right_trunc_icon = "\uf0a9"
+"
 
-
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " VimDevIcons adds Icons to Your Plugins
 " -----------------------------------------------------------------------------
 
@@ -1013,7 +984,7 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:webdevicons_enable_startify = 1
 
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " VimDevIcons adds Icons to Your Plugins
 " -----------------------------------------------------------------------------
 
@@ -1029,7 +1000,7 @@ let g:webdevicons_enable_startify = 1
 " let g:syntastic_check_on_wq = 0
 
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " ALE config at the end of vimrc file
 " -----------------------------------------------------------------------------
 
@@ -1096,7 +1067,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
 
 
-" ----------------------------------------------------------------------------- 
+" -----------------------------------------------------------------------------
 " VimDevIcons adds Icons to Your Plugins
 " -----------------------------------------------------------------------------
 
