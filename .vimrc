@@ -2,8 +2,8 @@
 " ************************
 " * Ricardo's vim config *
 " ************************
-        
- 
+
+
 " -----------------------------------------------------------------------------
 " Comments and definitions {{{
 " -----------------------------------------------------------------------------
@@ -568,14 +568,15 @@ colorscheme gruvbox
 " vim-better-whitespace config
 " -----------------------------------------------------------------------------
 
-
 let g:better_whitespace_ctermcolor='yellow'
 let g:better_whitespace_guicolor='yellow'
 let g:better_whitespace_enabled = 1
 let g:strip_whitespace_on_save = 1
 let g:better_whitespace_operator='_s'
-" let g:strip_whitespace_confirm=0
 let g:strip_whitespace_confirm=0
+let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', '<etc>', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+
+
 
 " -----------------------------------------------------------------------------
 " Customization for Rainbow Parentheses
