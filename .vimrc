@@ -1,9 +1,8 @@
-" vim: set foldmethod=marker foldlevel=0 nomodeline:
 " ************************
 " * Ricardo's vim config *
 " ************************
-
-
+   
+            
 " -----------------------------------------------------------------------------
 " Comments and definitions {{{
 " -----------------------------------------------------------------------------
@@ -25,9 +24,6 @@ set ruler               " show the cursor position all the time
 ""set number            " Show line numbers in vim
 " set showcmd           " show leader when press and others command
 set hidden              " Keep undo history when switching between a buffers
-
-" Reload .vimrc config
-autocmd! bufwritepost .vimrc source %
 
 " --- history / file handling ---
 set history=999             " Increase history (default = 20)
@@ -453,16 +449,16 @@ Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 "Plug 'scrooloose/syntastic'
 "Plug 'vim-syntastic/syntastic'
 " Adds file type glyphs/icons to popular Vim plugins
+ Plug 'ryanoasis/vim-devicons'
 " Dev icons and ultra mega awesome fonts
-Plug 'ryanoasis/vim-devicons'
-"Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
+ "Plug 'ryanoasis/nerd-fonts', { 'do': './install.py' }
 " The fancy start screen for vim
 Plug 'mhinz/vim-startify'
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " vim-nerdtree-syntax-highlight
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
+        
 
 " -----------------------------------------------------------------------------
 " powerline and airline pluging installer
@@ -503,8 +499,8 @@ set background=dark     " Setting dark mode
 
 " let g:materialmonokai_italic=1
 " colorscheme material-monokai
-let g:gruvbox_italic=1
-colorscheme gruvbox
+" let g:gruvbox_italic=1
+" colorscheme gruvbox
 " colorscheme carbonized-dark
 " colorscheme papaya
 " let g:papaya_gui_color='blue'
@@ -527,7 +523,7 @@ colorscheme gruvbox
 " let g:airline_theme='onehalfdark'
 " let g:onehalfdark_italic=1
 " set termguicolors
-" colorscheme dracula
+colorscheme dracula
 " let g:dracula_italic = 1
 " set lighline theme inside lightline config
 " colorscheme tender
@@ -567,7 +563,7 @@ colorscheme gruvbox
 " -----------------------------------------------------------------------------
 " vim-better-whitespace config
 " -----------------------------------------------------------------------------
-
+        
 let g:better_whitespace_ctermcolor='yellow'
 let g:better_whitespace_guicolor='yellow'
 let g:better_whitespace_enabled = 1
@@ -575,7 +571,6 @@ let g:strip_whitespace_on_save = 1
 let g:better_whitespace_operator='_s'
 let g:strip_whitespace_confirm=0
 let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', '<etc>', 'diff', 'gitcommit', 'unite', 'qf', 'help']
-
 
 
 " -----------------------------------------------------------------------------
@@ -863,12 +858,20 @@ let g:NERDToggleCheckAllLines = 1
 " -----------------------------------------------------------------------------
 " Nerdtree, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
-
-" autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
+    
+autocmd vimenter * NERDTree
+" autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
-" let NERDTreeQuitOnOpen = 1
+let NERDTreeQuitOnOpen = 1
+
+" nerdtree Show hidden files
+" let NERDTreeShowHidden = 1
+
+" Prevent brackets around icons when sourcing vimrc
+" if exists('g:loaded_webdevicons')
+  " call webdevicons#refresh()
+" endif
 
 " Disable Highlighting
 " let g:NERDTreeDisableFileExtensionHighlight = 1
@@ -946,11 +949,11 @@ call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 "     \ "Deleted"   : "✖",
 "     \ "Dirty"     : "✗",
 "     \ "Clean"     : "✔︎",
-"     \ 'Ignored'   : '☒',
+"     \ "Ignored"   : "☒",
 "     \ "Unknown"   : "?"
 "     \ }
 "
-" let g:NERDTreeShowIgnoredStatus = 1
+let g:NERDTreeShowIgnoredStatus = 1
 
 
 " -----------------------------------------------------------------------------
@@ -967,9 +970,61 @@ call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 " -----------------------------------------------------------------------------
 " VimDevIcons adds Icons to Your Plugins
 " -----------------------------------------------------------------------------
+        
+" loading the plugin
+let g:webdevicons_enable = 1
+
+" adding the flags to NERDTree
+let g:webdevicons_enable_nerdtree = 1
+
+" adding the custom source to unite
+let g:webdevicons_enable_unite = 1
+
+" adding the column to vimfiler
+let g:webdevicons_enable_vimfiler = 1
+
+" adding to vim-airline's tabline
+let g:webdevicons_enable_airline_tabline = 1
+
+" adding to vim-airline's statusline
+let g:webdevicons_enable_airline_statusline = 1
+
+" ctrlp glyphs
+let g:webdevicons_enable_ctrlp = 1
+
+" adding to vim-startify screen
+let g:webdevicons_enable_startify = 1
+
+" adding to flagship's statusline
+let g:webdevicons_enable_flagship_statusline = 1
+
+" turn on/off file node glyph decorations (not particularly useful)
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+
+" use double-width(1) or single-width(0) glyphs
+" only manipulates padding, has no effect on terminal or set(guifont) font
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+
+" whether or not to show the nerdtree brackets around flags
+let g:webdevicons_conceal_nerdtree_brackets = 1
+
+" the amount of space to use after the glyph character (default ' ')
+let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+
+" Force extra padding in NERDTree so that the filetype icons line up vertically
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 
 " enable folder/directory glyph flag (disabled by default with 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+
+" Adding the custom source to denite
+let g:webdevicons_enable_denite = 1
+
+" change the default character when no match found
+" let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = 'ƛ'
+
+
+
 " enable open and close folder/directory glyph flags (disabled by default with 0)
 let g:DevIconsEnableFoldersOpenClose = 1
 " Force extra padding in NERDTree so that the filetype icons line up vertically
@@ -981,8 +1036,6 @@ let g:DevIconsEnableFolderExtensionPatternMatching = 1
 " the amount of space to use after the glyph character (default ' ')
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
 let g:webdevicons_conceal_nerdtree_brackets = 1
-" adding to vim-startify screen
-let g:webdevicons_enable_startify = 1
 
 
 " -----------------------------------------------------------------------------
@@ -1067,14 +1120,22 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
 
+" }}}
+"
+"
 
 " -----------------------------------------------------------------------------
 " VimDevIcons adds Icons to Your Plugins
 " -----------------------------------------------------------------------------
+                
+" How do I solve issues after re-sourcing my vimrc 
+" Try adding this to the bottom of your vimrc    
 
-" How do I solve issues after re-sourcing my vimrc : Try adding this to the bottom of your vimrc
-" if exists("g:loaded_webdevicons")
-"   call webdevicons#refresh()
-" endif
+if exists("g:loaded_webdevicons")
+  call webdevicons#refresh()
+endif
 
-" }}}
+" Reload .vimrc config
+autocmd bufwritepost .vimrc source $MYVIMRC
+
+
