@@ -1,8 +1,9 @@
+
 " ************************
 " * Ricardo's vim config *
 " ************************
-   
-            
+
+
 " -----------------------------------------------------------------------------
 " Comments and definitions {{{
 " -----------------------------------------------------------------------------
@@ -143,7 +144,6 @@ endif
 
 " dont use non-vi keys!
 
-
 " REPL config / repl-vim
 nnoremap <leader>1 :REPLToggle<Cr>
 let g:sendtorepl_invoke_key = "<leader>2"
@@ -264,7 +264,7 @@ map <leader><F4> :-1r !xclip -o -sel clip<CR>
 " Autocmd configs {{{
 " -----------------------------------------------------------------------------
 
-" Tabs to Spaces aut o
+" Tabs to Spaces auto
 if has("autocmd")
     au BufReadPost * if &modifiable | retab | endif
 endif
@@ -458,7 +458,7 @@ Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " vim-nerdtree-syntax-highlight
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-        
+
 
 " -----------------------------------------------------------------------------
 " powerline and airline pluging installer
@@ -490,11 +490,6 @@ call plug#end()
 set background=dark     " Setting dark mode
 " set background=light   " Setting light mode
 
-" Activate italics no matter what colortheme the 1st the other are pa'diversion
-" highlight Comment cterm=italic
-" highlight Keyword cterm=italic gui=italic
-" highlight type cterm=italic gui=italic
-
 " Schemes Colours - the italics has to be enabled before Theme/Scheme
 
 " let g:materialmonokai_italic=1
@@ -524,12 +519,22 @@ set background=dark     " Setting dark mode
 " let g:onehalfdark_italic=1
 " set termguicolors
 colorscheme dracula
-" let g:dracula_italic = 1
+let g:dracula_italic = 1
 " set lighline theme inside lightline config
 " colorscheme tender
 " let g:lightline = { 'colorscheme': 'tender' }
 " colorscheme termina
 
+" Activate italics no matter what colortheme the 1st the other are pa'diversion
+" highlight Comment cterm=italic
+" highlight Keyword cterm=italic gui=italic
+" highlight type cterm=italic gui=italic
+
+highlight Comment cterm=italic
+highlight htmlArg cterm=italic
+
+" set wildmenu
+" set wildmode=longest:full,full
 
 " -----------------------------------------------------------------------------
 " <F9> | Color scheme selector
@@ -561,16 +566,17 @@ colorscheme dracula
 " -----------------------------------------------------------------------------
 
 " -----------------------------------------------------------------------------
-" vim-better-whitespace config
+" vim-better-whitespace plugin config
 " -----------------------------------------------------------------------------
-        
+    
 let g:better_whitespace_ctermcolor='yellow'
 let g:better_whitespace_guicolor='yellow'
 let g:better_whitespace_enabled = 1
 let g:strip_whitespace_on_save = 1
 let g:better_whitespace_operator='_s'
 let g:strip_whitespace_confirm=0
-let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', '<etc>', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', 
+    \  '<etc>', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 
 
 " -----------------------------------------------------------------------------
@@ -858,7 +864,7 @@ let g:NERDToggleCheckAllLines = 1
 " -----------------------------------------------------------------------------
 " Nerdtree, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
-    
+
 autocmd vimenter * NERDTree
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -970,7 +976,7 @@ let g:NERDTreeShowIgnoredStatus = 1
 " -----------------------------------------------------------------------------
 " VimDevIcons adds Icons to Your Plugins
 " -----------------------------------------------------------------------------
-        
+
 " loading the plugin
 let g:webdevicons_enable = 1
 
@@ -1039,10 +1045,9 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 
 
 " -----------------------------------------------------------------------------
-" VimDevIcons adds Icons to Your Plugins
+" syntastic plugin config
 " -----------------------------------------------------------------------------
 
-" syntastic config
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
@@ -1121,21 +1126,20 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
 
 " }}}
-"
+" test
 "
 
 " -----------------------------------------------------------------------------
-" VimDevIcons adds Icons to Your Plugins
+"  My .vimrc plugin and funtion last part  
 " -----------------------------------------------------------------------------
-                
-" How do I solve issues after re-sourcing my vimrc 
-" Try adding this to the bottom of your vimrc    
+
+" How do I solve issues after re-sourcing my vimrc
+" Try adding this to the bottom of your vimrc
 
 if exists("g:loaded_webdevicons")
   call webdevicons#refresh()
 endif
-
+                
 " Reload .vimrc config
-autocmd bufwritepost .vimrc source $MYVIMRC
-
-
+autocmd! bufwritepost .vimrc source %
+" autocmd bufwritepost .vimrc source $MYVIMRC           
