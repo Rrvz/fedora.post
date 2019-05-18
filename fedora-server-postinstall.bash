@@ -108,7 +108,7 @@ sudo dnf install -y pipenv
 sudo dnf install -y rubygems
 
 if [[ $(gem list -i lolcat| grep 'true') ]]; then
-    echo "locat installed"
+    echo "locat is already installed"
 else
     gem install lolcat
 fi
@@ -125,7 +125,12 @@ ls -ls | lolcat
 
 # vtop from Node JS
 sudo dnf install -y npm
-sudo npm install -g vtop
+
+if [[ $(npm list -g vtop | grep "vtop") ]]; then
+    echo "vtop is already installed"
+else
+    sudo npm install -g vtop
+fi
 
 # Powerline for fedora install
 sudo dnf install -y powerline
