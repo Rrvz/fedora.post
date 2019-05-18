@@ -5,15 +5,23 @@
 
 
 " -----------------------------------------------------------------------------
-" Comments and definitions {{{
+" Definitions and autodownloads and installers {{{
 " -----------------------------------------------------------------------------
 
 " Comment out the current line or text selected in visual mode.
 " leader >cc
 " uncomment in visual mode leader >c space
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
 " -----------------------------------------------------------------------------
 " }}}
+
 
 " -----------------------------------------------------------------------------
 " Defaults paratemers from vimrc, terminal type, colours {{{
