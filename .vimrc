@@ -22,265 +22,6 @@ endif
 " -----------------------------------------------------------------------------
 " }}}
 
-
-" -----------------------------------------------------------------------------
-" Defaults paratemers from vimrc, terminal type, colours {{{
-" ----------------------------------------------------------------------------
-" set encoding=UTF-8
-set viminfo='20,\"50    " read/write a .viminfo file, don't store more
-                        " than 50 lines of registers
-set ruler               " show the cursor position all the time
-""set number            " Show line numbers in vim
-" set showcmd           " show leader when press and others command
-set hidden              " Keep undo history when switching between a buffers
-
-" --- history / file handling ---
-set history=999             " Increase history (default = 20)
-set undolevels=999          " More undo (default=100)
-set autoread                " reload files if changed externally
-
-" Enable folding
-" set foldmethod=indent
-" set foldlevel=99
-
-
-" ViM Terminal colours
-if has('termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-
-" xterm and screen parameter for 256 colours
-" if &term == "xterm-256color"
-"   set t_Co=256
-" endif
-
-" if &term == "screen"
-"   set t_Co=256
-" endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-" Syntax hightlight mode, get you freak ON!!!
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-" Set truecolor 24-bit true color: "888" colors (aka 16 milion)
-" set termguicolors
-" Support for 256 Colours
-" set t_Co=256
-
-" Annoying temporary files
-set backupdir=/tmp//,.
-set directory=/tmp//,.
-if v:version >= 703
-  set undodir=/tmp//,.
-endif
-
-" }}}
-
-" -----------------------------------------------------------------------------
-" User Interface - UI {{{
-" -----------------------------------------------------------------------------
-
-filetype plugin on
-filetype plugin indent on " tab is equal to 4 and autoindent is mark with >
-
-set tabstop=4           " show existing tab with 4 spaces width
-set shiftwidth=4        " when indenting with '>', use 4 spaces width
-set pastetoggle=<F2>    " set paste disable autoindent in vim
-set expandtab           " On pressing tab, insert 4 spaces
-set smarttab            " At start of line, <Tab> inserts shift width
-" set autoindent " auto indent
-" set wrap " wrap lines
-" set linebreak " break lines on words
-" let &showbreak = '| ' " wrap character
-" set hlsearch " highlight search results without conditional
-" set ignorecase " ignore case when searching
-" set smartcase " use case if there are capitals
-
-" Line at 80 Charaters for help: :help guibg and :help ctermbg for console
-if (exists('+colorcolumn'))
-    set colorcolumn=80
-    highlight ColorColumn guibg=#3c3836
-    " highlight ColorColumn ctermbg=7
-endif
-
-" make funtion to toggle mouse use
-" set mouse=a
-
-" set clipboard=unnamed
-"if has('clipboard')
-"    if has('unnamedplus')  " When possible use + register for copy-paste
-"        set clipboard=unnamed,unnamedplus
-"    else         " On mac and Windows, use * register for copy-paste
-"        set clipboard=unnamed
-"    endif
-"endif
-
-" powerline-status vim statusline
-" python3 from powerline.vim import setup as powerline_setup
-" python3 powerline_setup()
-" python3 del powerline_setup
-" set laststatus=2 " Always display the statusline in all windows
-" set showtabline=2 " Always display the tabline, even if there is only one tab
-" set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-" "set rtp+=~/.local/lib/python3.7/site-packages/powerline/bindings/vim/
-" "set rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
-
-" disable vim powerline
-" let g:powerline_loaded = 1
-
-" }}}
-
-" -----------------------------------------------------------------------------
-" Key Mappings and remappings {{{
-" -----------------------------------------------------------------------------
-
-" set <leader> mapping key
-" let mapleader = '\'
-" let mapleader      = ' '
-" let maplocalleader = ' '
-
-" man lookup is annoying sometimes
-" map K <nop>
-
-" map - n, v, o
-" map! - c, i
-" lmap - c, i, l
-
-" git diff
-" nnoremap <<F10> :!git diff --patch-with-stat -M90 --no-ext-diff --color=always HEAD<cr>
-" nnoremap <leader>g
-
-" dont use non-vi keys!
-
-" REPL config / repl-vim
-nnoremap <leader>1 :REPLToggle<Cr>
-let g:sendtorepl_invoke_key = "<leader>2"
-let g:repl_program = {
-            \   "python": "ipython3",
-            \   "default": "bash"
-            \   }
-
-" Open new line below and above current line
-" nnoremap <leader>o o<esc>
-"
-" nnoremap <leader>O O<esc>
-
-" Jump list (to newer position)
-" nnoremap <C-p> <C-i>
-
-" jk | Escaping!
-" inoremap jk <Esc>
-" xnoremap jk <Esc>
-" cnoremap jk <C-c>
-
-" Save / save
-inoremap <C-s> <C-O>:update<cr>
-nnoremap <C-s>     :update<cr>
-nnoremap <leader>s :update<cr>
-nnoremap <leader>w :update<cr>
-" file save
-" noremap <Leader>fs :w<CR>
-
-" Quit / quit
-inoremap <C-Q>     <esc>:q<cr>
-nnoremap <C-Q>     :q<cr>
-vnoremap <C-Q>     <esc>
-nnoremap <Leader>q :q<cr>
-nnoremap <Leader>qq :qa!<cr>
-
-" Disable CTRL-A on tmux or on screen
-if $TERM =~ 'screen'
-  nnoremap <C-a> <nop>
-  nnoremap <Leader><C-a> <C-a>
-endif
-
-" Tabs not buffers
-" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
-" nnoremap <C-S-tab> :tabprevious<CR>
-" nnoremap <C-tab>   :tabnext<CR>
-" nnoremap <C-t>     :tabnew<CR>
-" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-" inoremap <C-tab>   <Esc>:tabnext<CR>i
-" inoremap <C-t>     <Esc>:tabnew<CR>
-
-" Tab nvigation leader or funtion <F5>,<F6>,<F7>
-" nnoremap <leader><F5> :tabprevious<CR>
-" nnoremap <leader><F6> :tabnext<CR>
-" nnoremap <leader><F7> :tabnew<CR>
-" inoremap <leader><F5> <Esc>:tabprevious<CR>i
-" inoremap <leader><F6> <Esc>:tabnext<CR>i
-" inoremap <leader><F7> <Esc>:tabnew<CR>
-
-" nnoremap <F5> :tabprevious<CR>
-" nnoremap <F6> :tabnext<CR>
-" nnoremap <F7> :tabnew<CR>
-" inoremap <F5> <Esc>:tabprevious<CR>i
-" inoremap <F6> <Esc>:tabnext<CR>i
-" inoremap <F7> <Esc>:tabnew<CR>
-
-" change buffer vim defined in (FZF module)
-map <F5> :bprev<cr>
-map <F6> :bnex<cr>
-map <F7> :new<cr>
-" map <F8> :enew<CR> "Edit a new, unnamed buffer.
-" leader + b, list all buffer and select the one
-
-" Split, vsiplit and view are created as a buffer not as a tab
-" is define in :help split
-
-" Background color switch
-" noremap <Leader>bl :set background=light<cr>
-" noremap <Leader>bd :set background=dark<cr>
-
-" toggle relative line numbers
-" noremap <Leader>rn :set nu!<cr>
-
-" Syntastic results open, close, next, previous (actually the location list)
-" noremap <Leader>so :Errors<CR>
-" noremap <Leader>sc :lclose<CR>
-" noremap <Leader>sn :lnext<CR>
-" noremap <Leader>sN :lNext<CR>
-" close quickfix, error, and preview windows
-" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
-
-" error next and close
-nnoremap ]q :cnext<cr>zz
-nnoremap [q :cprev<cr>zz
-nnoremap ]l :lnext<cr>zz
-nnoremap [l :lprev<cr>zz
-
-" Fix indentation - Map to ( backslash + F7 )
-map <leader>F7 mzgg=G`z
-
-" copy / paste OS clipboard and backwards (compiled vim no clipboard suport)
-vmap <leader><F3> :!xclip -f -sel clip<CR>
-map <leader><F4> :-1r !xclip -o -sel clip<CR>
-
-" Remap 'K'; it's fucking annoying
-" nnoremap K <Nop>
-" vnoremap K <Nop>
-
-" Lazier versions of 'copy all' and 'delete all'
-nmap <leader>5y :%y
-nmap <leader>5d :%d
-
-
-
-" -----------------------------------------------------------------------------
-" Tabs
-" -----------------------------------------------------------------------------
-" nnoremap ]t :tabn<cr>
-" nnoremap [t :tabp<cr>
-
-
-" }}}
-
 " -----------------------------------------------------------------------------
 " Autocmd configs {{{
 " -----------------------------------------------------------------------------
@@ -1166,6 +907,265 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" }}}
+
+
+" -----------------------------------------------------------------------------
+" Defaults paratemers from vimrc, terminal type, colours {{{
+" ----------------------------------------------------------------------------
+" set encoding=UTF-8
+set viminfo='20,\"50    " read/write a .viminfo file, don't store more
+                        " than 50 lines of registers
+set ruler               " show the cursor position all the time
+""set number            " Show line numbers in vim
+" set showcmd           " show leader when press and others command
+set hidden              " Keep undo history when switching between a buffers
+
+" --- history / file handling ---
+set history=999             " Increase history (default = 20)
+set undolevels=999          " More undo (default=100)
+set autoread                " reload files if changed externally
+
+" Enable folding
+" set foldmethod=indent
+" set foldlevel=99
+
+
+" ViM Terminal colours
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+" xterm and screen parameter for 256 colours
+" if &term == "xterm-256color"
+"   set t_Co=256
+" endif
+
+" if &term == "screen"
+"   set t_Co=256
+" endif
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+" Syntax hightlight mode, get you freak ON!!!
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" Set truecolor 24-bit true color: "888" colors (aka 16 milion)
+" set termguicolors
+" Support for 256 Colours
+" set t_Co=256
+
+" Annoying temporary files
+set backupdir=/tmp//,.
+set directory=/tmp//,.
+if v:version >= 703
+  set undodir=/tmp//,.
+endif
+
+" }}}
+
+" -----------------------------------------------------------------------------
+" User Interface - UI {{{
+" -----------------------------------------------------------------------------
+
+filetype plugin on
+filetype plugin indent on " tab is equal to 4 and autoindent is mark with >
+
+set tabstop=4           " show existing tab with 4 spaces width
+set shiftwidth=4        " when indenting with '>', use 4 spaces width
+set pastetoggle=<F2>    " set paste disable autoindent in vim
+set expandtab           " On pressing tab, insert 4 spaces
+set smarttab            " At start of line, <Tab> inserts shift width
+" set autoindent " auto indent
+" set wrap " wrap lines
+" set linebreak " break lines on words
+" let &showbreak = '| ' " wrap character
+" set hlsearch " highlight search results without conditional
+" set ignorecase " ignore case when searching
+" set smartcase " use case if there are capitals
+
+" Line at 80 Charaters for help: :help guibg and :help ctermbg for console
+if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn guibg=#3c3836
+    " highlight ColorColumn ctermbg=7
+endif
+
+" make funtion to toggle mouse use
+" set mouse=a
+
+" set clipboard=unnamed
+"if has('clipboard')
+"    if has('unnamedplus')  " When possible use + register for copy-paste
+"        set clipboard=unnamed,unnamedplus
+"    else         " On mac and Windows, use * register for copy-paste
+"        set clipboard=unnamed
+"    endif
+"endif
+
+" powerline-status vim statusline
+" python3 from powerline.vim import setup as powerline_setup
+" python3 powerline_setup()
+" python3 del powerline_setup
+" set laststatus=2 " Always display the statusline in all windows
+" set showtabline=2 " Always display the tabline, even if there is only one tab
+" set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+" "set rtp+=~/.local/lib/python3.7/site-packages/powerline/bindings/vim/
+" "set rtp+=/usr/lib/python3.4/site-packages/powerline/bindings/vim/
+
+" disable vim powerline
+" let g:powerline_loaded = 1
+
+" }}}
+
+" -----------------------------------------------------------------------------
+" Key Mappings and remappings {{{
+" -----------------------------------------------------------------------------
+
+" set <leader> mapping key
+" let mapleader = '\'
+" let mapleader      = ' '
+" let maplocalleader = ' '
+
+" man lookup is annoying sometimes
+" map K <nop>
+
+" map - n, v, o
+" map! - c, i
+" lmap - c, i, l
+
+" git diff
+" nnoremap <<F10> :!git diff --patch-with-stat -M90 --no-ext-diff --color=always HEAD<cr>
+" nnoremap <leader>g
+
+" dont use non-vi keys!
+
+" REPL config / repl-vim
+nnoremap <leader>1 :REPLToggle<Cr>
+let g:sendtorepl_invoke_key = "<leader>2"
+let g:repl_program = {
+            \   "python": "ipython3",
+            \   "default": "bash"
+            \   }
+
+" Open new line below and above current line
+" nnoremap <leader>o o<esc>
+"
+" nnoremap <leader>O O<esc>
+
+" Jump list (to newer position)
+" nnoremap <C-p> <C-i>
+
+" jk | Escaping!
+" inoremap jk <Esc>
+" xnoremap jk <Esc>
+" cnoremap jk <C-c>
+
+" Save / save
+inoremap <C-s> <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
+nnoremap <leader>w :update<cr>
+" file save
+" noremap <Leader>fs :w<CR>
+
+" Quit / quit
+inoremap <C-Q>     <esc>:q<cr>
+nnoremap <C-Q>     :q<cr>
+vnoremap <C-Q>     <esc>
+nnoremap <Leader>q :q<cr>
+nnoremap <Leader>qq :qa!<cr>
+
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
+
+" Tabs not buffers
+" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-t>     <Esc>:tabnew<CR>
+
+" Tab nvigation leader or funtion <F5>,<F6>,<F7>
+" nnoremap <leader><F5> :tabprevious<CR>
+" nnoremap <leader><F6> :tabnext<CR>
+" nnoremap <leader><F7> :tabnew<CR>
+" inoremap <leader><F5> <Esc>:tabprevious<CR>i
+" inoremap <leader><F6> <Esc>:tabnext<CR>i
+" inoremap <leader><F7> <Esc>:tabnew<CR>
+
+" nnoremap <F5> :tabprevious<CR>
+" nnoremap <F6> :tabnext<CR>
+" nnoremap <F7> :tabnew<CR>
+" inoremap <F5> <Esc>:tabprevious<CR>i
+" inoremap <F6> <Esc>:tabnext<CR>i
+" inoremap <F7> <Esc>:tabnew<CR>
+
+" change buffer vim defined in (FZF module)
+map <F5> :bprev<cr>
+map <F6> :bnex<cr>
+map <F7> :new<cr>
+" map <F8> :enew<CR> "Edit a new, unnamed buffer.
+" leader + b, list all buffer and select the one
+
+" Split, vsiplit and view are created as a buffer not as a tab
+" is define in :help split
+
+" Background color switch
+" noremap <Leader>bl :set background=light<cr>
+" noremap <Leader>bd :set background=dark<cr>
+
+" toggle relative line numbers
+" noremap <Leader>rn :set nu!<cr>
+
+" Syntastic results open, close, next, previous (actually the location list)
+" noremap <Leader>so :Errors<CR>
+" noremap <Leader>sc :lclose<CR>
+" noremap <Leader>sn :lnext<CR>
+" noremap <Leader>sN :lNext<CR>
+" close quickfix, error, and preview windows
+" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
+
+" error next and close
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
+nnoremap ]l :lnext<cr>zz
+nnoremap [l :lprev<cr>zz
+
+" Fix indentation - Map to ( backslash + F7 )
+map <leader>F7 mzgg=G`z
+
+" copy / paste OS clipboard and backwards (compiled vim no clipboard suport)
+vmap <leader><F3> :!xclip -f -sel clip<CR>
+map <leader><F4> :-1r !xclip -o -sel clip<CR>
+
+" Remap 'K'; it's fucking annoying
+" nnoremap K <Nop>
+" vnoremap K <Nop>
+
+" Lazier versions of 'copy all' and 'delete all'
+nmap <leader>5y :%y
+nmap <leader>5d :%d
+
+
+
+" -----------------------------------------------------------------------------
+" Tabs
+" -----------------------------------------------------------------------------
+" nnoremap ]t :tabn<cr>
+" nnoremap [t :tabp<cr>
+
 
 " }}}
 
