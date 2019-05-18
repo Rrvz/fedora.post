@@ -1,4 +1,4 @@
-
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
 " ************************
 " * Ricardo's vim config *
 " ************************
@@ -31,6 +31,11 @@ set history=999             " Increase history (default = 20)
 set undolevels=999          " More undo (default=100)
 set autoread                " reload files if changed externally
 
+" Enable folding
+" set foldmethod=indent
+" set foldlevel=99
+
+
 " ViM Terminal colours
 if has('termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -42,6 +47,7 @@ endif
 " if &term == "xterm-256color"
 "   set t_Co=256
 " endif
+
 " if &term == "screen"
 "   set t_Co=256
 " endif
@@ -123,7 +129,7 @@ endif
 " }}}
 
 " -----------------------------------------------------------------------------
-" Key Mappings {{{
+" Key Mappings and remappings {{{
 " -----------------------------------------------------------------------------
 
 " set <leader> mapping key
@@ -244,11 +250,18 @@ nnoremap [l :lprev<cr>zz
 " Fix indentation - Map to ( backslash + F7 )
 map <leader>F7 mzgg=G`z
 
-" copy / paste OS clipboard to copy and vice versa
+" copy / paste OS clipboard and backwards (compiled vim no clipboard suport)
 vmap <leader><F3> :!xclip -f -sel clip<CR>
 map <leader><F4> :-1r !xclip -o -sel clip<CR>
 
-" Focus, not defined 2018-10-04
+" Remap 'K'; it's fucking annoying
+" nnoremap K <Nop>
+" vnoremap K <Nop>
+
+" Lazier versions of 'copy all' and 'delete all'
+nmap <leader>5y :%y
+nmap <leader>5d :%d
+
 
 
 " -----------------------------------------------------------------------------
@@ -437,6 +450,10 @@ Plug 'sillybun/vim-repl', {'do': './install.sh'}
 Plug 'junegunn/rainbow_parentheses.vim'
 " Comment functions so powerful—no comment necessary.
 Plug 'scrooloose/nerdcommenter'
+Plug 'thaerkh/vim-workspace'
+
+" quickr-preview.vim
+Plug 'ronakg/quickr-preview.vim'
 
 
 " -----------------------------------------------------------------------------
@@ -492,10 +509,12 @@ set background=dark     " Setting dark mode
 
 " Schemes Colours - the italics has to be enabled before Theme/Scheme
 
+" colorscheme solarized
+" let g:solarized_termcolors=256
 " let g:materialmonokai_italic=1
 " colorscheme material-monokai
-" let g:gruvbox_italic=1
-" colorscheme gruvbox
+colorscheme gruvbox
+let g:gruvbox_italic=1
 " colorscheme carbonized-dark
 " colorscheme papaya
 " let g:papaya_gui_color='blue'
@@ -518,8 +537,8 @@ set background=dark     " Setting dark mode
 " let g:airline_theme='onehalfdark'
 " let g:onehalfdark_italic=1
 " set termguicolors
-colorscheme dracula
-let g:dracula_italic = 1
+" colorscheme dracula
+" let g:dracula_italic = 1
 " set lighline theme inside lightline config
 " colorscheme tender
 " let g:lightline = { 'colorscheme': 'tender' }
@@ -530,8 +549,8 @@ let g:dracula_italic = 1
 " highlight Keyword cterm=italic gui=italic
 " highlight type cterm=italic gui=italic
 
-highlight Comment cterm=italic
-highlight htmlArg cterm=italic
+" highlight Comment cterm=italic
+" highlight htmlArg cterm=italic
 
 " set wildmenu
 " set wildmode=longest:full,full
@@ -579,6 +598,11 @@ let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>',
     \  '<etc>', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 
 
+" highlight whitespace in markdown files, though stripping remains disabled by the blacklist
+autocmd FileType markdown EnableWhitespace
+" Do not modify kernel files, even though their type is not blacklisted and highlighting is enabled
+autocmd BufRead /usr/src/linux* DisableStripWhitespaceOnSave
+       
 " -----------------------------------------------------------------------------
 " Customization for Rainbow Parentheses
 " -----------------------------------------------------------------------------
@@ -865,8 +889,19 @@ let g:NERDToggleCheckAllLines = 1
 " Nerdtree, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
 
-autocmd vimenter * NERDTree
+augroup nerd_loader
+  autocmd!
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter,BufNew *
+        \  if isdirectory(expand('<amatch>'))
+        \|   call plug#load('nerdtree')
+        \|   execute 'autocmd! nerd_loader'
+        \| endif
+augroup END
+
+" autocmd vimenter * NERDTree
 " autocmd StdinReadPre * let s:std_in=1
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen = 1
@@ -965,7 +1000,7 @@ let g:NERDTreeShowIgnoredStatus = 1
 " -----------------------------------------------------------------------------
 " vim-workspace config
 " -----------------------------------------------------------------------------
-
+" nnoremap <leader>\ :ToggleWorkspace<CR>
 " " config workspace
 " let g:workspace_powerline_separators = 1
 " let g:workspace_tab_icon = "\uf00a"
@@ -1074,7 +1109,7 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 
 
 " -----------------------------------------------------------------------------
-" A command-line fuzzy finder {{{
+" A command-line fuzzy finder
 " -----------------------------------------------------------------------------
 
 " This is the default extra key bindings
@@ -1123,23 +1158,22 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-" }}}
 
 " }}}
-" test
-"
+
 
 " -----------------------------------------------------------------------------
-"  My .vimrc plugin and funtion last part  
+"  My .vimrc plugin and funtions that need to be at the bottom,
+"  each time you mod listen to started from the bottorm now we're here
 " -----------------------------------------------------------------------------
 
 " How do I solve issues after re-sourcing my vimrc
 " Try adding this to the bottom of your vimrc
-
 if exists("g:loaded_webdevicons")
   call webdevicons#refresh()
 endif
-                
+
 " Reload .vimrc config
-autocmd! bufwritepost .vimrc source %
-" autocmd bufwritepost .vimrc source $MYVIMRC           
+" added | AirlineRefresh to fix the squares loss of airline colors 
+" autocmd! bufwritepost .vimrc source % | AirlineRefresh
+" autocmd bufwritepost .vimrc source $MYVIMRC
