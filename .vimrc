@@ -336,14 +336,14 @@ let g:gruvbox_italic=1
 " -----------------------------------------------------------------------------
 " vim-better-whitespace plugin config
 " -----------------------------------------------------------------------------
-    
+
 let g:better_whitespace_ctermcolor='yellow'
 let g:better_whitespace_guicolor='yellow'
 let g:better_whitespace_enabled = 1
 let g:strip_whitespace_on_save = 1
 let g:better_whitespace_operator='_s'
 let g:strip_whitespace_confirm=0
-let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>', 
+let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>',
     \  '<etc>', 'diff', 'gitcommit', 'unite', 'qf', 'help']
 
 
@@ -351,7 +351,7 @@ let g:better_whitespace_filetypes_blacklist=['<filetype1>', '<filetype2>',
 autocmd FileType markdown EnableWhitespace
 " Do not modify kernel files, even though their type is not blacklisted and highlighting is enabled
 autocmd BufRead /usr/src/linux* DisableStripWhitespaceOnSave
-       
+
 " -----------------------------------------------------------------------------
 " Customization for Rainbow Parentheses
 " -----------------------------------------------------------------------------
@@ -1182,6 +1182,6 @@ if exists("g:loaded_webdevicons")
 endif
 
 " Reload .vimrc config
-" added | AirlineRefresh to fix the squares loss of airline colors 
+" added | AirlineRefresh to fix the squares loss of airline colors
 " autocmd! bufwritepost .vimrc source % | AirlineRefresh
 " autocmd bufwritepost .vimrc source $MYVIMRC
