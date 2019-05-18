@@ -22,13 +22,13 @@ String_X0="strict="
 String_X1="strict=False"
 if [ ! -z $(grep "$String_X0" "$File_X0") ]; then
     if [ ! -z $(grep "$String_X1" "$File_X0") ]; then
-        echo "$String_X1 value is already in file"
+        echo "String_X1 value is already in file"
     else
         sudo sed -i "/$String_X0/c $String_X1" $File_X0
     fi
 else
 sudo bash -c "echo "$String_X0" >> /etc/dnf/dnf.conf"
-echo "$String_X1 value added to $File_X0"
+echo "String_X1 value added to $File_X0"
 fi
 
 # add RPM-Fusion to system-wide
@@ -106,7 +106,12 @@ sudo dnf install -y pipenv
 # sudo dnf install -y thonny
 
 sudo dnf install -y rubygems
-gem install lolcat
+
+if [[ $(gem list -i lolcat| grep 'true') ]]; then
+    echo "locat installed"
+else
+    gem install lolcat
+fi
 
 ls -ls | lolcat
 
@@ -125,7 +130,13 @@ sudo npm install -g vtop
 # Powerline for fedora install
 sudo dnf install -y powerline
 
-echo "
+File_X3="$HOME/.bashrc"
+String_X3="POWERLINE_BASH_CONTINUATION"
+
+if [ ! -z $(grep "$String_X3" "$File_X3" ) ]; then
+    echo "String_X3 value is already in file"
+else
+    echo "
 # Source for powerline
 if [ -f `which powerline-daemon` ]; then
   powerline-daemon -q
@@ -133,7 +144,8 @@ if [ -f `which powerline-daemon` ]; then
   POWERLINE_BASH_SELECT=1
   . /usr/share/powerline/bash/powerline.sh
 fi
-" >> ~/.bashrc
+" >> $File_X3
+fi
 
 # load git json module
 # mkdir -p ~/.config/powerline
