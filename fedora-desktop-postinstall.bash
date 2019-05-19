@@ -25,7 +25,7 @@ sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx libg
 
 sudo dnf -y install gstreamer-plugins-base gstreamer1-plugins-base gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer1-plugins-ugly gstreamer-plugins-good-extras gstreamer1-plugins-good-extras gstreamer1-plugins-bad-freeworld ffmpeg gstreamer-ffmpeg
 
-sudo dnf install -y radvd tcpdump git
+sudo dnf install -y radvd tcpdump git diff colordiff
 
 
 #install desktop environment
@@ -80,7 +80,7 @@ sudo dnf install -y chrome-gnome-shell #nome-shell-extension-dash-to-dock gir1.2
 #dnf install xorg-x11-drv-nouveau
 
 # install vim 8.4
-sudo dnf install -y vim xclip xsel
+sudo dnf install -y vim vim-X11 xclip xsel
 
 sudo dnf install -y vim open-vm-tools sos wget mlocate net-tools which man htop wget curl lynx traceroute jwhois htop telnet openssh perl ftp deltarpm colorize bash-completion bind-utils ldns ldns-utils chrony rng-tools subnetcalc ipv6calc ipcalc gcc lshw setools-console inotify-tools tcpdump wireshark dstat sysstat ansible psmisc tree sshpass
 sudo dnf install -y nload iftop iptraf nethogs bmon bwm-ng nmap iperf iperf3

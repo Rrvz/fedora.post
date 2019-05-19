@@ -20,8 +20,8 @@ sudo dnf update -y
 File_X0="/etc/dnf/dnf.conf"
 String_X0="strict="
 String_X1="strict=False"
-if [ ! -z $(grep "$String_X0" "$File_X0") ]; then
-    if [ ! -z $(grep "$String_X1" "$File_X0") ]; then
+if [[ ! -z $(grep "$String_X0" "$File_X0") ]]; then
+    if [[ ! -z $(grep "$String_X1" "$File_X0") ]]; then
         echo "String_X1 value is already in file"
     else
         sudo sed -i "/$String_X0/c $String_X1" $File_X0
@@ -36,7 +36,7 @@ sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-r
 
 # Install main packages
 sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
-sudo dnf install -y radvd tcpdump git
+sudo dnf install -y radvd tcpdump git diff colordiff
 
 # Install desktop environment
 # sudo dnf install -y switchdesk switchdesk-gui
@@ -88,7 +88,7 @@ sudo dnf install -y the_silver_searcher
 # dnf install xorg-x11-drv-nouveau
 
 # install vim 8.4
-sudo dnf install -y vim xclip xsel
+sudo dnf install -y vim vim-X11 xclip xsel
 
 sudo dnf install -y vim open-vm-tools sos wget mlocate net-tools which man htop wget curl lynx traceroute jwhois htop telnet openssh perl ftp deltarpm colorize bash-completion bind-utils ldns ldns-utils chrony rng-tools subnetcalc ipv6calc ipcalc gcc lshw setools-console inotify-tools tcpdump wireshark dstat sysstat ansible psmisc tree sshpass
 sudo dnf install -y nload iftop iptraf nethogs bmon bwm-ng nmap iperf iperf3
@@ -108,7 +108,8 @@ sudo dnf install -y pipenv
 sudo dnf install -y rubygems
 
 if [[ $(gem list -i lolcat| grep 'true') ]]; then
-    echo "locat is already installed"
+    # echo "locat is already installed"
+    :
 else
     gem install lolcat
 fi
@@ -139,15 +140,26 @@ File_X3="$HOME/.bashrc"
 String_X3="POWERLINE_BASH_CONTINUATION"
 
 if [ ! -z $(grep "$String_X3" "$File_X3" ) ]; then
-    echo "String_X3 value is already in file"
+    # echo "String_X3 value is already in file"
+    :
 else
     echo "
-# Source for powerline
-if [ -f `which powerline-daemon` ]; then
-  powerline-daemon -q
-  POWERLINE_BASH_CONTINUATION=1
-  POWERLINE_BASH_SELECT=1
-  . /usr/share/powerline/bash/powerline.sh
+" >> $File_X3
+fi
+
+# alias for vimx support clipboard
+File_X3="$HOME/.bashrc"
+String_X3="alias vi='vimx'"
+String_X4="alias vim='vimx'"
+
+if [[ ! -z $(grep "$String_X3" "$File_X3" ) ]]; then
+    :
+else
+    echo "
+# Alias for vimx or vim-X11
+if [ -f `which vimx` ]; then
+alias vi='vimx'
+alias vim='vimx'
 fi
 " >> $File_X3
 fi
