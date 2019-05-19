@@ -8,6 +8,11 @@
 " Definitions and autodownloads and installers {{{
 " -----------------------------------------------------------------------------
 
+" Vim makes this easy:
+    " Press Ctrl + w (cmd + w in a Mac).
+    " Press v (for vertical) or h (for horizontal).
+
+
 " Comment out the current line or text selected in visual mode.
 " leader >cc
 " uncomment in visual mode leader >c space
@@ -910,7 +915,6 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " }}}
 
-
 " -----------------------------------------------------------------------------
 " Defaults paratemers from vimrc, terminal type, colours {{{
 " ----------------------------------------------------------------------------
@@ -919,7 +923,7 @@ set viminfo='20,\"50    " read/write a .viminfo file, don't store more
                         " than 50 lines of registers
 set ruler               " show the cursor position all the time
 ""set number            " Show line numbers in vim
-" set showcmd           " show leader when press and others command
+set showcmd           " show leader and others commands when pressed 
 set hidden              " Keep undo history when switching between a buffers
 
 " --- history / file handling ---
@@ -999,15 +1003,19 @@ endif
 
 " make funtion to toggle mouse use
 " set mouse=a
+" set mouse=a
 
-" set clipboard=unnamed
-"if has('clipboard')
-"    if has('unnamedplus')  " When possible use + register for copy-paste
-"        set clipboard=unnamed,unnamedplus
-"    else         " On mac and Windows, use * register for copy-paste
-"        set clipboard=unnamed
-"    endif
-"endif
+" yy will go to the system's clipboard, instead of Vim's unnamed register,
+" and p will paste the system's clipboard. using vimx or vim-X11 for plus
+if has('clipboard')
+   if has('unnamedplus')  " When possible use + register for copy-paste
+       set clipboard=unnamed,unnamedplus
+   else         " On mac and Windows, use * register for copy-paste
+       set clipboard=unnamed
+   endif
+endif
+" Prevent Vim from clearing the clipboard on exit
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " powerline-status vim statusline
 " python3 from powerline.vim import setup as powerline_setup
@@ -1116,6 +1124,7 @@ endif
 map <F5> :bprev<cr>
 map <F6> :bnex<cr>
 map <F7> :new<cr>
+noremap <Leader><F5> :bd<CR>
 " map <F8> :enew<CR> "Edit a new, unnamed buffer.
 " leader + b, list all buffer and select the one
 
@@ -1123,8 +1132,8 @@ map <F7> :new<cr>
 " is define in :help split
 
 " Background color switch
-" noremap <Leader>bl :set background=light<cr>
-" noremap <Leader>bd :set background=dark<cr>
+" noremap <Leader>b1 :set background=light<cr>
+" noremap <Leader>b2 :set background=dark<cr>
 
 " toggle relative line numbers
 " noremap <Leader>rn :set nu!<cr>
@@ -1144,9 +1153,9 @@ nnoremap ]l :lnext<cr>zz
 nnoremap [l :lprev<cr>zz
 
 " Fix indentation - Map to ( backslash + F7 )
-map <leader>F7 mzgg=G`z
+" map <leader>F7 mzgg=G`z
 
-" copy / paste OS clipboard and backwards (compiled vim no clipboard suport)
+" copy / paste OS clipboard and backwards (compiled vim no +clipboard suport)
 vmap <leader><F3> :!xclip -f -sel clip<CR>
 map <leader><F4> :-1r !xclip -o -sel clip<CR>
 
@@ -1158,6 +1167,11 @@ map <leader><F4> :-1r !xclip -o -sel clip<CR>
 nmap <leader>5y :%y
 nmap <leader>5d :%d
 
+" copy and paste to the register * (compiled vim no +clipboard suport)
+" noremap <Leader>y "*y
+" noremap <Leader>p "*p
+" noremap <Leader>Y "+y
+" noremap <Leader>P "+p
 
 
 " -----------------------------------------------------------------------------
