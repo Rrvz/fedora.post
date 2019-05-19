@@ -36,7 +36,7 @@ sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-r
 
 # Install main packages
 sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
-sudo dnf install -y radvd tcpdump git diff colordiff
+sudo dnf install -y radvd tcpdump git diffutil colordiff
 
 # Install desktop environment
 # sudo dnf install -y switchdesk switchdesk-gui
@@ -63,7 +63,7 @@ sudo dnf install python3-pip
 #which pip3
 sudo python3 -m pip install -U pip
 
-sudo pip install --upgrade python
+# sudo pip install --upgrade python
 sudo pip install pathlib2 lxml requests-ftp wrapt
 sudo pip install --upgrade pip
 
