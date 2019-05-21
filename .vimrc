@@ -197,7 +197,7 @@ nmap <leader>5d :%d
 
 " -----------------------------------------------------------------------------
 " Vim-plug plugin installers {{{
-" ----------------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -1063,6 +1063,19 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+
+" -----------------------------------------------------------------------------
+" ronakg/quickr-preview config
+" -----------------------------------------------------------------------------
+" If you want to use your own key mappings, disable the default key mappings
+let g:quickr_preview_keymaps = 0
+" Define custom key mappings
+" nmap <leader>p <plug>(quickr_preview)
+" nmap <leader>q <plug>(quickr_preview_qf_close)
+" Valid values are above, below, left, or right
+" let g:quickr_preview_position = 'above'
+
 
 " }}}
 
