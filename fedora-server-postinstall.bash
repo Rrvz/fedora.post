@@ -36,7 +36,11 @@ sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-r
 
 # Install main packages
 sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
-sudo dnf install -y radvd tcpdump git diffutil colordiff
+sudo dnf install -y radvd tcpdump git diffutils colordiff
+
+# Normal installation developer packages
+sudo dnf install -y cmake gcc-c++ make python3-devel ncurses-compat-libs
+sudo dnf install -y automake cmake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
 
 # Install desktop environment
 # sudo dnf install -y switchdesk switchdesk-gui
@@ -147,7 +151,7 @@ else
 " >> $File_X3
 fi
 
-# alias for vimx support clipboard
+# aliases for vimx support clipboard
 File_X3="$HOME/.bashrc"
 String_X3="alias vi='vimx'"
 String_X4="alias vim='vimx'"
@@ -156,7 +160,7 @@ if [[ ! -z $(grep "$String_X3" "$File_X3" ) ]]; then
     :
 else
     echo "
-# Alias for vimx or vim-X11
+# Aliases for vimx or vim-X11
 if [ -f `which vimx` ]; then
 alias vi='vimx'
 alias vim='vimx'
