@@ -44,7 +44,158 @@ endif
 
 " }}}
 
+"" -----------------------------------------------------------------------------
+" Key Mappings and remappings {{{
 " -----------------------------------------------------------------------------
+
+" set <leader> mapping key
+" let mapleader = '\'
+" let mapleader      = ' '
+" let maplocalleader = ' '
+
+" man lookup is annoying sometimes
+" map K <nop>
+
+" map - n, v, o
+" map! - c, i
+" lmap - c, i, l
+
+" git diff
+" nnoremap <<F10> :!git diff --patch-with-stat -M90 --no-ext-diff --color=always HEAD<cr>
+" nnoremap <leader>g
+
+" dont use non-vi keys!
+
+" REPL config / repl-vim
+nnoremap <leader>1 :REPLToggle<Cr>
+let g:sendtorepl_invoke_key = "<leader>2"
+let g:repl_program = {
+            \   "python": "ipython3",
+            \   "default": "bash"
+            \   }
+
+" Open new line below and above current line
+" nnoremap <leader>o o<esc>
+"
+" nnoremap <leader>O O<esc>
+
+" Jump list (to newer position)
+" nnoremap <C-p> <C-i>
+
+" jk | Escaping!
+" inoremap jk <Esc>
+" xnoremap jk <Esc>
+" cnoremap jk <C-c>
+
+" Save / save
+inoremap <C-s> <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
+nnoremap <leader>w :update<cr>
+" file save
+" noremap <Leader>fs :w<CR>
+
+" Quit / quit
+inoremap <C-Q>     <esc>:q<cr>
+nnoremap <C-Q>     :q<cr>
+vnoremap <C-Q>     <esc>
+nnoremap <Leader>q :q<cr>
+nnoremap <Leader>qq :qa!<cr>
+
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
+
+" Tabs not buffers
+" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-t>     <Esc>:tabnew<CR>
+
+" Tab nvigation leader or funtion <F5>,<F6>,<F7>
+" nnoremap <leader><F5> :tabprevious<CR>
+" nnoremap <leader><F6> :tabnext<CR>
+" nnoremap <leader><F7> :tabnew<CR>
+" inoremap <leader><F5> <Esc>:tabprevious<CR>i
+" inoremap <leader><F6> <Esc>:tabnext<CR>i
+" inoremap <leader><F7> <Esc>:tabnew<CR>
+
+" nnoremap <F5> :tabprevious<CR>
+" nnoremap <F6> :tabnext<CR>
+" nnoremap <F7> :tabnew<CR>
+" inoremap <F5> <Esc>:tabprevious<CR>i
+" inoremap <F6> <Esc>:tabnext<CR>i
+" inoremap <F7> <Esc>:tabnew<CR>
+
+" change buffer vim defined in (FZF module)
+map <F5> :bprev<cr>
+map <F6> :bnex<cr>
+map <F7> :new<cr>
+noremap <Leader><F5> :bd<CR>
+" map <F8> :enew<CR> "Edit a new, unnamed buffer.
+" leader + b, list all buffer and select the one
+
+" Split, vsiplit and view are created as a buffer not as a tab
+" is define in :help split
+
+" Background color switch
+" noremap <Leader>b1 :set background=light<cr>
+" noremap <Leader>b2 :set background=dark<cr>
+
+" toggle relative line numbers
+" noremap <Leader>rn :set nu!<cr>
+
+" Syntastic results open, close, next, previous (actually the location list)
+" noremap <Leader>so :Errors<CR>
+" noremap <Leader>sc :lclose<CR>
+" noremap <Leader>sn :lnext<CR>
+" noremap <Leader>sN :lNext<CR>
+" close quickfix, error, and preview windows
+" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
+
+" error next and close
+nnoremap ]q :cnext<cr>zz
+nnoremap [q :cprev<cr>zz
+nnoremap ]l :lnext<cr>zz
+nnoremap [l :lprev<cr>zz
+
+" Fix indentation - Map to ( backslash + F7 )
+" map <leader>F7 mzgg=G`z
+
+" copy / paste OS clipboard and backwards (compiled vim no +clipboard suport)
+vmap <leader><F3> :!xclip -f -sel clip<CR>
+map <leader><F4> :-1r !xclip -o -sel clip<CR>
+
+" Remap 'K'; it's fucking annoying
+" nnoremap K <Nop>
+" vnoremap K <Nop>
+
+" Lazier versions of 'copy all' and 'delete all'
+nmap <leader>5y :%y
+nmap <leader>5d :%d
+
+" copy and paste to the register * (compiled vim no +clipboard suport)
+" noremap <Leader>y "*y
+" noremap <Leader>p "*p
+" noremap <Leader>Y "+y
+" noremap <Leader>P "+p
+
+
+" -----------------------------------------------------------------------------
+" Tabs
+" -----------------------------------------------------------------------------
+" nnoremap ]t :tabn<cr>
+" nnoremap [t :tabp<cr>
+
+
+" }}}
+
+ -----------------------------------------------------------------------------
 " Vim-plug plugin installers {{{
 " ----------------------------------------------------------------------------
 
@@ -1029,157 +1180,6 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " disable vim powerline
 " let g:powerline_loaded = 1
-
-" }}}
-
-" -----------------------------------------------------------------------------
-" Key Mappings and remappings {{{
-" -----------------------------------------------------------------------------
-
-" set <leader> mapping key
-" let mapleader = '\'
-" let mapleader      = ' '
-" let maplocalleader = ' '
-
-" man lookup is annoying sometimes
-" map K <nop>
-
-" map - n, v, o
-" map! - c, i
-" lmap - c, i, l
-
-" git diff
-" nnoremap <<F10> :!git diff --patch-with-stat -M90 --no-ext-diff --color=always HEAD<cr>
-" nnoremap <leader>g
-
-" dont use non-vi keys!
-
-" REPL config / repl-vim
-nnoremap <leader>1 :REPLToggle<Cr>
-let g:sendtorepl_invoke_key = "<leader>2"
-let g:repl_program = {
-            \   "python": "ipython3",
-            \   "default": "bash"
-            \   }
-
-" Open new line below and above current line
-" nnoremap <leader>o o<esc>
-"
-" nnoremap <leader>O O<esc>
-
-" Jump list (to newer position)
-" nnoremap <C-p> <C-i>
-
-" jk | Escaping!
-" inoremap jk <Esc>
-" xnoremap jk <Esc>
-" cnoremap jk <C-c>
-
-" Save / save
-inoremap <C-s> <C-O>:update<cr>
-nnoremap <C-s>     :update<cr>
-nnoremap <leader>s :update<cr>
-nnoremap <leader>w :update<cr>
-" file save
-" noremap <Leader>fs :w<CR>
-
-" Quit / quit
-inoremap <C-Q>     <esc>:q<cr>
-nnoremap <C-Q>     :q<cr>
-vnoremap <C-Q>     <esc>
-nnoremap <Leader>q :q<cr>
-nnoremap <Leader>qq :qa!<cr>
-
-" Disable CTRL-A on tmux or on screen
-if $TERM =~ 'screen'
-  nnoremap <C-a> <nop>
-  nnoremap <Leader><C-a> <C-a>
-endif
-
-" Tabs not buffers
-" Tab navigation like Firefox, workingon on GVIM not in vim mapping conflict.
-" nnoremap <C-S-tab> :tabprevious<CR>
-" nnoremap <C-tab>   :tabnext<CR>
-" nnoremap <C-t>     :tabnew<CR>
-" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-" inoremap <C-tab>   <Esc>:tabnext<CR>i
-" inoremap <C-t>     <Esc>:tabnew<CR>
-
-" Tab nvigation leader or funtion <F5>,<F6>,<F7>
-" nnoremap <leader><F5> :tabprevious<CR>
-" nnoremap <leader><F6> :tabnext<CR>
-" nnoremap <leader><F7> :tabnew<CR>
-" inoremap <leader><F5> <Esc>:tabprevious<CR>i
-" inoremap <leader><F6> <Esc>:tabnext<CR>i
-" inoremap <leader><F7> <Esc>:tabnew<CR>
-
-" nnoremap <F5> :tabprevious<CR>
-" nnoremap <F6> :tabnext<CR>
-" nnoremap <F7> :tabnew<CR>
-" inoremap <F5> <Esc>:tabprevious<CR>i
-" inoremap <F6> <Esc>:tabnext<CR>i
-" inoremap <F7> <Esc>:tabnew<CR>
-
-" change buffer vim defined in (FZF module)
-map <F5> :bprev<cr>
-map <F6> :bnex<cr>
-map <F7> :new<cr>
-noremap <Leader><F5> :bd<CR>
-" map <F8> :enew<CR> "Edit a new, unnamed buffer.
-" leader + b, list all buffer and select the one
-
-" Split, vsiplit and view are created as a buffer not as a tab
-" is define in :help split
-
-" Background color switch
-" noremap <Leader>b1 :set background=light<cr>
-" noremap <Leader>b2 :set background=dark<cr>
-
-" toggle relative line numbers
-" noremap <Leader>rn :set nu!<cr>
-
-" Syntastic results open, close, next, previous (actually the location list)
-" noremap <Leader>so :Errors<CR>
-" noremap <Leader>sc :lclose<CR>
-" noremap <Leader>sn :lnext<CR>
-" noremap <Leader>sN :lNext<CR>
-" close quickfix, error, and preview windows
-" noremap <Leader>c :cclose<CR>:pc<CR>:lclose<CR>
-
-" error next and close
-nnoremap ]q :cnext<cr>zz
-nnoremap [q :cprev<cr>zz
-nnoremap ]l :lnext<cr>zz
-nnoremap [l :lprev<cr>zz
-
-" Fix indentation - Map to ( backslash + F7 )
-" map <leader>F7 mzgg=G`z
-
-" copy / paste OS clipboard and backwards (compiled vim no +clipboard suport)
-vmap <leader><F3> :!xclip -f -sel clip<CR>
-map <leader><F4> :-1r !xclip -o -sel clip<CR>
-
-" Remap 'K'; it's fucking annoying
-" nnoremap K <Nop>
-" vnoremap K <Nop>
-
-" Lazier versions of 'copy all' and 'delete all'
-nmap <leader>5y :%y
-nmap <leader>5d :%d
-
-" copy and paste to the register * (compiled vim no +clipboard suport)
-" noremap <Leader>y "*y
-" noremap <Leader>p "*p
-" noremap <Leader>Y "+y
-" noremap <Leader>P "+p
-
-
-" -----------------------------------------------------------------------------
-" Tabs
-" -----------------------------------------------------------------------------
-" nnoremap ]t :tabn<cr>
-" nnoremap [t :tabp<cr>
-
 
 " }}}
 
