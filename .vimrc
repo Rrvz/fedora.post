@@ -357,8 +357,8 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'thaerkh/vim-workspace'
 
-" quickr-preview.vim
-Plug 'ronakg/quickr-preview.vim'
+" quickr-preview.vim (not working - to do 20190621 02:38 pm)
+" Plug 'ronakg/quickr-preview.vim'
 
 
 " -----------------------------------------------------------------------------
@@ -1069,7 +1069,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " ronakg/quickr-preview config
 " -----------------------------------------------------------------------------
 " If you want to use your own key mappings, disable the default key mappings
-let g:quickr_preview_keymaps = 0
+" let g:quickr_preview_keymaps = 0
 " Define custom key mappings
 " nmap <leader>p <plug>(quickr_preview)
 " nmap <leader>q <plug>(quickr_preview_qf_close)
