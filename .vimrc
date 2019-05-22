@@ -20,7 +20,7 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  " autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 
@@ -418,8 +418,10 @@ set background=dark     " Setting dark mode
 " let g:solarized_termcolors=256
 " let g:materialmonokai_italic=1
 " colorscheme material-monokai
-colorscheme gruvbox
-let g:gruvbox_italic=1
+" colorscheme gruvbox
+" let g:gruvbox_italic=1
+colorscheme dracula
+let g:dracula_italic = 1
 " colorscheme carbonized-dark
 " colorscheme papaya
 " let g:papaya_gui_color='blue'
@@ -442,8 +444,6 @@ let g:gruvbox_italic=1
 " let g:airline_theme='onehalfdark'
 " let g:onehalfdark_italic=1
 " set termguicolors
-" colorscheme dracula
-" let g:dracula_italic = 1
 " set lighline theme inside lightline config
 " colorscheme tender
 " let g:lightline = { 'colorscheme': 'tender' }
@@ -751,7 +751,8 @@ let g:closetag_filetypes = 'html,xhtml,phtml'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx'
 
 " integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+" This will make the list of non-closing tags case-sensitive 
+" (e.g. `<Link>` will be closed while `<link>` won't.)
 let g:closetag_emptyTags_caseSensitive = 1
 
 " Shortcut for closing tags, default is '>'
@@ -794,23 +795,13 @@ let g:NERDToggleCheckAllLines = 1
 " Nerdtree, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
 
-augroup nerd_loader
-  autocmd!
-  autocmd VimEnter * silent! autocmd! FileExplorer
-  autocmd BufEnter,BufNew *
-        \  if isdirectory(expand('<amatch>'))
-        \|   call plug#load('nerdtree')
-        \|   execute 'autocmd! nerd_loader'
-        \| endif
-augroup END
-
 " autocmd vimenter * NERDTree
+" autocmd vimenter .vimrc NERDTree
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen = 1
-
 " nerdtree Show hidden files
 " let NERDTreeShowHidden = 1
 
@@ -1210,5 +1201,5 @@ endif
 
 " Reload .vimrc config
 " added | AirlineRefresh to fix the squares loss of airline colors
-" autocmd! bufwritepost .vimrc source % | AirlineRefresh
+autocmd! bufwritepost .vimrc source % | AirlineRefresh
 " autocmd bufwritepost .vimrc source $MYVIMRC
