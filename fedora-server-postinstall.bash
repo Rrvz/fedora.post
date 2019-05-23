@@ -156,7 +156,7 @@ if [ -f `which powerline-daemon` ]; then
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
   # . /usr/share/powerline/bash/powerline.sh
-  . ~/.ocal/lib/python3.4/site-packages/powerline/bindings/bash/powerline.sh
+  . ~/.local/lib/python3.4/site-packages/powerline/bindings/bash/powerline.sh
 fi
 " >> $File_X3
 fi
