@@ -12,6 +12,8 @@ x               ALL=(ALL)       NOPASSWD: ALL
 sudo chown root:root ./local-sudoers
 sudo mv ./local-sudoers /etc/sudoers.d/
 
+sudo dnf install kernel kernel-devel
+
 sudo dnf update -y
 
 # Fix dnf problem unable to install because a : No match for argument:
@@ -148,6 +150,14 @@ if [ ! -z $(grep "$String_X3" "$File_X3" ) ]; then
     :
 else
     echo "
+# Source for powerline
+if [ -f `which powerline-daemon` ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  # . /usr/share/powerline/bash/powerline.sh
+  . ~/.ocal/lib/python3.4/site-packages/powerline/bindings/bash/powerline.sh
+fi
 " >> $File_X3
 fi
 
