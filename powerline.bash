@@ -1,4 +1,4 @@
-# user specific
+# User specific
 
 # Change script to match OS version and python 20190109 17:47
 
@@ -20,7 +20,8 @@ then
 else
     echo "Code not found in $FileX0, installing code for poweline from source"
 cat >> ~/.bashrc << EOF
- if [ -f `which powerline-daemon` ]; then
+# Source for powerline from git or OS package
+if [ -f `which powerline-daemon` ]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
@@ -29,23 +30,24 @@ fi
 EOF
 fi
 
-#check if file powerline font exists or directory
+# Check if file powerline font exists or directory
 File="$HOME/.local/share/fonts/DejaVu Sans Mono for Powerline.ttf"
 if [ -f "$File" ]
     then
         echo "Powerline Fonts already installed..."
 else
         echo "Installing Powerline Fonts from source..."
-# clone
+# Clone
 git clone https://github.com/powerline/fonts.git --depth=1
-# install
+
+# Install
 cd fonts
 ./install.sh
 # clean-up a bit
 cd .. && rm -rf fonts
 fi
 
-#check if code/word for powerline exists for local .vimrc file
+# check if code/word for powerline exists for local .vimrc file
 VarX0='set laststatus=2'
 FileX0=~/.vimrc
 
@@ -67,7 +69,7 @@ set t_Co=256
 EOF
 fi
 
-#check if code/word for tabs exists for local .vimrc file
+# Check if code/word for tabs exists for local .vimrc file
 VarX0='set tabstop=4'
 FileX0=~/.vimrc
 

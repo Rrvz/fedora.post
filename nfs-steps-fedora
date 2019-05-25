@@ -1,4 +1,4 @@
-
+# refidosma stuff
 showmount -e DNS or IPv6/IPv4
 ex:
 showmount -e srv1.local

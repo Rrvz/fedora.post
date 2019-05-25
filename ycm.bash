@@ -1,8 +1,9 @@
 # ImportError: libtinfo.so.5: cannot open shared object file
-sudo dnf install -y ncurses-compat-libs
+# sudo dnf install -y ncurses-compat-libs
 
 # Normal installation developer suff
-sudo dnf install cmake gcc-c++ make python3-devel
+sudo dnf install cmake gcc-c++ make python3-devel ncurses-compat-libs
+
 sudo dnf install -y automake cmake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
 sudo dnf install -y mono-devel golang rust cargo
 
@@ -32,5 +33,9 @@ cd ~/.vim/plugged/YouCompleteMe/
 ./install.py --all
 # ./install.py --all
 
-#
+# data
 dnf config-manager --set-enable update mono-deve
+
+
+
+

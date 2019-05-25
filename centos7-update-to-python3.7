@@ -1,0 +1,17 @@
+sudo yum install gcc openssl-devel bzip2-devel libffi-devel -y
+
+cd /usr/src
+sudo wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
+sudo tar xzf Python-3.7.3.tgz
+
+cd /usr/src/Python-3.7.3
+sudo ./configure --enable-optimizations
+sudo make altinstall
+
+sudo rm -rf /usr/src/Python-3.7.3.tgz
+
+# substitute python from the os
+
+cd /usr/src/Python-3.7.3
+time sudo ./configure --enable-optimizations
+time sudo make install

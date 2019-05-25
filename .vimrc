@@ -243,6 +243,16 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
 " -----------------------------------------------------------------------------
+" snippets and engine plugins
+" -----------------------------------------------------------------------------
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+
+" -----------------------------------------------------------------------------
 " other pluging installers
 " -----------------------------------------------------------------------------
 
@@ -628,16 +638,23 @@ let g:gitgutter_sign_removed = '–'
 " let g:gitgutter_override_sign_column_highlight = 0
 
 set updatetime=100
-"set updatetime=100
 let g:gitgutter_max_signs = 500     " default value
 let g:gitgutter_enabled = 1
-let g:gitgutter_signs = 1
+let g:gitgutter_signs = 0
 " let g:gitgutter_highlight_lines = 1
 
+"If you don't want vim-gitgutter to set up any mappings at all, use this:
+let g:gitgutter_map_keys = 0
+
+" Manual Mappings for gitgutter
+nmap <leader>r1 :GitGutterSignsToggle<cr>
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-"" If you don't want vim-gitgutter to set up any mappings at all
+" If you really want to update the signs when you save a file
+" autocmd BufWritePost * GitGutter
+
+" If you don't want vim-gitgutter to set up any mappings at all
 " let g:gitgutter_map_keys = 0
 " let g:gitgitter_suppress_warnings
 
@@ -751,7 +768,7 @@ let g:closetag_filetypes = 'html,xhtml,phtml'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx'
 
 " integer value [0|1]
-" This will make the list of non-closing tags case-sensitive 
+" This will make the list of non-closing tags case-sensitive
 " (e.g. `<Link>` will be closed while `<link>` won't.)
 let g:closetag_emptyTags_caseSensitive = 1
 
@@ -1067,6 +1084,19 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " Valid values are above, below, left, or right
 " let g:quickr_preview_position = 'above'
 
+" -----------------------------------------------------------------------------
+" snippets and engine plugins
+" -----------------------------------------------------------------------------
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
 
 " }}}
 
@@ -1078,7 +1108,7 @@ set viminfo='20,\"50    " read/write a .viminfo file, don't store more
                         " than 50 lines of registers
 set ruler               " show the cursor position all the time
 ""set number            " Show line numbers in vim
-set showcmd           " show leader and others commands when pressed 
+set showcmd           " show leader and others commands when pressed
 set hidden              " Keep undo history when switching between a buffers
 
 " --- history / file handling ---
