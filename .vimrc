@@ -48,6 +48,9 @@ endif
 " Key Mappings and remappings {{{
 " -----------------------------------------------------------------------------
 
+" for help with current mapping keys
+" :map :nmap :vmap :imap
+" to look for info about the map :map (key), ejemplo: :map c, :map y
 " set <leader> mapping key
 " let mapleader = '\'
 " let mapleader      = ' '
@@ -147,7 +150,7 @@ noremap <Leader><F5> :bd<CR>
 " noremap <Leader>b1 :set background=light<cr>
 " noremap <Leader>b2 :set background=dark<cr>
 
-" toggle relative line numbers
+" toggle rnlative line numbers
 " noremap <Leader>rn :set nu!<cr>
 
 " Syntastic results open, close, next, previous (actually the location list)
@@ -167,17 +170,21 @@ nnoremap [l :lprev<cr>zz
 " Fix indentation - Map to ( backslash + F7 )
 " map <leader>F7 mzgg=G`z
 
-" copy / paste OS clipboard and backwards (compiled vim no +clipboard suport)
-vmap <leader><F3> :!xclip -f -sel clip<CR>
-map <leader><F4> :-1r !xclip -o -sel clip<CR>
-
 " Remap 'K'; it's fucking annoying
 " nnoremap K <Nop>
 " vnoremap K <Nop>
 
+" -----------------------------------------------------------------------------
+" copy / paste mappings
+" -----------------------------------------------------------------------------
+
 " Lazier versions of 'copy all' and 'delete all'
 nmap <leader>5y :%y
 nmap <leader>5d :%d
+
+" copy / paste OS clipboard and backwards (compiled vim no +clipboard suport)
+" vmap <leader><F3> :!xclip -f -sel clip<CR>
+" map <leader><F4> :-1r !xclip -o -sel clip<CR>
 
 " copy and paste to the register * (compiled vim no +clipboard suport)
 " noremap <Leader>y "*y
@@ -185,6 +192,13 @@ nmap <leader>5d :%d
 " noremap <Leader>Y "+y
 " noremap <Leader>P "+p
 
+
+" -----------------------------------------------------------------------------
+" Timestamp mappings
+" -----------------------------------------------------------------------------
+
+nnoremap <leader>tt "=strftime("%c")<CR>P
+inoremap <leader>tt <C-R>=strftime("%c")<CR>
 
 " -----------------------------------------------------------------------------
 " Tabs
@@ -674,9 +688,10 @@ nmap [h <Plug>GitGutterPrevHunk
 
 
 " -----------------------------------------------------------------------------
-" fzf plugin config
+" fzf plugin config and fzf mappings
 " -----------------------------------------------------------------------------
 
+" nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 " Search and switch buffers
 nmap <leader>b :Buffers<cr>
 " Find files by name under the current directory
@@ -813,7 +828,7 @@ let g:NERDToggleCheckAllLines = 1
 " -----------------------------------------------------------------------------
 
 " autocmd vimenter * NERDTree
-" autocmd vimenter .vimrc NERDTree
+autocmd vimenter .vimrc NERDTree
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -1062,7 +1077,7 @@ nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :Files<CR>
 
 " Mapping selecting mappings
-"nmap <leader><tab> <plug>(fzf-maps-n)
+nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
@@ -1076,6 +1091,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " -----------------------------------------------------------------------------
 " ronakg/quickr-preview config
 " -----------------------------------------------------------------------------
+
 " If you want to use your own key mappings, disable the default key mappings
 " let g:quickr_preview_keymaps = 0
 " Define custom key mappings
@@ -1087,7 +1103,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " -----------------------------------------------------------------------------
 " snippets and engine plugins
 " -----------------------------------------------------------------------------
-
+" pending to configure Sat 25 May 2019 04:46:27 PM AST
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -1095,8 +1111,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-
-
 
 " }}}
 
@@ -1116,9 +1130,12 @@ set history=999             " Increase history (default = 20)
 set undolevels=999          " More undo (default=100)
 set autoread                " reload files if changed externally
 
-" Enable folding
-" set foldmethod=indent
-" set foldlevel=99
+"folding settings
+" set foldmethod=indent   "fold based on indent
+" set foldnestmax=3       "deepest fold is 3 levels
+" set nofoldenable        "dont fold by default
+" set foldtext=MyFoldText()
+" set fillchars=vert:\|
 
 
 " ViM Terminal colours
@@ -1156,6 +1173,22 @@ set directory=/tmp//,.
 if v:version >= 703
   set undodir=/tmp//,.
 endif
+
+" display a warning if fileformat isnt unix
+" set statusline+=%#warningmsg#
+" set statusline+=%{&ff!='unix'?'['.&ff.']':''}
+" set statusline+=%*
+
+" display a warning if file encoding isnt utf-8
+" set statusline+=%#warningmsg#
+" set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
+" set statusline+=%*
+
+" read only flag
+" set statusline+=%#identifier#
+" set statusline+=%r
+" set statusline+=%*
+
 
 " }}}
 
