@@ -180,7 +180,7 @@ nnoremap [l :lprev<cr>zz
 
 " Lazier versions of 'copy all' and 'delete all'
 nmap <leader>5y :%y<cr>
-nmap <leader>5d :%d
+nmap <leader>5d :%d<cr>
 
 " copy / paste OS clipboard and backwards (compiled vim no +clipboard suport)
 " vmap <leader><F3> :!xclip -f -sel clip<CR>
