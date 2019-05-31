@@ -20,7 +20,7 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  " autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 
@@ -179,7 +179,7 @@ nnoremap [l :lprev<cr>zz
 " -----------------------------------------------------------------------------
 
 " Lazier versions of 'copy all' and 'delete all'
-nmap <leader>5y :%y
+nmap <leader>5y :%y<cr>
 nmap <leader>5d :%d
 
 " copy / paste OS clipboard and backwards (compiled vim no +clipboard suport)
@@ -291,7 +291,7 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
 " Post-update hooks
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 

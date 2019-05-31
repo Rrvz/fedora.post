@@ -6,7 +6,12 @@ pip uninstall --yes powerline-status
 pip3 uninstall --yes powerline-status
 
 pip3 install --user --upgrade lxml
-pip3 install --user git+git://github.com/powerline/powerline
+
+# powerline urrent development version
+pip install --user powerline-status
+
+# powerline urrent development version
+# pip3 install --user git+git://github.com/powerline/powerline
 pip3 show powerline-status
 
 VarX0="powerline-daemon -q"
@@ -19,16 +24,49 @@ then
     echo "Powerline Code found in $FileX0"
 else
     echo "Code not found in $FileX0, installing code for poweline from source"
-cat >> ~/.bashrc << EOF
+cat >> ~/.bashrc << 'EOF'
 # Source for powerline from git or OS package
 if [ -f `which powerline-daemon` ]; then
-  powerline-daemon -q
-  POWERLINE_BASH_CONTINUATION=1
-  POWERLINE_BASH_SELECT=1
-. $repository_root/powerline/bindings/bash/powerline.sh
+    powerline-daemon -q
+    POWERLINE_BASH_CONTINUATION=1
+    POWERLINE_BASH_SELECT=1
+EOF
+cat >> ~/.bashrc << EOF
+    . $repository_root/powerline/bindings/bash/powerline.sh
 fi
 EOF
+    echo "Executing powerline reload"
 fi
+
+# reload powerline for bash
+powerline-daemon --replace
+
+# reload powerline for zsh
+# powerline-config --reload
+
+# for powerline from OS
+# VarX0="powerline-daemon -q"
+# FileX0=~/.bashrc
+# PPathX0=bindings/bash/powerline.sh
+# repository_root=$(pip3 show powerline-status | grep Location | awk '{print $2;}')
+#
+# if grep -Eq  "$VarX0" "$FileX0"
+# then
+#     echo "Powerline Code found in $FileX0"
+# else
+#     echo "Code not found in $FileX0, installing code for poweline from source"
+# cat >> ~/.bashrc << EOF
+# # Source for powerline from git or OS package
+# if [ -f `which powerline-daemon` ]; then
+#   powerline-daemon -q
+#   POWERLINE_BASH_CONTINUATION=1
+#   POWERLINE_BASH_SELECT=1
+# . /usr/share/powerline/bash/powerline.sh
+# # $repository_root/powerline/bindings/bash/powerline.sh
+# fi
+# EOF
+# fi
+#
 
 # Check if file powerline font exists or directory
 File="$HOME/.local/share/fonts/DejaVu Sans Mono for Powerline.ttf"

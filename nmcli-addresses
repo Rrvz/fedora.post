@@ -1,0 +1,7 @@
+nmcli connection modify ens33 ipv4.method manual ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.2 ipv4.dns 1.1.1.1
+
+# vmware not working with local host ipv4 in
+nmcli connection modify ens33 ipv4.method manua ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.1 ipv4.dns 1.1.1.1
+
+# IPv6 ipv6.gateway fe80::250:56ff:fec0:2222
+nmcli connection modify ens33 ipv6.method manual ipv6.addresses fd15:4ba5:5a2b:1008::a/64 ipv6.gateway 192.168.220.2 ipv6.dns 1.1.1.1
