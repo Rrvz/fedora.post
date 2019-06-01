@@ -1,7 +1,25 @@
-nmcli connection modify ens33 ipv4.method manual ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.2 ipv4.dns 1.1.1.1
+# nvmnet8 IPv6/IPv4
+# fd15:fed0::250:56ff:fec0:8
 
-# vmware not working with local host ipv4 in
+# IPv4 nat ipv4.gateway 192.168.220.2
+mcli connection modify ens33 ipv4.method manual ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.2 ipv4.dns 1.1.1.1
+
+# vmwarei nat ping not working with hypervisor host ipv4
 nmcli connection modify ens33 ipv4.method manua ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.1 ipv4.dns 1.1.1.1
 
-# IPv6 ipv6.gateway fe80::250:56ff:fec0:2222
-nmcli connection modify ens33 ipv6.method manual ipv6.addresses fd15:4ba5:5a2b:1008::a/64 ipv6.gateway 192.168.220.2 ipv6.dns 1.1.1.1
+# IPv6 nat ipv6.gateway fe80::250:56ff:fec0:2222
+nmcli connection modify ens33 ipv6.method manual ipv6.addresses fd15:fed0::a/64 ipv6.gateway fe80::250:56ff:fec0:2222 ipv6.dns fe80::250:56ff:fec0:2222
+
+# Create an interface for ipv6 manual
+sudo nmcli connection add ifname ens34 con-name ens34 type ethe ipv6.method manual ipv6.addresses fc00:dead:9f01::f0/64
+sudo nmcli connection add ifname ens35 con-name ens35 type ethe ipv6.method manual ipv6.addresses fc00:dead:9f02::f0/64
+
+
+# vmware nat ping not working with hypervisor host ipv6, if nat (vmnet8) is
+# disabled for ipv6 then router advertisment is never disable then will never
+# get radvd messages.
+#
+# Solution 1: put a vm or a mini daemon to be the bridge between nat for ipv6
+# and ipv4 and do the forwarding there.
+#
+

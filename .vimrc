@@ -3,7 +3,8 @@
 " * Ricardo's vim config *
 " ************************
 
-
+" press za in normal mode to fold and unfolds
+"
 " -----------------------------------------------------------------------------
 " Definitions and autodownloads and installers {{{
 " -----------------------------------------------------------------------------
@@ -192,6 +193,12 @@ nmap <leader>5d :%d<cr>
 " noremap <Leader>Y "+y
 " noremap <Leader>P "+p
 
+" -----------------------------------------------------------------------------
+" Mouse togle mouse
+" -----------------------------------------------------------------------------
+map <leader>m <ESC>:exec &mouse!=""? "set mouse=" : "set mouse=a"<CR>
+" Toggles folds with mouse triple click to avoid conflicting with text selectin
+noremap <3-LeftMouse> za
 
 " -----------------------------------------------------------------------------
 " Timestamp mappings

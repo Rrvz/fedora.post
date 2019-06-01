@@ -12,8 +12,6 @@ x               ALL=(ALL)       NOPASSWD: ALL
 sudo chown root:root ./local-sudoers
 sudo mv ./local-sudoers /etc/sudoers.d/
 
-sudo dnf install kernel kernel-devel
-
 sudo dnf update -y
 
 # Fix dnf problem unable to install because a : No match for argument:
@@ -39,6 +37,9 @@ sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-r
 # Install main packages
 sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
 sudo dnf install -y radvd tcpdump git diffutils colordiff
+
+# Install xauth for ssh gui mode
+sudo dnf install -y xauth
 
 # Normal installation developer packages
 sudo dnf install -y cmake gcc-c++ make python3-devel ncurses-compat-libs
@@ -122,6 +123,8 @@ fi
 
 ls -ls | lolcat
 
+sudo dnf install tmux -y
+
 # Chafa command line image converter and viewer
 # sudo dnf install -y autoconf automake libtool gtk-doc glib2-devel ImageMagick-devel
 # git clone https://github.com/hpjansson/chafa
@@ -171,9 +174,11 @@ if [[ ! -z $(grep "$String_X3" "$File_X3" ) ]]; then
 else
     echo "
 # Aliases for vimx or vim-X11
+# Aliases for ssh copy / paste with X11 and vim clipboard support
 if [ -f `which vimx` ]; then
 alias vi='vimx'
 alias vim='vimx'
+alias ssh='ssh -Y'
 fi
 " >> $File_X3
 fi
@@ -192,4 +197,4 @@ fi
 
 powerline-daemon --replace
 
-sudo dnf install tmux -y
+

@@ -1,0 +1,28 @@
+ifconfig sit0 up
+ifconfig sit0 inet6 tunnel ::216.66.38.58
+ifconfig sit1 up
+ifconfig sit1 inet6 add 2001:470:1c:756::2/64
+route -A inet6 add ::/0 dev sit1
+
+sudo sysctl net.ipv6.conf.all.forwarding
+sudo sysctl -n net.ipv6.conf.all.forwarding
+sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+
+nmcli connection add type ip-tunnel con-name sit1 ifname sit1 mode sit \
+  remote 216.66.38.58 -- ipv4.method disabled ipv6.method manual \
+  ipv6.address 2001:470:1c:756::2/64 ipv6.gateway 2001:470:1c:756::1 \
+  ip-tunnel.ttl 64
+
+
+# if wireless is being used, debes de usar el SSID en ves de la interfaz
+
+sudo nmcli connection modify Brisa2 ipv6.method manual ipv6.addresses 2001:470:b2d7:dead::dead/64
+
+
+# up to this point IPv6 works with vmware nat
+
+# -----------------------------------------------------------------------------
+
+
+

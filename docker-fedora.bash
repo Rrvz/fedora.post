@@ -27,19 +27,25 @@ sudo dnf config-manager \
 # disable edge and test
 # sudo dnf config-manager --set-disabled docker-ce-edge
 
-sudo dnf install -y docker-ce
+# sudo dnf install -y docker-ce
+# update Wed 29 May 2019 11:54:36 PM AST
+# sudo dnf install docker-ce docker-ce-cli containerd.io
 
-# if error not sync because fedora 29 or newewr OS packages are not avaiblabe install the
+
+# if error not sync because fedora 29, 30 or newewr OS packages are not avaiblabe install the
 # enable test o nightly version
-
+sudo dnf config-manager --set-enabled docker-ce-test
+sudo dnf config-manager --set-disabled docker-ce-stable
+sudo dnf install docker-ce docker-ce-cli containerd.io
+sudo dnf install --releasever=29 docker-ce docker-ce-cli containerd.io
 # then
-sudo dnf install -y docker-ce
+# sudo dnf install -y docker-ce
 
 sudo systemctl start docker
-sudo systemctl status docker
+# sudo systemctl status docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
 
 # or
-curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
-sudo usermod -aG docker $USER
+# curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+# sudo usermod -aG docker $USER
