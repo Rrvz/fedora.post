@@ -31,6 +31,10 @@ sudo bash -c "echo "$String_X0" >> /etc/dnf/dnf.conf"
 echo "String_X1 value added to $File_X0"
 fi
 
+# dnf or yum
+sudo dnf install dnf-utils -y
+# sudo yum install dnf-utils -y
+
 # add RPM-Fusion to system-wide
 sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 

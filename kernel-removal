@@ -1,7 +1,13 @@
 rpm -qa kernel\* |sort -V
+
+sudo dnf remove kernel-5.1.5 kernel-devel-5.1.5 kernel-devel-5.1.5 kernel-modules-5.1.5 kernel-modules-extra-5.1.5
+
+sudo dnf remove kernel-core-5.1.5
+
+# EFI
+sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+
+
+# bios
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-
-sudo dnf remove  kernel-5.1.5 kernel-devel-5.1.5 kernel-devel-5.1.5 kernel-modules-5.1.5 kernel-modules-extra-5.1.5
-
-
 
