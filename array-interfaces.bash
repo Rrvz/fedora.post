@@ -51,7 +51,7 @@ sudo bash -c "ls /sys/class/net/ > /tmp/watchfile"
 
 while true; do
     sudo sleep 60
-    sudo bash -c "ls /sys/class/net/ > /tmp/watchfile2
+    sudo bash -c "ls /sys/class/net/ > /tmp/watchfile2"
     sudo diff -q /tmp/watchfile /tmp/watchfile2 > /dev/null
     if [ $? -ne 0 ] ; then
     sudo echo "File list changed"
