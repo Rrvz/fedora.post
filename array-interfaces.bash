@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # create services for Array Interfaces
 
 sudo bash -c "cat > /usr/lib/systemd/system/ArrayInterfaces.service" <<-'EOF'
@@ -67,14 +68,14 @@ sudo chmod 744 /usr/local/sbin/ArrayInterfaces.bash
 sudo systemctl daemon-reload
 sudo systemctl enable ArrayInterfaces.service
 sudo systemctl start ArrayInterfaces.service
-sudo systemctl status ArrayInterfaces.service
+# sudo systemctl status ArrayInterfaces.service
 
 # sudo chmod 644 /etc/systemd/system/MonitorNet.service
 sudo chmod 744 /usr/local/sbin/MonitorNet.bash
 sudo systemctl daemon-reload
 sudo systemctl enable MonitorNet.service
 sudo systemctl start MonitorNet.service
-sudo systemctl status MonitorNet.service
+# sudo systemctl status MonitorNet.service
 
 
 #Change ssh_host keys
