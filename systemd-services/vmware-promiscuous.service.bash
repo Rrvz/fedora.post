@@ -22,7 +22,7 @@ ExecStart=/usr/bin/bash /usr/bin/vmware-promiscuous-vmnet.bash
 WantedBy=multi-user.target
 EOF
 
-sudo ln -s /usr/lib/systemd/system/vmware-promiscuous.service /etc/systemd/system/vmware-promiscuous.service
+# sudo ln -s /usr/lib/systemd/system/vmware-promiscuous.service /etc/systemd/system/vmware-promiscuous.service
 
 sudo systemctl daemon-reload
 sudo systemctl enable vmware-promiscuous.service

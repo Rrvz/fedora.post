@@ -86,7 +86,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
 source ~/.bashrc
 
-sudo dnf install -y the_silver_searcher
+sudo dnf install -y the_silver_searcher ripgrep
 
 # shell extensions
 # sudo dnf install -y chrome-gnome-shell #nome-shell-extension-dash-to-dock gir1.2-clutter
@@ -147,58 +147,58 @@ else
 fi
 
 # Powerline for fedora install
-sudo dnf install -y powerline
-
-File_X3="$HOME/.bashrc"
-String_X3="POWERLINE_BASH_CONTINUATION"
-
-if [ ! -z $(grep "$String_X3" "$File_X3" ) ]; then
-    # echo "String_X3 value is already in file"
-    :
-else
-    echo "
-# Source for powerline
-if [ -f `which powerline-daemon` ]; then
-  powerline-daemon -q
-  POWERLINE_BASH_CONTINUATION=1
-  POWERLINE_BASH_SELECT=1
-  # . /usr/share/powerline/bash/powerline.sh
-  . ~/.local/lib/python3.4/site-packages/powerline/bindings/bash/powerline.sh
-fi
-" >> $File_X3
-fi
-
-# aliases for vimx support clipboard
-File_X3="$HOME/.bashrc"
-String_X3="alias vi='vimx'"
-String_X4="alias vim='vimx'"
-
-if [[ ! -z $(grep "$String_X3" "$File_X3" ) ]]; then
-    :
-else
-    echo "
-# Aliases for vimx or vim-X11
-# Aliases for ssh copy / paste with X11 and vim clipboard support
-if [ -f `which vimx` ]; then
-alias vi='vimx'
-alias vim='vimx'
-alias ssh='ssh -Y'
-fi
-" >> $File_X3
-fi
-
-# load git json module
-# mkdir -p ~/.config/powerline
-# cat <<-'EOF' > ~/.config/powerline/config.json
-# {
-#     "ext": {
-#         "shell": {
-#             "theme": "default_leftonly"
-#         }
-#     }
-# }
-# EOF
-
-powerline-daemon --replace
-
+# sudo dnf install -y powerline
+#
+# File_X3="$HOME/.bashrc"
+# String_X3="POWERLINE_BASH_CONTINUATION"
+#
+# if [ ! -z $(grep "$String_X3" "$File_X3" ) ]; then
+#     # echo "String_X3 value is already in file"
+#     :
+# else
+#     echo "
+# # Source for powerline
+# if [ -f `which powerline-daemon` ]; then
+#   powerline-daemon -q
+#   POWERLINE_BASH_CONTINUATION=1
+#   POWERLINE_BASH_SELECT=1
+#   # . /usr/share/powerline/bash/powerline.sh
+#   . ~/.local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
+# fi
+# " >> $File_X3
+# fi
+#
+# # aliases for vimx support clipboard
+# File_X3="$HOME/.bashrc"
+# String_X3="alias vi='vimx'"
+# String_X4="alias vim='vimx'"
+#
+# if [[ ! -z $(grep "$String_X3" "$File_X3" ) ]]; then
+#     :
+# else
+#     echo "
+# # Aliases for vimx or vim-X11
+# # Aliases for ssh copy / paste with X11 and vim clipboard support
+# if [ -f `which vimx` ]; then
+# alias vi='vimx'
+# alias vim='vimx'
+# alias ssh='ssh -Y'
+# fi
+# " >> $File_X3
+# fi
+#
+# # load git json module
+# # mkdir -p ~/.config/powerline
+# # cat <<-'EOF' > ~/.config/powerline/config.json
+# # {
+# #     "ext": {
+# #         "shell": {
+# #             "theme": "default_leftonly"
+# #         }
+# #     }
+# # }
+# # EOF
+#
+# powerline-daemon --replace
+#
 

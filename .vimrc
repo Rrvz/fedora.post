@@ -428,6 +428,18 @@ Plug 'vim-airline/vim-airline-themes'
 " You’ve got to love multiple selections.
 "Plug 'terryma/vim-multiple-cursors'
 
+" -----------------------------------------------------------------------------
+" the grep search variances
+" -----------------------------------------------------------------------------
+
+" ripgrep recursively searches directories for a regex pattern
+" rg search result (ALT-A to select all, ALT-D to deselect all)
+" Plug 'BurntSushi/ripgrep'
+
+" A code-searching tool similar to ack, but faster
+" ag search result (ALT-A to select all, ALT-D to deselect all)
+" Plug 'ggreer/the_silver_searcher'
+
 
 " -----------------------------------------------------------------------------
 " Initialize plugin system
@@ -1044,14 +1056,14 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 
 
 " -----------------------------------------------------------------------------
-" A command-line fuzzy finder
+" fzf plugin config - a command-line fuzzy finder
 " -----------------------------------------------------------------------------
 
 " This is the default extra key bindings
-"let g:fzf_action = {
-"  \ 'ctrl-t': 'tab split',
-"  \ 'ctrl-x': 'split',
-"  \ 'ctrl-v': 'vsplit' }
+let g:fzf_action = {
+ \ 'ctrl-t': 'tab split',
+ \ 'ctrl-x': 'split',
+ \ 'ctrl-v': 'vsplit' }
 
 " Default fzf layout
 " - down / up / left / right
@@ -1093,7 +1105,6 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-
 
 " -----------------------------------------------------------------------------
 " ronakg/quickr-preview config
