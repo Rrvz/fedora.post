@@ -13,16 +13,16 @@
     " Press Ctrl + w (cmd + w in a Mac).
     " Press v (for vertical) or h (for horizontal).
 
-
-" Comment out the current line or text selected in visual mode.
-" leader >cc
-" uncomment in visual mode leader >c space
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
+
+" Comment out the current line or text selected in visual mode.
+" leader >cc
+" uncomment in visual mode leader >c space
 
 
 " -----------------------------------------------------------------------------
@@ -306,8 +306,8 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Plug 'bagrat/vim-buffet'
 
 " Tags
-"Plug 'universal-ctags/ctags'
-"Plug 'ludovicchabant/vim-gutentags'
+" Plug 'universal-ctags/ctags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
@@ -439,6 +439,12 @@ Plug 'vim-airline/vim-airline-themes'
 " A code-searching tool similar to ack, but faster
 " ag search result (ALT-A to select all, ALT-D to deselect all)
 " Plug 'ggreer/the_silver_searcher'
+
+" -----------------------------------------------------------------------------
+" Autosave plugih installer 
+" -----------------------------------------------------------------------------
+
+Plug '907th/vim-auto-save'
 
 
 " -----------------------------------------------------------------------------
@@ -842,6 +848,7 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 
+
 " -----------------------------------------------------------------------------
 " Nerdtree, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
@@ -1130,6 +1137,12 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+" -----------------------------------------------------------------------------
+" auto-save config
+" -----------------------------------------------------------------------------
+" let g:auto_save = 1
+" let g:auto_save_events = ["InsertLeave", "TextChanged" ]
+
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -1268,6 +1281,12 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " }}}
 
+" VIMRC {{{
+
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" }}}
 
 " -----------------------------------------------------------------------------
 "  My .vimrc plugin and funtions that need to be at the bottom,

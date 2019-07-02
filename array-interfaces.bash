@@ -20,10 +20,15 @@ sudo bash -c "cat > /etc/systemd/system/MonitorNet.service" <<-'EOF'
 Description=Monitor interfaces
 After=default.target ArrayInterfaces.service
 
+[Timer]
+OnActiveSec=60
+OnUnitActiveSec=60
+
 [Service]
 ExecStart=/usr/bin/bash /usr/local/sbin/MonitorNet.bash
 
 [Install]
+WantedBy=timers.target
 WantedBy=default.target
 EOF
 
@@ -50,7 +55,7 @@ sudo bash -c "cat > /usr/local/sbin/MonitorNet.bash" <<-'EOF'
 sudo bash -c "ls /sys/class/net/ > /tmp/watchfile"
 
 while true; do
-    sudo sleep 60
+    # sudo sleep 60
     sudo bash -c "ls /sys/class/net/ > /tmp/watchfile2"
     sudo diff -q /tmp/watchfile /tmp/watchfile2 > /dev/null
     if [ $? -ne 0 ] ; then
@@ -67,6 +72,7 @@ EOF
 sudo chmod 744 /usr/local/sbin/ArrayInterfaces.bash
 sudo systemctl daemon-reload
 sudo systemctl enable ArrayInterfaces.service
+sudo systemctl stop ArrayInterfaces.service
 sudo systemctl start ArrayInterfaces.service
 # sudo systemctl status ArrayInterfaces.service
 
@@ -74,6 +80,7 @@ sudo systemctl start ArrayInterfaces.service
 sudo chmod 744 /usr/local/sbin/MonitorNet.bash
 sudo systemctl daemon-reload
 sudo systemctl enable MonitorNet.service
+sudo systemctl stop MonitorNet.service
 sudo systemctl start MonitorNet.service
 # sudo systemctl status MonitorNet.service
 

@@ -34,17 +34,35 @@ sudo dnf config-manager \
 
 # if error not sync because fedora 29, 30 or newewr OS packages are not avaiblabe install the
 # enable test o nightly version
-sudo dnf config-manager --set-enabled docker-ce-test
-sudo dnf config-manager --set-disabled docker-ce-stable
-sudo dnf install docker-ce docker-ce-cli containerd.io
-sudo dnf install --releasever=29 docker-ce docker-ce-cli containerd.io
+# sudo dnf config-manager --set-enabled docker-ce-test
+# sudo dnf config-manager --set-disabled docker-ce-stable
+# sudo dnf install docker-ce docker-ce-cli containerd.io
+sudo dnf install -y --releasever=29 docker-ce docker-ce-cli containerd.io
 # then
 # sudo dnf install -y docker-ce
 
-sudo systemctl start docker
+# sudo systemctl start docker
 # sudo systemctl status docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
+
+sudo systemctl start docker
+sudo systemctl status docker -l -l --no-pager
+
+sudo bash -c "cat > /etc/docker/daemon.json" <<-"EOF"
+{
+    "bip": "172.17.0.1/20",
+    "fixed-cidr": "172.17.0.0/20",
+    "ipv6": true,
+    "fixed-cidr-v6": "fc00:dead:beef::/64"
+}
+EOF
+
+# if error
+sudo dockerd
+
+sudo systemctl restart docker && sudo systemctl status docker -l --no-pager
+
 
 # or
 # curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
