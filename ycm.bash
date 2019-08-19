@@ -15,8 +15,8 @@ sed -i 's/rpm -i --nosignature/sudo rpm -i --nosignature/g' setup_10.x
 bash setup_10.x
 rm -rf setup_10.x
 curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
-sudo yum install -y gcc-c++ make nodejs #npm
-sudo yum -y install yarn
+sudo dnf install -y gcc-c++ make nodejs #npm
+sudo dnf -y install yarn
 
 # install This as root or report error to JavaScript usign yarn
 sudo yarn global add npm@latest
@@ -27,14 +27,14 @@ sudo yarn global add typescript
 # sudo npm install -g typescript
 
 # compile it
-git submodule update --init --recursive
 cd ~/.vim/plugged/YouCompleteMe/
-./install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer
-./install.py --all
+git submodule update --init --recursive
+./install.py --clangd-completer --cs-completer --go-completer --js-completer  --rust-completer
+time python3 ./install.py --all
 # ./install.py --all
 
 # data
-dnf config-manager --set-enable update mono-deve
+dnf config-manager --set-enable update mono-devel
 
 
 

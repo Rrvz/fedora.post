@@ -6,7 +6,7 @@
 " press za in normal mode to fold and unfolds
 "
 " -----------------------------------------------------------------------------
-" Definitions and autodownloads and installers {{{
+" Definitions ane\sv autodownloads and installers {{{
 " -----------------------------------------------------------------------------
 
 " Vim makes this easy:
@@ -42,6 +42,12 @@ endif
 "     au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
 "     au VimLeave * call system('tmux set-window automatic-rename on')
 " endif" group vim not use if fedora group is used
+
+
+" Staritfy with nerdtree startup
+" :h startify-faq-06
+" autocmd VimEnter * if !argc() | Startify | NERDTree | wincmd w | endif
+
 
 " }}}
 
@@ -278,7 +284,7 @@ Plug 'honza/vim-snippets'
 " -----------------------------------------------------------------------------
 
 " I can mix in one line the plug installers
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 " On-demand loading
 " Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
@@ -299,7 +305,7 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 " Post-update hooks
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " IDE-like Vim tabline
@@ -408,7 +414,7 @@ Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 " The fancy start screen for vim
 Plug 'mhinz/vim-startify'
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', " { 'on': 'NERDTreeToggle' }
 " vim-nerdtree-syntax-highlight
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -445,6 +451,9 @@ Plug 'vim-airline/vim-airline-themes'
 " -----------------------------------------------------------------------------
 
 Plug '907th/vim-auto-save'
+
+
+" Plug 'pangloss/vim-javascript'
 
 
 " -----------------------------------------------------------------------------
@@ -820,6 +829,12 @@ let g:closetag_close_shortcut = '<leader>>'
 
 
 " -----------------------------------------------------------------------------
+" startify plugin config
+" -----------------------------------------------------------------------------
+
+
+
+" -----------------------------------------------------------------------------
 " NerdCommenter Usages
 " -----------------------------------------------------------------------------
 
@@ -848,17 +863,26 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 
-
 " -----------------------------------------------------------------------------
-" Nerdtree, map, and NERDTree File highlighting
+" Nerdtree plugin config, map, and NERDTree File highlighting
 " -----------------------------------------------------------------------------
 
-" autocmd vimenter * NERDTree
-autocmd vimenter .vimrc NERDTree
+" open a NERDTree automatically when vim starts up
+" autocmd vimenter * NERDTree | wincmd p
+
+" open a NERDTree automatically when vim starts up if no files were specified
 " autocmd StdinReadPre * let s:std_in=1
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
 map <C-n> :NERDTreeToggle<CR>
+
+"it closes nerdtree when it is the last file
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
 let NERDTreeQuitOnOpen = 1
 " nerdtree Show hidden files
 " let NERDTreeShowHidden = 1
@@ -1126,22 +1150,40 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " let g:quickr_preview_position = 'above'
 
 " -----------------------------------------------------------------------------
-" snippets and engine plugins
+" snippets and engine plugins config
 " -----------------------------------------------------------------------------
 " pending to configure Sat 25 May 2019 04:46:27 PM AST
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+
+" -----------------------------------------------------------------------------
+" ymc plugins config
+" -----------------------------------------------------------------------------
+
+" Default auto-completion for C family
+" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+" let g:ycm_key_list_select_completion=[]
+" let g:ycm_key_list_previous_completion=[]
+
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
 
 " -----------------------------------------------------------------------------
 " auto-save config
 " -----------------------------------------------------------------------------
 " let g:auto_save = 1
 " let g:auto_save_events = ["InsertLeave", "TextChanged" ]
+
+
 
 " }}}
 
@@ -1230,11 +1272,20 @@ endif
 filetype plugin on
 filetype plugin indent on " tab is equal to 4 and autoindent is mark with >
 
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType html       setlocal shiftwidth=2 tabstop=2
+autocmd FileType python     setlocal shiftwidth=4 softtabstop=4 expandtab
+
+
+" for all files
 set tabstop=4           " show existing tab with 4 spaces width
 set shiftwidth=4        " when indenting with '>', use 4 spaces width
 set pastetoggle=<F2>    " set paste disable autoindent in vim
 set expandtab           " On pressing tab, insert 4 spaces
 set smarttab            " At start of line, <Tab> inserts shift width
+
+
+
 " set autoindent " auto indent
 " set wrap " wrap lines
 " set linebreak " break lines on words
@@ -1251,8 +1302,7 @@ if (exists('+colorcolumn'))
 endif
 
 " make funtion to toggle mouse use
-" set mouse=a
-" set mouse=a
+set mouse=a
 
 " yy will go to the system's clipboard, instead of Vim's unnamed register,
 " and p will paste the system's clipboard. using vimx or vim-X11 for plus
@@ -1283,7 +1333,7 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " VIMRC {{{
 
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " }}}

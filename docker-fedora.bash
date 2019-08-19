@@ -29,7 +29,7 @@ sudo dnf config-manager \
 
 # sudo dnf install -y docker-ce
 # update Wed 29 May 2019 11:54:36 PM AST
-# sudo dnf install docker-ce docker-ce-cli containerd.io
+sudo dnf install -y docker-ce docker-ce-cli containerd.io
 
 
 # if error not sync because fedora 29, 30 or newewr OS packages are not avaiblabe install the
@@ -37,15 +37,23 @@ sudo dnf config-manager \
 # sudo dnf config-manager --set-enabled docker-ce-test
 # sudo dnf config-manager --set-disabled docker-ce-stable
 # sudo dnf install docker-ce docker-ce-cli containerd.io
-sudo dnf install -y --releasever=29 docker-ce docker-ce-cli containerd.io
+# sudo dnf install -y --releasever=29 docker-ce docker-ce-cli containerd.io
 # then
 # sudo dnf install -y docker-ce
 
+# install docker-compose from OS<F5>
+sudo dnf install docker-compose -y
+
+# install docker-compose from pip
+# sudo pip install docker-compose
+
+# install docker-compose from
+# sudo curl -L --fail https://github.com/docker/compose/releases/download/1.24.0/run.sh -o /usr/local/bin/docker-compose
+# sudo chmod +x /usr/local/bin/docker-compose
+
+
 # sudo systemctl start docker
 # sudo systemctl status docker
-sudo systemctl enable docker
-sudo usermod -aG docker $USER
-
 sudo systemctl start docker
 sudo systemctl status docker -l -l --no-pager
 
@@ -58,12 +66,18 @@ sudo bash -c "cat > /etc/docker/daemon.json" <<-"EOF"
 }
 EOF
 
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+
 # if error
-sudo dockerd
+# sudo dockerd
 
 sudo systemctl restart docker && sudo systemctl status docker -l --no-pager
+echo "run as sudo:
 
+sudo usermod -aG docker $USER"
 
+sudo usermod -aG docker $USER
 # or
 # curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 # sudo usermod -aG docker $USER

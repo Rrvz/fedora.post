@@ -2,3 +2,6 @@
 
 # install the libnsl
 sudo dnf install libnsl -y
+
+# ipv6 network vmnet8 nat
+fd15:4ba5:5a2b:1008::/64

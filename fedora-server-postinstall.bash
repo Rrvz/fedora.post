@@ -12,19 +12,20 @@ x               ALL=(ALL)       NOPASSWD: ALL
 sudo chown root:root ./local-sudoers
 sudo mv ./local-sudoers /etc/sudoers.d/
 
+# disable dns internal resolver fedora
+sudo systemctl disable systemd-resolved.service
+sudo systemctl stop systemd-resolved.service
+
+# update to all system
 sudo dnf update -y
 
 # Fix dnf problem unable to install because a : No match for argument:
 # gir1.2-clutter, error: Unable to find a match
 
 File_X0="/etc/dnf/dnf.conf"
-String_X0="strict="
+String_X0=""fixed-cidr-v6": "fc00:dead:beef::/64""
 String_X1="strict=False"
-if [[ ! -z $(grep "$String_X0" "$File_X0") ]]; then
-    if [[ ! -z $(grep "$String_X1" "$File_X0") ]]; then
-        echo "String_X1 value is already in file"
-    else
-        sudo sed -i "/$String_X0/c $String_X1" $File_X0
+if [[ -z $(grep "$String_X0" "$File_X0") ]]; then
     fi
 else
 sudo bash -c "echo "$String_X0" >> /etc/dnf/dnf.conf"
@@ -109,6 +110,10 @@ sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
 sudo yum update -y
 
+
+# add localuser as part of the group
+sudo usermod -a -G wireshark $USER
+
 # install fontforge
 # sudo dnf install fontforge;
 
@@ -146,6 +151,14 @@ else
     sudo npm install -g vtop
 fi
 
+
+# build rpm packages
+sudo dnf install -y rpmdevtools gcc make imlib2-devel libjpeg-devel \
+libpng-devel libXt-devel libXinerama-devel libexif-devel  perl-Test-Command \
+perl-Test-Harness libcurl-devel
+
+
+
 # Powerline for fedora install
 # sudo dnf install -y powerline
 #
@@ -168,25 +181,25 @@ fi
 # " >> $File_X3
 # fi
 #
-# # aliases for vimx support clipboard
-# File_X3="$HOME/.bashrc"
-# String_X3="alias vi='vimx'"
-# String_X4="alias vim='vimx'"
-#
-# if [[ ! -z $(grep "$String_X3" "$File_X3" ) ]]; then
-#     :
-# else
-#     echo "
-# # Aliases for vimx or vim-X11
-# # Aliases for ssh copy / paste with X11 and vim clipboard support
-# if [ -f `which vimx` ]; then
-# alias vi='vimx'
-# alias vim='vimx'
-# alias ssh='ssh -Y'
-# fi
-# " >> $File_X3
-# fi
-#
+# aliases for vimx support clipboard
+File_X3="$HOME/.bashrc"
+String_X3="alias vi='vimx'"
+String_X4="alias vim='vimx'"
+
+if [[ ! -z $(grep "$String_X3" "$File_X3" ) ]]; then
+    :
+else
+    echo "
+# Aliases for vimx or vim-X11
+# Aliases for ssh copy / paste with X11 and vim clipboard support
+if [ -f `which vimx` ]; then
+alias vi='vimx'
+alias vim='vimx'
+alias ssh='ssh -Y'
+fi
+" >> $File_X3
+fi
+
 # # load git json module
 # # mkdir -p ~/.config/powerline
 # # cat <<-'EOF' > ~/.config/powerline/config.json

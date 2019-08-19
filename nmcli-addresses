@@ -2,19 +2,24 @@
 # fd15:fed0::250:56ff:fec0:8
 
 # IPv4 nat ipv4.gateway 192.168.220.2
-mcli connection modify ens33 ipv4.method manual ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.2 ipv4.dns 1.1.1.1
+sudo nmcli connection modify ens33 ipv4.method manual ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.2 ipv4.dns 1.1.1.1
 
 # vmwarei nat ping not working with hypervisor host ipv4
-nmcli connection modify ens33 ipv4.method manua ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.1 ipv4.dns 1.1.1.1
+sudo nmcli connection modify ens33 ipv4.method manua ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.1 ipv4.dns 1.1.1.1
 
 # IPv6 nat ipv6.gateway fe80::250:56ff:fec0:2222
-nmcli connection modify ens33 ipv6.method manual ipv6.addresses fd15:fed0::a/64 ipv6.gateway fe80::250:56ff:fec0:2222 ipv6.dns fe80::250:56ff:fec0:2222
+sudo nmcli connection modify ens33 ipv6.method manual ipv6.addresses fd15:1008::c6/64 ipv6.gateway fe80::250:56ff:fec0:2222 ipv6.dns fe80::250:56ff:fec0:2222
 
 # Create an interface for ipv6 manual
 
 # for nat vmware interface
-nmcli connection modify ens33 ipv6.method manual ipv6.addresses fd15:fed0::a/64 ipv6.gateway fe80::250:56ff:fec0:2222 ipv6.dns fe80::250:56ff:fec0:2222
-mcli connection modify ens33 ipv4.method manual ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.2 ipv4.dns 1.1.1.1
+sudo nmcli connection modify ens33 ipv6.method manual ipv6.addresses fd15:1008::f6/64 ipv6.gateway fe80::250:56ff:fec0:2222 ipv6.dns fe80::250:56ff:fec0:2222
+sudo mcli connection modify ens33 ipv4.method manual ipv4.addresses 192.168.220.6/24 ipv4.gateway 192.168.220.2 ipv4.dns 1.1.1.1
+
+# This address with one hexa value does not work under
+# ipv6 and not reacheble fd15:1008::6/64
+# sudo nmcli connection modify ens32 ipv6.addresses fd15:1008::6/64 ipv6.gateway fe80::250:56ff:fec0:2222; sudo nmcli connection up ens32
+
 
 # sudo nmcli connection add ifname ens33 con-name ens33 type ethe ipv6.method manual ipv6.addresses fc00:dead:9f33::f0/64
 sudo nmcli connection add ifname ens34 con-name ens34 type ethe ipv6.method manual ipv6.addresses fc00:dead:9f34::f0/64

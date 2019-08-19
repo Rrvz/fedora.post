@@ -8,7 +8,19 @@ pip3 uninstall --yes powerline-status
 pip3 install --user --upgrade lxml
 
 # powerline urrent development version
-pip install --user powerline-status
+# pip install --user powerline-status
+pip3 install --user powerline-status
+# run as normal user and root
+
+if [ "$EUID" = 0 ];
+then
+    echo "si root"
+    # pip3 install powerline-status
+else
+    echo "no root"
+    pip3 install --user powerline-status
+fi
+
 
 # powerline urrent development version
 # pip3 install --user git+git://github.com/powerline/powerline
@@ -23,7 +35,8 @@ if grep -Eq  "$VarX0" "$FileX0"
 then
     echo "Powerline Code found in $FileX0"
 else
-    echo "Code not found in $FileX0, installing code for poweline from source"
+    echo "Code not found in $FileX0, installing code for poweline from source\
+        for non root user"
 cat >> ~/.bashrc << 'EOF'
 # Source for powerline from git or OS package
 if [ -f `which powerline-daemon` ]; then
@@ -40,6 +53,17 @@ fi
 
 # reload powerline for bash
 powerline-daemon --replace
+
+# Resource bash
+#To exec as function instead of exec bash
+function reload! () {
+    echo "Reloading bash profile...!"
+    source ~/.bash_profile
+    source ~/.bashrc
+    echo "Reloaded!!!"
+}
+
+reload!
 
 # reload powerline for zsh
 # powerline-config --reload
