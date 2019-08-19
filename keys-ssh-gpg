@@ -1,0 +1,58 @@
+# close hang ssh session or connection
+#  ~.
+
+# automated no passphrase
+# sshpass -p your_password ssh user@hostname
+( echo ; yes ) | ssh-keygen -t rsa -b 4096 -N "" -C "Main key x@x.org"
+# add the keys from host
+ssh-keyscan 192.168.220.128 >> ~/.ssh/known_hosts
+#
+sshpass -p 'P@$$w0rd' ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.220.128
+ssh root@192.168.220.128
+
+( echo ; yes ) | ssh-keygen -t rsa -b 4096 -N "" -C "Main key x@x.org"
+ssh-keyscan server00.x.org >> ~/.ssh/known_hosts
+sshpass -p 'P@$$w0rd' ssh-copy-id -i ~/.ssh/id_rsa.pub root@server00.x.org
+ssh root@server00.x.org
+
+ssh-keygen -t ed25519 -C "key x@ryzen"
+sshpass -p 'P@$$w0rd' ssh-copy-id -i ~/.ssh/id_rsa root@192.168.220.130
+
+ssh-copy-id -i ~/.ssh/id_ed25519.pub root@192.168.220.130
+echo yes | ssh root@192.168.220.130
+
+# automated passphrase
+#
+yes y | ssh-keygen -t rsa -b 4096 -N "" -C "ssh key db01 x@x.org" > /dev/null
+
+
+# Normal one without passphrase
+ssh-keygen -t ed25519 -C "key x@ryzen"
+ssh-copy-id -i ~/.ssh/id_ed25519 root@192.168.220.201
+#
+# specific file
+ssh-keygen -t ed25519 -f ~/.ssh/id_mine -C "key x@ryzen"
+ssh-keygen -t ed25519 -f ~/.ssh/id_r -C "key x@ryzen"
+# with passphrase
+ssh-keygen -t ed25519 -f ~/.ssh/id_passphrase -C "key passphrase x@ryzen"
+# old keys
+# ssh-keygen -t rsa -b 4096 -f ~/.ssh/vps-cloud.web-server.key -C "My web-server key"
+
+
+ssh-copy-id -i ~/.ssh/id_r.pub root@server1.domain.com
+ssh-copy-id -i ~/.ssh/id_r.pub root@192.168.220.199
+ssh-copy-id -i ~/.ssh/id_r.pub root@192.168.220.201
+ssh-copy-id -i ~/.ssh/id_passphrase.pub root@192.168.220.199
+# force copy if exists
+ssh-copy-id -i $HOME/.ssh/id_passphrase.pub root@192.168.220.199
+
+# add passphrase to ssh-add to never get ask again
+ssh-add .ssh/id_passphrase
+# List every passphare saved
+ssh-add -l
+# Delete all stored passphases
+ssh-add -D
+
+
+
+
