@@ -1,4 +1,10 @@
+sudo dnf install git git-all hub
+
+
 # Normal one without passphrase
+
+
+
 ssh-keygen -t ed25519 -C "key x@ryzen"
 ssh-copy-id -i ~/.ssh/id_ed25519 root@192.168.220.201
 #
@@ -8,6 +14,11 @@ ssh-keygen -t ed25519 -f ~/.ssh/id_ryzen-github -C "key rrvzero@gmail.com"
 ssh-keygen -t ed25519 -f ~/.ssh/id_passphrase -C "key passphrase x@ryzen"
 # old keys
 # ssh-keygen -t rsa -b 4096 -f ~/.ssh/vps-cloud.web-server.key -C "My web-server key"
+
+# set in vim ~/.bashrc
+# error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+unset SSH_ASKPASS
+
 
 # Adding your SSH key to the ssh-agent
 eval "$(ssh-agent -s)"
@@ -30,5 +41,8 @@ git config user.email "rrvzero@gmail.com"
 # Checking for existing GPG keys
 gpg --list-secret-keys --keyid-format LONG
 
+gpg --gen-key
+gpg --full-generate-key
 
 
+git config --global user.signingkey 0A46826A

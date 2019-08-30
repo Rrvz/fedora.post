@@ -52,3 +52,15 @@ ssh-add .ssh/id_passphrase
 ssh-add -l
 # Delete all stored passphases
 ssh-add -D
+
+
+# GPG keys
+gpg --full-gen-key
+
+gpg --list-secret-key --keyid-format LONG rrvzero@gmail.com
+gpg --armor --export B8FCEC494524293F
+
+gpg --list-secret-key --keyid-format LONG rrvzero@gmail.com
+git config --global user.signingkey B8FCEC494524293F
+git config --global commit.gpgsign true
+
