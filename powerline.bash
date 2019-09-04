@@ -31,7 +31,7 @@ FileX0=~/.bashrc
 PPathX0=bindings/bash/powerline.sh
 repository_root=$(pip3 show powerline-status | grep Location | awk '{print $2;}')
 
-if grep -Eq  "$VarX0" "$FileX0"
+if grep -Eq "$VarX0" "$FileX0"
 then
     echo "Powerline Code found in $FileX0"
 else
