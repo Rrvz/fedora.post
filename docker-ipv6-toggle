@@ -1,0 +1,16 @@
+#!/bin/env bash
+File_x0="/etc/docker/daemon.json"
+String_x0='"fixed-cidr-v6": "fc00:dead:beef::/64"'
+String_x1='"fixed-cidr-v6": "2801:184:f:beef::/64"'
+Daemonrestart_x0="sudo systemctl restart docker"
+Daemonstatus_x1="sudo systemctl status docker --no-pager"
+
+if [[ $(grep "$String_x0" "$File_x0") ]]; then
+    sudo sed -i "s|$String_x0|$String_x1|g" $File_x0
+    # cat $File_x0 | grep fixed-cidr-v6
+else
+    sudo sed -i "s|$String_x1|$String_x0|g" $File_x0
+    # cat $File_x0 | grep fixed-cidr-v6
+fi
+
+$Daemonrestart_x0
