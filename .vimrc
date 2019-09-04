@@ -730,7 +730,7 @@ nmap [h <Plug>GitGutterPrevHunk
 nmap <leader>b :Buffers<cr>
 " Find files by name under the current directory
 nmap <leader>f :Files<cr>
-
+" Find files by name under home user
 nmap <leader>h :Files ~/<cr>
 " Search content in the current file
 nmap <leader>l :BLines<cr>
