@@ -25,8 +25,7 @@ sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx libg
 
 sudo dnf -y install gstreamer-plugins-base gstreamer1-plugins-base gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer1-plugins-ugly gstreamer-plugins-good-extras gstreamer1-plugins-good-extras gstreamer1-plugins-bad-freeworld ffmpeg gstreamer-ffmpeg
 
-sudo dnf install -y radvd tcpdump git gitk diff colordiff
-
+sudo dnf install -y radvd tcpdump git gitk diff colordiff asciinema
 
 #install desktop environment
 sudo dnf install -y switchdesk switchdesk-gui
@@ -65,7 +64,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
 source ~/.bashrc
 
-dnf install the_silver_searcher
+sudo dnf install the_silver_searcher ripgrep fd-find -y
 
 #shell extensions
 sudo dnf install -y chrome-gnome-shell #nome-shell-extension-dash-to-dock gir1.2-clutter
