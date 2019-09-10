@@ -1,5 +1,0 @@
-cd /tmp/
-git clone https://github.com/fathurwl/patches-vmware.git
-cp -r patches-vmware/* ./
-sudo chmod +x vmware.15.0.kernel.5.0.sh
-sudo bash vmware.15.0.kernel.5.0.sh
