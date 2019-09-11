@@ -9,5 +9,5 @@ sudo /etc/init.d/vmware restart
 echo "Kernel update for VMware has been installed"
 echo "Deleting vmware-host directory"
 cd ..; rm -rf vmware-host-modules
-echo "Directory deteled"; echo ""
-echo "Directory deteled"; echo "Hasta la vista baby!!!"
+echo ""
+echo "The Directory has been deteled"; echo "Hasta la vista baby!!!"
