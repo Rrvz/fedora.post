@@ -6,7 +6,12 @@
 " press za in normal mode to fold and unfolds
 "
 " -----------------------------------------------------------------------------
-" Definitions ane\sv autodownloads and installers {{{
+" Disabled mappings{{{
+
+
+" }}}
+
+" Definitions - autodownloads and installers {{{
 " -----------------------------------------------------------------------------
 
 " Vim makes this easy:
@@ -305,7 +310,7 @@ Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 " Post-update hooks
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --js-completer  --rust-completer' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " IDE-like Vim tabline
@@ -318,8 +323,11 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
 
+" Prettier plug
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
 " Code formater from google
-Plug 'google/yapf'
+" Plug 'google/yapf'
 
 " Code formater for python
 " Plug 'ambv/black'
@@ -447,13 +455,39 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'ggreer/the_silver_searcher'
 
 " -----------------------------------------------------------------------------
-" Autosave plugih installer 
+" Autosave plugin installer
 " -----------------------------------------------------------------------------
 
 Plug '907th/vim-auto-save'
 
-
 " Plug 'pangloss/vim-javascript'
+
+
+" -----------------------------------------------------------------------------
+" preview window for vim
+" -----------------------------------------------------------------------------
+
+Plug 'skywind3000/vim-preview'
+
+" -----------------------------------------------------------------------------
+" Vim Autocompletion and linter for Terraform, a HashiCorp tool
+" -----------------------------------------------------------------------------
+
+Plug 'hashivim/vim-terraform'
+" Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/vim-terraform-completion'
+
+" -----------------------------------------------------------------------------
+" Conquer of Completion (coc)
+" -----------------------------------------------------------------------------
+
+" Use release branch
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Or latest tag
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+" Or build from source code by use yarn: https://yarnpkg.com
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+
 
 
 " -----------------------------------------------------------------------------
@@ -634,7 +668,7 @@ let g:airline_powerline_fonts = 1
 " -----------------------------------------------------------------------------
 
 
-let g:github_dashboard = { 'username': 'Rrvz', 'password': $GITHUB_TOKEN }
+let g:github_dashboard = { 'username': 'ricardo-rod', 'password': $GITHUB_TOKEN }
 " let g:github_dashboard = {}
 
 " Dashboard window position
@@ -735,7 +769,7 @@ nmap <leader>h :Files ~/<cr>
 " Search content in the current file
 nmap <leader>l :BLines<cr>
 " Search content in the current file and in files under the current directory
-nmap <leader>g :Ag<cr>
+nmap <leader>ag :Ag<cr>
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
@@ -744,10 +778,61 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
+" let g:fzf_tags_command = 'ctags -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+" -----------------------------------------------------------------------------
+" fzf plugin config - a command-line fuzzy finder
+" -----------------------------------------------------------------------------
+
+" This is the default extra key bindings
+let g:fzf_action = {
+ \ 'ctrl-t': 'tab split',
+ \ 'ctrl-x': 'split',
+ \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" " Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+nnoremap <leader>p :History<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>t :Files<CR>
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 
 " -----------------------------------------------------------------------------
@@ -1087,57 +1172,6 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 
 
 " -----------------------------------------------------------------------------
-" fzf plugin config - a command-line fuzzy finder
-" -----------------------------------------------------------------------------
-
-" This is the default extra key bindings
-let g:fzf_action = {
- \ 'ctrl-t': 'tab split',
- \ 'ctrl-x': 'split',
- \ 'ctrl-v': 'vsplit' }
-
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-
-" " Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-nnoremap <leader>p :History<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>t :Files<CR>
-
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" -----------------------------------------------------------------------------
 " ronakg/quickr-preview config
 " -----------------------------------------------------------------------------
 
@@ -1183,6 +1217,272 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 " let g:auto_save = 1
 " let g:auto_save_events = ["InsertLeave", "TextChanged" ]
 
+
+
+
+" -----------------------------------------------------------------------------
+" Vim Terraform Completion with Linter
+" -----------------------------------------------------------------------------
+" https://github.com/juliosueiras/vim-terraform-completion
+
+" (Optional)Remove Info(Preview) window
+set completeopt-=preview
+
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" (Optional) Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 1
+
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
+
+" https://github.com/hashivim/vim-terraform
+" Allow vim-terraform to align settings automatically with Tabularize.
+let g:terraform_align=1
+
+" Allow vim-terraform to automatically fold (hide until unfolded) sections of 
+" terraform code. Defaults to 0 which is off.
+let g:terraform_fold_sections=1
+
+" Allow vim-terraform to automatically format *.tf and *.tfvars files with 
+" terraform fmt. You can also do this manually with the :TerraformFmt command.
+let g:terraform_fmt_on_save=0
+
+" -----------------------------------------------------------------------------
+" Conquer of compl (coc config)
+" -----------------------------------------------------------------------------
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+" set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of
+" languageserver.
+
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <TAB> <Plug>(coc-range-select)
+xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+" Snippet for VSCode
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+
+" Opening the configuration file
+function! SetupCommandAbbrs(from, to)
+  exec 'cnoreabbrev <expr> '.a:from
+        \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+
+" Use C to open coc config
+call SetupCommandAbbrs('C', 'CocConfig')
+
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+
+hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+
+" nmap <silent> <C-d> <Plug>(coc-cursors-word)*
+" xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+
+nmap <expr> <silent> <C-d> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
+
+"coc.preferences.colorSupport": false,
+" coc-pairs
+let g:coc_pairs_expand = [['（', '）'], ['“', '”'], ['‘', '’'], ['《', '》']]
+inoremap <silent> <M-]> <C-R>=util#keymapfunc#moveOutPairs(']')<CR>
+inoremap <silent> <M-}> <C-R>=util#keymapfunc#moveOutPairs('}')<CR>
+inoremap <silent> <M-)> <C-R>=util#keymapfunc#moveOutPairs(')')<CR>
+" coc-smartf
+" nmap f <Plug>(coc-smartf-forward)
+" nmap F <Plug>(coc-smartf-backward)
+" autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+" autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+" coc-bookmark
+nmap <silent> ,b <Plug>(coc-bookmark-toggle)
+nmap <silent> ,a <Plug>(coc-bookmark-annotate)
+nmap <silent> gh <Plug>(coc-bookmark-prev)
+nmap <silent> gl <Plug>(coc-bookmark-next)
+" coc extensions
+let g:coc_global_extensions = [
+  \ 'coc-bookmark',
+  \ 'coc-browser',
+  \ 'coc-clock',
+  \ 'coc-css',
+  \ 'coc-diagnostic',
+  \ 'coc-dictionary',
+  \ 'coc-emoji',
+  \ 'coc-emmet',
+  \ 'coc-eslint',
+  \ 'coc-explorer',
+  \ 'coc-highlight',
+  \ 'coc-html',
+  \ 'coc-lists',
+  \ 'coc-json',
+  \ 'coc-marketplace',
+  \ 'coc-pairs',
+  \ 'coc-post',
+  \ 'coc-prettier',
+  \ 'coc-python',
+  \ 'coc-rls',
+  \ 'coc-snippets',
+  \ 'coc-syntax',
+  \ 'coc-tag',
+  \ 'coc-template',
+  \ 'coc-todolist',
+  \ 'coc-translator',
+  \ 'coc-tslint-plugin',
+  \ 'coc-tsserver',
+  \ 'coc-vimtex',
+  \ 'coc-vimlsp',
+  \ 'coc-yank',
+  \ 'coc-word'
+\ ]
 
 
 " }}}
