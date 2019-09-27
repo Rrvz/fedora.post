@@ -364,7 +364,7 @@ Plug 'kcierzan/termina'
 
 
 " -----------------------------------------------------------------------------
-" Writing pluging installer block
+" Writing pluging installers block
 " -----------------------------------------------------------------------------
 
 " Uncover usage problems in your writing
@@ -377,6 +377,14 @@ Plug 'sheerun/vim-polyglot'
 " Writing plugins
 "Plug 'davidbeckingsale/writegood.vim'
 "Plug 'dbmrq/vim-ditto'
+
+
+
+" Perform all your vim insert mode completions with Tab
+" Plug 'ervandew/supertab'
+
+" jedi-vim - awesome Python autocompletion with VIM
+" Plug 'davidhalter/jedi-vim'
 
 
 " -----------------------------------------------------------------------------
@@ -475,6 +483,7 @@ Plug 'skywind3000/vim-preview'
 
 Plug 'hashivim/vim-terraform'
 " Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/terraform-lsp'
 Plug 'juliosueiras/vim-terraform-completion'
 
 " -----------------------------------------------------------------------------
@@ -1233,7 +1242,7 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " (Optional) Enable terraform plan to be include in filter
-let g:syntastic_terraform_tffilter_plan = 1
+" let g:syntastic_terraform_tffilter_plan = 1
 
 " (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
 let g:terraform_completion_keys = 1
@@ -1245,13 +1254,13 @@ let g:terraform_registry_module_completion = 0
 " Allow vim-terraform to align settings automatically with Tabularize.
 let g:terraform_align=1
 
-" Allow vim-terraform to automatically fold (hide until unfolded) sections of 
+" Allow vim-terraform to automatically fold (hide until unfolded) sections of
 " terraform code. Defaults to 0 which is off.
-let g:terraform_fold_sections=1
+" let g:terraform_fold_sections=1
 
-" Allow vim-terraform to automatically format *.tf and *.tfvars files with 
+" Allow vim-terraform to automatically format *.tf and *.tfvars files with
 " terraform fmt. You can also do this manually with the :TerraformFmt command.
-let g:terraform_fmt_on_save=0
+let g:terraform_fmt_on_save=1
 
 " -----------------------------------------------------------------------------
 " Conquer of compl (coc config)
@@ -1278,12 +1287,12 @@ set shortmess+=c
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -1326,8 +1335,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>ff  <Plug>(coc-format-selected)
+nmap <leader>ff  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -1638,6 +1647,9 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " }}}
 
+
+nnoremap <silent> <C-P> :Files<CR>
+
 " -----------------------------------------------------------------------------
 "  My .vimrc plugin and funtions that need to be at the bottom,
 "  each time you mod listen to started from the bottorm now we're here
@@ -1649,7 +1661,6 @@ if exists("g:loaded_webdevicons")
   call webdevicons#refresh()
 endif
 
-" Reload .vimrc config
 " added | AirlineRefresh to fix the squares loss of airline colors
 autocmd! bufwritepost .vimrc source % | AirlineRefresh
 " autocmd bufwritepost .vimrc source $MYVIMRC
