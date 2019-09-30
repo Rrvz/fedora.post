@@ -1459,6 +1459,7 @@ nmap <silent> gh <Plug>(coc-bookmark-prev)
 nmap <silent> gl <Plug>(coc-bookmark-next)
 " coc extensions
 let g:coc_global_extensions = [
+  \ 'coc-json',
   \ 'coc-bookmark',
   \ 'coc-browser',
   \ 'coc-clock',
@@ -1490,10 +1491,16 @@ let g:coc_global_extensions = [
   \ 'coc-vimtex',
   \ 'coc-vimlsp',
   \ 'coc-yank',
-  \ 'coc-word'
+  \ 'coc-prettier',
+  \ 'coc-git',
+  \ 'coc-java',
+  \ 'coc-word',
+  \ 'coc-r-lsp',
+  \ 'coc-css',
+  \ 'coc-yaml',
 \ ]
 
-
+nnoremap <Plug>(coc-rename) :<C-u>call CocActionAsync('rename')<CR>
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -1648,7 +1655,18 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " }}}
 
 
+" Function to rename the variable under the cursor
+function! Rnvar()
+  let word_to_replace = expand("<cword>")
+  let replacement = input("new name: ")
+  execute '%s/\(\W\)' . word_to_replace . '\(\W\)/\1' . replacement . '\2/gc'
+endfunction
+
 nnoremap <silent> <C-P> :Files<CR>
+
+" With this mapping in your vimrc, you can easily enter a command to substitute
+" all occurrences of the word under the cursor:
+nnoremap <Leader>soo :%s/\<<C-r><C-w>\>/
 
 " -----------------------------------------------------------------------------
 "  My .vimrc plugin and funtions that need to be at the bottom,
