@@ -1,0 +1,31 @@
+https://stackoverflow.com/questions/40022102/remove-spaces-before-newlines
+
+
+
+
+
+I need to remove all spaces before the newline character throughout a string.
+
+string = """
+this is a line       \n
+this is another           \n
+"""
+
+output:
+
+string = """
+this is a line\n
+this is another\n
+"""
+
+
+
+
+
+
+You can split the string into lines, strip off all whitespaces on the right using rstrip, then add a new line at the end of each line:
+
+''.join([line.rstrip()+'\n' for line in string.splitlines()])
+
+
+

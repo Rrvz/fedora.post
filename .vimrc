@@ -1654,20 +1654,34 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " }}}
 
-
-" Function to rename the variable under the cursor
-function! Rnvar()
-  let word_to_replace = expand("<cword>")
-  let replacement = input("new name: ")
-  execute '%s/\(\W\)' . word_to_replace . '\(\W\)/\1' . replacement . '\2/gc'
+function! GetVisual() range
+    let reg_save = getreg('"')
+    let regtype_save = getregtype('"')
+    let cb_save = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', reg_save, regtype_save)
+    let &clipboard = cb_save
+    return selection
 endfunction
+
+vmap <leader>s22 :%s/<c-r>=GetVisual()<cr>/
+
+" " Function to rename the variable under the cursor
+" function! Rnvar()
+"   let word_to_replace = expand("<cword>")
+"   let replacement = input("new name: ")
+"   execute '%s/\(\W\)' . word_to_replace . '\(\W\)/\1' . replacement . '\2/gc'
+" endfunction
 
 nnoremap <silent> <C-P> :Files<CR>
 
 " With this mapping in your vimrc, you can easily enter a command to substitute
 " all occurrences of the word under the cursor:
 nnoremap <Leader>soo :%s/\<<C-r><C-w>\>/
-
+nnoremap <Leader>s11 "hy:%s/<C-r>h//gc<left><left><left>
+" vnoremap <Leader>s11 y<ESC>/<c-r>"<CR>
 " -----------------------------------------------------------------------------
 "  My .vimrc plugin and funtions that need to be at the bottom,
 "  each time you mod listen to started from the bottorm now we're here
