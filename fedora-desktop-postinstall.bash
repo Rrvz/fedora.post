@@ -4,7 +4,7 @@
 #gir1.2-clutter, error: Unable to find a match
 
 File_X0="/etc/dnf/dnf.conf"
-String_X0="strict="
+String_X0="strict=True"
 String_X1="strict=False"
 if [ ! -z $(grep "$String_X0" "$File_X0") ]; then
     if [ ! -z $(grep "$String_X1" "$File_X0") ]; then
@@ -13,7 +13,7 @@ if [ ! -z $(grep "$String_X0" "$File_X0") ]; then
         sudo sed -i "/$String_X0/c $String_X1" $File_X0
     fi
 else
-sudo bash -c "echo "$String_X0" >> /etc/dnf/dnf.conf"
+sudo bash -c "echo "$String_X1" >> /etc/dnf/dnf.conf"
 echo "$String_X1 value added to $File_X0"
 fi
 

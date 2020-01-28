@@ -89,6 +89,21 @@ let g:repl_program = {
             \   "default": "bash"
             \   }
 
+let g:repl_auto_sends = ['class ', 'def ', 'for ', 'if ', 'while ']
+
+let g:repl_predefine_python = {
+            \   'numpy': 'import numpy as np',
+            \   'matplotlib': 'from matplotlib import pyplot as plt'
+            \   }
+" let g:repl_cursor_down = 1
+" let g:repl_python_automerge = 1
+" let g:repl_ipython_version = '7'
+" autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
+" autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
+" autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
+" let g:repl_position = 0
+
+
 " Open new line below and above current line
 " nnoremap <leader>o o<esc>
 "
@@ -1582,6 +1597,7 @@ endif
 " }}}
 
 " -----------------------------------------------------------------------------
+"
 " User Interface - UI {{{
 " -----------------------------------------------------------------------------
 
@@ -1653,6 +1669,10 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " }}}
+
+" nmap <S-Enter> o<Esc>
+" nmap <CR> O<Esc>
+nnoremap <C-J> a<CR><Esc>k$
 
 function! GetVisual() range
     let reg_save = getreg('"')

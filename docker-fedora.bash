@@ -81,3 +81,14 @@ sudo usermod -aG docker $USER
 # or
 # curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 # sudo usermod -aG docker $USER
+
+
+# if error cgroup
+
+sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+
+# working
+sudo vim /etc/default/grub
+GRUB_CMDLINE_LINUX="systemd.unified_cgroup_hierarchy=0"
+
+sudo grub2-mkconfig
