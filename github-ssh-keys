@@ -39,10 +39,11 @@ git config user.email "rrvzero@gmail.com"
 
 # Generate GPG keys
 # Checking for existing GPG keys
+
+# gpg --gen-key
+gpg --full-generate-key
+# show gpg keys
 gpg --list-secret-keys --keyid-format LONG
 
-gpg --gen-key
-gpg --full-generate-key
 
-# update for the gpg global usage
-git config --global user.signingkey 0A46826A
+git config --global user.signingkey 002542185A037B8E
