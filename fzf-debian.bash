@@ -1,6 +1,6 @@
 # cat /usr/share/doc/fzf/README.Debian
 
-sudo apt-get updatei
+sudo apt-get update
 
 apt-get install wget -y
 wget http://ftp.br.debian.org/debian/pool/main/f/fzf/fzf_0.18.0-2_amd64.deb
