@@ -188,8 +188,8 @@ sudo dnf install -y gnome-extensions-app
 
 # missing zshrc
 
-
-git config --global user.email "rrvzero@gmai.com"
+# Git setup after add
+git config --global user.email "mymail@mydomain.com"
 git config --global user.name "Ricardo Rodriguez"
 
 
