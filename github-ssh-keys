@@ -44,5 +44,5 @@ gpg --list-secret-keys --keyid-format LONG
 gpg --gen-key
 gpg --full-generate-key
 
-
+# update for the gpg global usage
 git config --global user.signingkey 0A46826A
