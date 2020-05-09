@@ -40,10 +40,35 @@ git config user.email "rrvzero@gmail.com"
 # Generate GPG keys
 # Checking for existing GPG keys
 
+# Manual
 # gpg --gen-key
 gpg --full-generate-key
 # show gpg keys
 gpg --list-secret-keys --keyid-format LONG
 
+# Unattended
+ %echo Generating a default key
+
+
+
+# https://www.gnupg.org/documentation//manuals/gnupg/Unattended-GPG-key-generation.html
+# export GNUPGHOME="$(mktemp -d)"
+cat > gpg-key-dsa <<EOF
+    %echo Generating a basic OpenPGP key
+    Key-Type: DSA
+    Key-Length: 2048
+    Subkey-Type: ELG-E
+    Subkey-Length: 2048
+    Name-Real: Ricardo Rodriguez
+    Name-Comment: with stupid passphrase
+    Name-Email: ricardo@foo.bar
+    Expire-Date: 1y
+    Passphrase: Inputfordata@0G
+    # Do a commit here, so that we can later print "done" :-)
+    %commit
+    %echo done
+EOF
+gpg --batch --generate-key gpg-key-dsa
+gpg --list-secret-keys
 
 git config --global user.signingkey 002542185A037B8E
