@@ -50,15 +50,20 @@ rm -rf gpg-key-rsa
 
 # gpg --batch --yes --delete-secret-and-public-keys `cat gpg-keyid-to-delete`
 
-# get pgp for signature
-_git_signing_key=`gpg --list-sigs | grep -A1 'pub   rsa' | tail -1 | awk '{$1=$1;print}'`
+# Get pgp full signature
+# list and grep rsa or dsa, print & tail the after line match and trim spaces
+# _git_signing_key=`gpg --list-sigs | grep -A1 'pub   rsa' | tail -1 | awk '{$1=$1;print}'`
 # gpg --list-signatures  | grep -A1 'pub   dsa' | tail -1
 
-#
+# Get pgp short signature
+# gpg --list-sigs | grep -A3 'pub   dsa'| tail -n -1| awk -F ' ' '{print $3}'
+gpg --list-sigs | grep -A3 'pub   rsa'| tail -n -1| awk -F ' ' '{print $3}'
+
+# sing all the commits and use the gpg key
+git config --global commit.gpgSign true
 git config --global user.signingkey $_git_signing_key
 
-gpg --armor --export $_git_signing_key
-gpg --armor --export $_git_signing_key | xclip -selection clipboard
+# gpg --armor --export $_git_signing_key | xclip -selection clipboard
 
 # generate file on /tmp
 cd /tmp
