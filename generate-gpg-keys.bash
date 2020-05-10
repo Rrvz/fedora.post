@@ -42,7 +42,7 @@ EOF
 gpg --batch --generate-key gpg-key-rsa
 rm -rf gpg-key-rsa
 
-gpg --list-signatures --keyid-format LONG
+# gpg --list-signatures --keyid-format LONG
 
 # To delete with finger print
 # gpg --list-sigs  | awk '/pub/{getline; print}' | grep --invert-match '-' \
@@ -60,12 +60,22 @@ git config --global user.signingkey $_git_signing_key
 gpg --armor --export $_git_signing_key
 gpg --armor --export $_git_signing_key | xclip -selection clipboard
 
+# generate file on /tmp
+cd /tmp
+gpg --armor --export $_git_signing_key > rsa-key
+
+# display user display
+echo 'execute this command on your awesome terminal'
+echo 'open your favorite SCM: gitlab or github you decide! '
+echo '\n This file will be deleted in one minute for your sake security'
+echo xclip -selection clipboard < rsa-key
+
+rm /tmp/rsa-key | at now +1m
+
 # command to grab keyid
 # gpg --list-secret-keys --keyid-format long \
 #     |grep sec| awk -F "[ /]+" '{print $3}' > gpg-keyid-to-delete
 
 # gpg --list-sigs --keyid-format long \
     # |grep sec| awk -F " " '{print $1}' > gpg-keyid-to-delete
-
-
 
