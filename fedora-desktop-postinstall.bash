@@ -7,18 +7,18 @@ EOF
 
 #Fix dnf problem unable to install because a : No match for argument:
 #gir1.2-clutter, error: Unable to find a match
-File0="/etc/dnf/dnf.conf"
-Str0="strict="
-Str1="strict=False"
-if [ ! -z $(grep "$Str0" "$File0") ]; then
-    if [ ! -z $(grep "$Str1" "$File0") ]; then
-        echo "$Str1 value is already in file"
+_File0="/etc/dnf/dnf.conf"
+_Str0="strict="
+_Str1="strict=False"
+if [ ! -z $(grep "$_Str0" "$_File0") ]; then
+    if [ ! -z $(grep "$Str1" "$_File0") ]; then
+        # echo "$Str1 value is already in file"
     else
-        sudo sed -i "/$Str0/c $Str1" $File0
+        sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" $_File0
     fi
 else
-sudo bash -c "echo "$Str0" >> /etc/dnf/dnf.conf"
-echo "$Str1 value added to $File0"
+sudo bash -c "echo "$_Str1" >> /etc/dnf/dnf.conf"
+echo "$_Str1 value added to $_File0"
 fi
 
 # add RPM-Fusion to system-wide
@@ -45,9 +45,11 @@ sudo dnf -y install gstreamer-plugins-base gstreamer1-plugins-base \
 sudo dnf -y install ffmpeg2theora ffmpeg mencoder
 sudo dnf -y install libdvdread libdvdnav lsdvd libdvdcss
 
-# install for ipv6 radvd git and other
+# install for ipv6 radvd git and other and mailx
 sudo dnf install -y radvd tcpdump git gitk diff colordiff asciinema
 
+# send mail from local
+sudo dnf install -y mailx sendmail
 
 # Compression utilities
 sudo dnf -y install unrar p7zip p7zip-plugins tar
@@ -77,8 +79,8 @@ sudo npm install -g yarn
 
 # core packages
 sudo dnf install -y \
-    open-vm-tools sos wget mlocate net-tools which man htop wget curl lynx \
-    traceroute jwhois htop telnet openssh perl ftp deltarpm colorize \
+    open-vm-tools sos wget mlocate net-tools which man wget curl lynx \
+    traceroute jwhois ytop htop telnet openssh perl ftp deltarpm colorize \
     bash-completion bind-utils ldns ldns-utils chrony rng-tools subnetcalc \
     ipv6calc ipcalc gcc lshw setools-console inotify-tools tcpdump wireshark \
     dstat sysstat ansible psmisc tree
@@ -88,6 +90,7 @@ sudo dnf install -y nload iftop iptraf nethogs bmon bwm-ng nmap iperf iperf3
 # Installing Pipenv on Fedora
 sudo dnf install -y pipenv
 
+# insall Rubby
 sudo dnf install -y rubygems
 # gem install lolcat
 # ls -ls | lolcat
@@ -101,15 +104,38 @@ sudo npm install -g vtop
 # chmod 644 ~/.ssh/*.pub
 
 # setup zsh
-sudo dnf install -y util-linux-user zsh
+sudo dnf install -y util-linux-user zsh acpi
 # install Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Fix plain URl without quotes not working in zsh due magic functions
-File0="$HOME/.zshrc"
-Str0='export ZSH='
-Str1='DISABLE_MAGIC_FUNCTIONS=true'
-sed -i "/$Str0/i $Str1" $File0
+# sed "/$Str0/a $Str1" $File0 | tac| tail -n 10|tac
+
+# Define variables to automate
+_File0="zshrc"
+_Str0='export ZSH='
+_Str1="DISABLE_MAGIC_FUNCTIONS=true"
+
+_ins_bef(){
+
+local _File0="$3"
+local _Str0="$1"
+local _Str1="$2"
+
+sed -i.bk --follow-symlinks "/$_Str0/i $_Str1" "$_File0"
+
+# display usage message and exit in case not arguments are not pass
+_display_usage(){
+    echo "Usage: $0 string 1 and 2 and file"
+    # exit 1
+}
+# [ $# -eq 0 ] && _display_usage
+# check whether user had supplied -h or --help . If yes display usage
+[[ ( $# == "--help") ||  $# == "-h" ]] && _display_usage; echo test # exit 0
+
+}
+
+_ins_bef $_Str0 $_Str1 $_File0
 
 # History size for zsh and bash
 File0="$HOME/.oh-my-zsh/lib/history.zsh"
@@ -130,6 +156,10 @@ source ~/.zshrc
 
 # Advance searchers
 sudo dnf install the_silver_searcher ripgrep fd-find -y
+
+# install pygments or choma
+sudo pip install Pygments
+
 
 # Powerline fonts
 # clone
@@ -189,9 +219,9 @@ sudo dnf install -y gnome-extensions-app
 # missing zshrc
 
 # Git setup after add keys
-git config --global user.email "mymail@mydomain.com"
-git config --global user.name "Ricardo Rodriguez"
-
+git config --global user.email "$_my_email_0"
+git config --global user.name "$_my_name"
+git config --global commit.gpgSign true
 
 
 
