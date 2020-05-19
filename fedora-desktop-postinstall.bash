@@ -57,9 +57,6 @@ sudo dnf -y install unrar p7zip p7zip-plugins tar
 # imagenes las mejores :)
 sudo dnf -y install converseen gimp
 
-# install vim 8.4
-sudo dnf install -y vim vim-X11 xclip xsel
-
 # text editor
 sudo dnf -y install \
 atom \
@@ -69,9 +66,12 @@ https://az764295.vo.msecnd.net/stable/d69a79b73808559a91206d73d7717ff5f798f23c/c
 sudo dnf install -y vlc shutter youtube-dl
 
 # Developers packages and cmake to power your compile time ;)
-sudo dnf groupinstall -y "Development Tools"
+sudo dnf groupinstall -y "Development Tools" "X Software Development"
 sudo dnf install -y cmake gcc-c++ make python3-devel ncurses-compat-libs \
     automake cmake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
+
+# install vim 8.4
+sudo dnf install -y neovim vim vim-X11 xclip xsel ranger
 
 # install NodeJS and yarn
 sudo dnf install nodejs npm -y
