@@ -3,11 +3,13 @@
 " * Ricardo's vim config *
 " ************************
 
-" press za in normal mode to fold and unfolds
+" press za in test normal mode to fold and unfolds
 "
 " -----------------------------------------------------------------------------
 " Disabled mappings{{{
-
+map s <Nop>
+map S <Nop>
+map gi <Nop>
 
 " }}}
 
@@ -120,7 +122,7 @@ let g:repl_predefine_python = {
 " Save / save
 inoremap <C-s> <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
-nnoremap <leader>s :update<cr>
+" nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
 " file save
 " noremap <Leader>fs :w<CR>
@@ -445,9 +447,9 @@ Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 " The fancy start screen for vim
 Plug 'mhinz/vim-startify'
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-Plug 'scrooloose/nerdtree', " { 'on': 'NERDTreeToggle' }
-" vim-nerdtree-syntax-highlight
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'scrooloose/nerdtree', " { 'on': 'NERDTreeToggle' }
+" " vim-nerdtree-syntax-highlight
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 
 " -----------------------------------------------------------------------------
@@ -512,7 +514,19 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Or build from source code by use yarn: https://yarnpkg.com
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
+" -----------------------------------------------------------------------------
+" Ranger for neovim 
+" -----------------------------------------------------------------------------
 
+" Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+" Make Ranger replace netrw and be the file explorer
+" let g:rnvimr_ex_enable = 1
+
+" nmap <space>r :RnvimrToggle<CR>
+
+Plug 'francoiscabrol/ranger.vi'
+let g:NERDTreeHijackNetrw = 0 ""// add this line if you use NERDTree
+let g:ranger_replace_netrw = 1 ""// open ranger when vim open a directory
 
 " -----------------------------------------------------------------------------
 " Initialize plugin system
@@ -1604,7 +1618,6 @@ endif
 " }}}
 
 " -----------------------------------------------------------------------------
-"
 " User Interface - UI {{{
 " -----------------------------------------------------------------------------
 

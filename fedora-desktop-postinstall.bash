@@ -73,6 +73,9 @@ sudo dnf install -y cmake gcc-c++ make python3-devel ncurses-compat-libs \
 # install vim 8.4
 sudo dnf install -y neovim vim vim-X11 xclip xsel ranger
 
+# pip install adddons for vim and neovim
+pip install ueberzug
+
 # install NodeJS and yarn
 sudo dnf install nodejs npm -y
 sudo npm install -g yarn
