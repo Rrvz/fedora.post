@@ -518,16 +518,16 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Ranger for neovim 
 " -----------------------------------------------------------------------------
 
-" Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 " Make Ranger replace netrw and be the file explorer
-" let g:rnvimr_ex_enable = 1
+let g:rnvimr_ex_enable = 1
 
-" nmap <space>r :RnvimrToggle<CR>
+nmap <space>r :RnvimrToggle<CR>
 
-Plug 'francoiscabrol/ranger.vi'
-let g:NERDTreeHijackNetrw = 0 ""// add this line if you use NERDTree
-let g:ranger_replace_netrw = 1 ""// open ranger when vim open a directory
-
+" Plug 'francoiscabrol/ranger.vi'
+" let g:NERDTreeHijackNetrw = 0 ""// add this line if you use NERDTree
+" let g:ranger_replace_netrw = 1 ""// open ranger when vim open a directory
+"
 " -----------------------------------------------------------------------------
 " Initialize plugin system
 call plug#end()
@@ -539,7 +539,7 @@ call plug#end()
 " -----------------------------------------------------------------------------
 
 " Set background
-set background=dark     " Setting dark mode
+" set background=dark     " Setting dark mode
 " set background=light   " Setting light mode
 
 " Schemes Colours - the italics has to be enabled before Theme/Scheme
@@ -550,13 +550,13 @@ set background=dark     " Setting dark mode
 " colorscheme material-monokai
 " colorscheme gruvbox
 " let g:gruvbox_italic=1
-colorscheme dracula
-let g:dracula_italic = 1
-" colorscheme carbonized-dark
+" colorscheme dracula
+" let g:dracula_italic = 1
+" let g:dracula_colorterm = 0" colorscheme carbonized-dark
 " colorscheme papaya
 " let g:papaya_gui_color='blue'
 " colorscheme perun
-" colorscheme onedark
+colorscheme onedark
 " colorscheme hydrangea
 " colorscheme deep-space             " it needs termguicolors
 " let g:deepspace_italics=1
@@ -579,11 +579,30 @@ let g:dracula_italic = 1
 " let g:lightline = { 'colorscheme': 'tender' }
 " colorscheme termina
 
+" set termguicolors
+" transparent background not matter theme
+" hi Normal guibg=NONE ctermbg=NONE
+" highlight Normal ctermbg=NONE
+" highlight NonText ctermbg=NONE
+
 " Activate italics no matter what colortheme the 1st the other are pa'diversion
-" highlight Comment cterm=italic
+" highlight Comments cterm=italic
 " highlight Keyword cterm=italic gui=italic
 " highlight type cterm=italic gui=italic
 
+" function to make transparent
+" let t:is_transparent = 0
+" function! Toggle_transparent()
+"     if t:is_transparent == 0
+"         hi Normal guibg=NONE ctermbg=NONE
+"         let t:is_transparent = 1
+"     else
+"         set background=dark
+"         let t:is_tranparent = 0
+"     endif
+" endfunction
+" nnoremap <C-t> :call Toggle_transparent()<CR>
+"
 " highlight Comment cterm=italic
 " highlight htmlArg cterm=italic
 
@@ -1591,6 +1610,19 @@ endif
 " set termguicolors
 " Support for 256 Colours
 " set t_Co=256
+
+" set termguicolors
+" transparent background not matter theme
+highlight Normal guibg=NONE ctermbg=NONE
+highlight Normal ctermbg=NONE
+highlight NonText ctermbg=NONE
+
+
+" Activate italics no matter what colortheme the 1st the other are pa'diversion
+highlight Comment cterm=italic gui=italic
+highlight Keyword cterm=italic gui=italic
+highlight type cterm=italic gui=italic
+
 
 " Annoying temporary files
 set backupdir=/tmp//,.
