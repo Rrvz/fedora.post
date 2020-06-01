@@ -71,10 +71,25 @@ sudo dnf install -y cmake gcc-c++ make python3-devel ncurses-compat-libs \
     automake cmake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
 
 # install vim 8.4
-sudo dnf install -y neovim vim vim-X11 xclip xsel ranger
+sudo dnf install -y neovim vim vim-X11 xclip xsel
 
 # pip install adddons for vim and neovim
-pip install ueberzug
+pip install ueberzug --user
+pip uninstall -y pillow
+pip install pillow-simd --user -y
+
+# devicons for ranger
+# version 1.9.2 not working with image preview and ranger
+# sudo dnf install -y ranger
+# working it is wayland that is not compatible with euberzug
+
+git clone https://github.com/ranger/ranger.git && cd ranger
+sudo make install
+cd .. && rm -rf ranger
+
+~/.config/ranger/plugins/ranger_devicons
+make install
+
 
 # install NodeJS and yarn
 sudo dnf install nodejs npm -y
@@ -227,9 +242,17 @@ git config --global user.name "$_my_name"
 git config --global commit.gpgSign true
 
 
+# disable wayland and use x11 must reboot to take effect
+# use the function ins_bef
+_File0="/etc/gdm/custom.conf"
+_Str0='WaylandEnable='
+_Str1='WaylandEnable=false'
 
+sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" "$_File0"
 
-
+# themes
+mkdir -p ~/.local/share/{icons,themes}
+sudo dnf install yaru-gtk3-theme flat-remix-gtk3-theme
 
 # ---------------------------------------------------------------------------
 
