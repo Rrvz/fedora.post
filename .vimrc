@@ -515,18 +515,20 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " -----------------------------------------------------------------------------
-" Ranger for neovim 
+" Ranger for neovim and vim
 " -----------------------------------------------------------------------------
 
-Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+" Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 " Make Ranger replace netrw and be the file explorer
-let g:rnvimr_ex_enable = 1
+" let g:rnvimr_ex_enable = 1
 
-nmap <space>r :RnvimrToggle<CR>
+" nmap <space>r :RnvimrToggle<CR>
 
-" Plug 'francoiscabrol/ranger.vi'
+Plug 'francoiscabrol/ranger.vim'
 " let g:NERDTreeHijackNetrw = 0 ""// add this line if you use NERDTree
 " let g:ranger_replace_netrw = 1 ""// open ranger when vim open a directory
+let g:ranger_map_keys = 0
+map <leader>f :Ranger<CR>
 "
 " -----------------------------------------------------------------------------
 " Initialize plugin system
@@ -550,13 +552,13 @@ call plug#end()
 " colorscheme material-monokai
 " colorscheme gruvbox
 " let g:gruvbox_italic=1
-" colorscheme dracula
+colorscheme dracula
 " let g:dracula_italic = 1
 " let g:dracula_colorterm = 0" colorscheme carbonized-dark
 " colorscheme papaya
 " let g:papaya_gui_color='blue'
 " colorscheme perun
-colorscheme onedark
+" colorscheme onedark
 " colorscheme hydrangea
 " colorscheme deep-space             " it needs termguicolors
 " let g:deepspace_italics=1
@@ -820,7 +822,12 @@ nmap [h <Plug>GitGutterPrevHunk
 " Search and switch buffers
 nmap <leader>b :Buffers<cr>
 " Find files by name under the current directory
-nmap <leader>f :Files<cr>
+" nmap <leader>f :Files<cr>
+nnoremap <leader>t :Files<CR>
+" nnoremap <silent> <C-P> :Files<CR>
+nnoremap <leader>p :History<CR>
+" show buffers
+nnoremap <leader>b :Buffers<CR>
 " Find files by name under home user
 nmap <leader>h :Files ~/<cr>
 " Search content in the current file
@@ -875,10 +882,6 @@ let g:fzf_colors =
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-nnoremap <leader>p :History<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>t :Files<CR>
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -1572,7 +1575,7 @@ set hidden              " Keep undo history when switching between a buffers
 " --- history / file handling ---
 set history=999             " Increase history (default = 20)
 set undolevels=999          " More undo (default=100)
-set autoread                " reload files if changed externally
+set autoread                " eeload files if changed externally
 
 "folding settings
 " set foldmethod=indent   "fold based on indent
@@ -1611,18 +1614,15 @@ endif
 " Support for 256 Colours
 " set t_Co=256
 
-" set termguicolors
-" transparent background not matter theme
-highlight Normal guibg=NONE ctermbg=NONE
-highlight Normal ctermbg=NONE
-highlight NonText ctermbg=NONE
-
-
 " Activate italics no matter what colortheme the 1st the other are pa'diversion
 highlight Comment cterm=italic gui=italic
 highlight Keyword cterm=italic gui=italic
 highlight type cterm=italic gui=italic
 
+" transparent background not matter theme
+highlight Normal ctermbg=NONE
+highlight NonText ctermbg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
 
 " Annoying temporary files
 set backupdir=/tmp//,.
@@ -1724,7 +1724,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " nmap <S-Enter> o<Esc>
 " nmap <CR> O<Esc>
-nnoremap <C-J> a<CR><Esc>k$
+" nnoremap <C-J> a<CR><Esc>k$
 
 " funtion not working Fri 08 May 2020 05:33:00 PM AST
 " function! GetVisual() range
@@ -1748,8 +1748,6 @@ nnoremap <C-J> a<CR><Esc>k$
 "   execute '%s/\(\W\)' . word_to_replace . '\(\W\)/\1' . replacement . '\2/gc'
 " endfunction
 
-nnoremap <silent> <C-P> :Files<CR>
-
 " With this mapping in your vimrc, you can easily enter a command to substitute
 " all occurrences of the word under the cursor:
 nnoremap <Leader>soo :%s/\<<C-r><C-w>\>/
@@ -1765,6 +1763,11 @@ nnoremap <Leader>s11 "hy:%s/<C-r>h//gc<left><left><left>
 if exists("g:loaded_webdevicons")
   call webdevicons#refresh()
 endif
+
+" Edit vimr configuration file
+nnoremap <Leader>ve :vsplit $MYVIMRC<CR>
+" " Reload vimr configuration file
+nnoremap <Leader>vr :source $MYVIMRC<CR>
 
 " added | AirlineRefresh to fix the squares loss of airline colors
 autocmd! bufwritepost .vimrc source % | AirlineRefresh
