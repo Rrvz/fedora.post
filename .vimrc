@@ -26,12 +26,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
-" Comment out the current line or text selected in visual mode.
-" leader >cc
-" uncomment in visual mode leader >c space
-
-
 " -----------------------------------------------------------------------------
 " }}}
 
@@ -982,6 +976,10 @@ let g:closetag_close_shortcut = '<leader>>'
 " -----------------------------------------------------------------------------
 " NerdCommenter Usages
 " -----------------------------------------------------------------------------
+
+" Comment out the current line or text selected in visual mode.
+" leader >cc
+" uncomment in visual mode leader >c space
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
