@@ -463,7 +463,7 @@ Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 " The fancy start screen for vim
 Plug 'mhinz/vim-startify'
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-" Plug 'scrooloose/nerdtree', " { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', " { 'on': 'NERDTreeToggle' }
 " " vim-nerdtree-syntax-highlight
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -1475,7 +1475,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
