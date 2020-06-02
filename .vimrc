@@ -5,6 +5,19 @@
 
 " press za in test normal mode to fold and unfolds
 "
+" call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+" call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+" call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+" call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+" call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+" call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+" call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#351411')
+" call NERDTreeHighlightFile('bash', 'Gray', 'none', '#fff7f7', 'NONE')
+" call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
+" call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
+" call NERDTreeHighlightFile('sh', 'gray', 'none', '#b999c6', 'NONE')
+" call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 " -----------------------------------------------------------------------------
 " Disabled mappings{{{
 map s <Nop>
@@ -183,7 +196,7 @@ noremap <Leader><F5> :bd<CR>
 " noremap <Leader>b2 :set background=dark<cr>
 
 " toggle rnlative line numbers
-" noremap <Leader>rn :set nu!<cr>
+" noremap <Leader>numbers :set numbers!<cr>
 
 " Syntastic results open, close, next, previous (actually the location list)
 " noremap <Leader>so :Errors<CR>
@@ -511,11 +524,11 @@ Plug 'juliosueiras/vim-terraform-completion'
 " -----------------------------------------------------------------------------
 
 " Use release branch
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Or latest tag
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Or build from source code by use yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " -----------------------------------------------------------------------------
 " Ranger for neovim and vim
@@ -531,7 +544,12 @@ Plug 'francoiscabrol/ranger.vim'
 " let g:NERDTreeHijackNetrw = 0 ""// add this line if you use NERDTree
 " let g:ranger_replace_netrw = 1 ""// open ranger when vim open a directory
 let g:ranger_map_keys = 0
-map <leader>f :Ranger<CR>
+map <leader>rangea :Ranger<CR>
+
+" git messenger
+" Plug 'rhysd/git-messenger.vim'
+" nmap <Leader>gm <Plug>(git-messenger)
+
 "
 " -----------------------------------------------------------------------------
 " Initialize plugin system
@@ -1077,8 +1095,7 @@ exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' 
 exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-" call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-" call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+
 " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
 " call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
 " call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
@@ -1329,7 +1346,7 @@ let g:terraform_fmt_on_save=1
 " Conquer of completion (coc config)
 " -----------------------------------------------------------------------------
 
-" if hidden is not set, TextEdit might fail.
+" TextEdit might fail if hidden is not set.
 set hidden
 
 " Some servers have issues with backup files, see #649
@@ -1345,8 +1362,14 @@ set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" always show signcolumns
-" set signcolumn=yes
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -1432,8 +1455,8 @@ omap af <Plug>(coc-funcobj-a)
 " Use <TAB> for selections ranges.
 " NOTE: Requires 'textDocument/selectionRange' support from the language server.
 " coc-tsserver, coc-python are the examples of servers that support it.
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
 " xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
 " Use `:Format` to format current buffer
@@ -1452,7 +1475,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
