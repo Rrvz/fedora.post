@@ -119,14 +119,23 @@ nnoremap <C-s>     :update<cr>
 " nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
 " file save
-" noremap <Leader>fs :w<CR>
+" noremap <Leader>fs :update<CR>
 
 " Quit / quit
-inoremap <C-Q>     <esc>:q<cr>
-nnoremap <C-Q>     :q<cr>
-vnoremap <C-Q>     <esc>
-nnoremap <Leader>q :q<cr>
+" nnoremap <Leader>q :q<cr>
 nnoremap <Leader>qq :qa!<cr>
+
+" working Mon 01 Jun 2020 10:33:34 PM AST
+" function to check if more than one buffer is active
+" nnoremap <Leader>q :call _quit_current_buf()<cr>
+"
+" function! _quit_current_buf()
+"     if len(getbufinfo({'buflisted':1})) > 1
+"         :bd
+"     else
+"         :q
+"     endif
+" endfunction
 
 " Disable CTRL-A on tmux or on screen
 if $TERM =~ 'screen'
@@ -140,7 +149,7 @@ endif
 " nnoremap <C-tab>   :tabnext<CR>
 " nnoremap <C-t>     :tabnew<CR>
 " inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-" inoremap <C-tab>   <Esc>:tabnext<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i:bu
 " inoremap <C-t>     <Esc>:tabnew<CR>
 
 " Tab nvigation leader or funtion <F5>,<F6>,<F7>
@@ -1000,7 +1009,7 @@ let g:NERDCustomDelimiters = {
     \ 'text': { 'left': '#' },
     \ '': { 'left': '#' },
     \ }
- 
+
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 
