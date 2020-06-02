@@ -304,7 +304,7 @@ Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 " Custom git status in vim
 Plug 'airblade/vim-gitgutter'
 " Git Stuff
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
 " -----------------------------------------------------------------------------
@@ -463,7 +463,7 @@ Plug 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 " The fancy start screen for vim
 Plug 'mhinz/vim-startify'
 " NERD tree will be loaded on the first invocation of NERDTreeToggle command
-Plug 'scrooloose/nerdtree', " { 'on': 'NERDTreeToggle' }
+" Plug 'scrooloose/nerdtree', " { 'on': 'NERDTreeToggle' }
 " " vim-nerdtree-syntax-highlight
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -1052,13 +1052,13 @@ let g:NERDToggleCheckAllLines = 1
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-map <C-n> :NERDTreeToggle<CR>
+" map <C-n> :NERDTreeToggle<CR>
 
 "it closes nerdtree when it is the last file
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
-let NERDTreeQuitOnOpen = 1
+" let NERDTreeQuitOnOpen = 1
 " nerdtree Show hidden files
 " let NERDTreeShowHidden = 1
 
@@ -1074,9 +1074,9 @@ let NERDTreeQuitOnOpen = 1
 "
 " Highlight full name (not only icons). You need to add this if you don't have
 " vim-devicons and want highlight.
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
+" let g:NERDTreeFileExtensionHighlightFullName = 1
+" let g:NERDTreeExactMatchHighlightFullName = 1
+" let g:NERDTreePatternMatchHighlightFullName = 1
 
 " " Highlight folders using exact match
 " let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
@@ -1090,10 +1090,10 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 
 
 " NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
+" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+" exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+" exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+" endfunction
 
 
 " call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
@@ -1113,8 +1113,8 @@ endfunction
 " call NERDTreeHighlightFile('bash', 'Gray', 'none', '#fff7f7', 'NONE')
 " call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
-call NERDTreeHighlightFile('sh', 'gray', 'none', '#b999c6', 'NONE')
-call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
+" call NERDTreeHighlightFile('sh', 'gray', 'none', '#b999c6', 'NONE')
+" call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 
 
 " option 1 is having lag at this momment 2018/July
@@ -1146,7 +1146,7 @@ call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 "     \ "Unknown"   : "?"
 "     \ }
 "
-let g:NERDTreeShowIgnoredStatus = 1
+" let g:NERDTreeShowIgnoredStatus = 1
 
 
 " -----------------------------------------------------------------------------
@@ -1168,7 +1168,7 @@ let g:NERDTreeShowIgnoredStatus = 1
 let g:webdevicons_enable = 1
 
 " adding the flags to NERDTree
-let g:webdevicons_enable_nerdtree = 1
+" let g:webdevicons_enable_nerdtree = 1
 
 " adding the custom source to unite
 let g:webdevicons_enable_unite = 1
@@ -1199,7 +1199,7 @@ let g:WebDevIconsUnicodeDecorateFileNodes = 1
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 
 " whether or not to show the nerdtree brackets around flags
-let g:webdevicons_conceal_nerdtree_brackets = 1
+" let g:webdevicons_conceal_nerdtree_brackets = 1
 
 " the amount of space to use after the glyph character (default ' ')
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
@@ -1228,7 +1228,7 @@ let g:DevIconsEnableFolderPatternMatching = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 1
 " the amount of space to use after the glyph character (default ' ')
 let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-let g:webdevicons_conceal_nerdtree_brackets = 1
+" let g:webdevicons_conceal_nerdtree_brackets = 1
 
 
 " -----------------------------------------------------------------------------
