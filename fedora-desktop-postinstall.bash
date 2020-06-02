@@ -12,7 +12,7 @@ _Str0="strict="
 _Str1="strict=False"
 if [ ! -z $(grep "$_Str0" "$_File0") ]; then
     if [ ! -z $(grep "$Str1" "$_File0") ]; then
-        # echo "$Str1 value is already in file"
+        echo "$Str1 value is already in file"
     else
         sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" $_File0
     fi
@@ -90,10 +90,22 @@ cd .. && rm -rf ranger
 ~/.config/ranger/plugins/ranger_devicons
 make install
 
+ranger --copy-config=all rc-temp
+map xx chain shell vim -p ~/.config/ranger/rc.conf; source ~/.config/ranger/rc.conf
+
+# colorscheme for ranger
+cd ~/.config/ranger
+git clone https://github.com/ranger/colorschemes.git
+cd ~/.config/ranger/colorschemes
+git clone https://github.com/RougarouTheme/ranger
+cp ranger/*.py . && rm -rf ranger
 
 # install NodeJS and yarn
 sudo dnf install nodejs npm -y
 sudo npm install -g yarn
+
+# install language server refactor for python
+pip install rope --user
 
 # core packages
 sudo dnf install -y \
@@ -128,6 +140,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 # Fix plain URl without quotes not working in zsh due magic functions
 # sed "/$Str0/a $Str1" $File0 | tac| tail -n 10|tac
+
+# install lazygit
+sudo dnf copr enable atim/lazygit -y
+sudo dnf install -y lazygit
 
 # Define variables to automate
 _File0="zshrc"
@@ -177,7 +193,6 @@ sudo dnf install the_silver_searcher ripgrep fd-find -y
 
 # install pygments or choma
 sudo pip install Pygments
-
 
 # Powerline fonts
 # clone
