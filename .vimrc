@@ -122,7 +122,7 @@ nnoremap <leader>w :update<cr>
 " noremap <Leader>fs :update<CR>
 
 " Quit / quit
-" nnoremap <Leader>q :q<cr>
+nnoremap <Leader>q :q<cr>
 nnoremap <Leader>qq :qa!<cr>
 
 " working Mon 01 Jun 2020 10:33:34 PM AST
