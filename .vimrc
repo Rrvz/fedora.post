@@ -5,17 +5,6 @@
 
 " press za in test normal mode to fold and unfolds
 "
-" call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-" call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-" call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-" call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-" call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-" call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-" call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-" call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#351411')
-" call NERDTreeHighlightFile('bash', 'Gray', 'none', '#fff7f7', 'NONE')
-" call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#151515')
-" call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#151515')
 " call NERDTreeHighlightFile('sh', 'gray', 'none', '#b999c6', 'NONE')
 " call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 " -----------------------------------------------------------------------------
@@ -271,7 +260,7 @@ inoremap <leader>tt <C-R>=strftime("%c")<CR>
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
-
+"
 " -----------------------------------------------------------------------------
 " junegunn plugin installers
 " -----------------------------------------------------------------------------
@@ -997,6 +986,14 @@ let g:closetag_close_shortcut = '<leader>>'
 " -----------------------------------------------------------------------------
 " startify plugin config
 " -----------------------------------------------------------------------------
+" for vim SSave session1, SLoad session1
+" let g:startify_session_dir = '~/.vim/sessions'
+" for neovim
+" let g:startify_session_dir = '~/.config/nvim/session'
+" let g:startify_session_autoload = 1
+let g:startify_session_persistence = 1
+" set -g @resurrect-processes '"vim->vim +SLoad"'
+
 
 
 
@@ -1421,7 +1418,7 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
+" Remap for rename current word needs LS to work
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
@@ -1550,6 +1547,7 @@ nmap <silent> ,b <Plug>(coc-bookmark-toggle)
 nmap <silent> ,a <Plug>(coc-bookmark-annotate)
 nmap <silent> gh <Plug>(coc-bookmark-prev)
 nmap <silent> gl <Plug>(coc-bookmark-next)
+
 " coc extensions
 let g:coc_global_extensions = [
   \ 'coc-json',
@@ -1563,6 +1561,7 @@ let g:coc_global_extensions = [
   \ 'coc-emmet',
   \ 'coc-eslint',
   \ 'coc-explorer',
+  \ 'coc-highlight',
   \ 'coc-html',
   \ 'coc-lists',
   \ 'coc-json',
@@ -1806,3 +1805,4 @@ nnoremap <Leader>vr :source $MYVIMRC<CR>
 " added | AirlineRefresh to fix the squares loss of airline colors
 autocmd! bufwritepost .vimrc source % | AirlineRefresh
 " autocmd bufwritepost .vimrc source $MYVIMRC
+"
