@@ -278,9 +278,9 @@ sudo dnf install yaru-gtk3-theme flat-remix-gtk3-theme
 
 # set tilix as the default terminal
 gsettings set org.gnome.desktop.default-applications.terminal exec tilix
+#sudo gsettings set org.gnome.desktop.default-applications.terminal exec tilix
 
 # install gnome extensions from terminal
-
 
 
 # ---------------------------------------------------------------------------
