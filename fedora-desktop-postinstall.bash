@@ -41,7 +41,7 @@ sudo dnf -y install gstreamer-plugins-base gstreamer1-plugins-base \
     gstreamer-plugins-good-extras gstreamer1-plugins-good-extras \
     gstreamer1-plugins-bad-freeworld ffmpeg gstreamer-ffmpeg
 
-# codecs
+# more codecs
 sudo dnf -y install ffmpeg2theora ffmpeg mencoder
 sudo dnf -y install libdvdread libdvdnav lsdvd libdvdcss
 
@@ -119,6 +119,11 @@ sudo dnf install -y nload iftop iptraf nethogs bmon bwm-ng nmap iperf iperf3
 
 # Installing Pipenv on Fedora
 sudo dnf install -y pipenv
+
+# Programming langages
+
+# go, mono, rust
+sudo dnf install -y mono-devel golang rust cargo
 
 # insall Rubby
 sudo dnf install -y rubygems

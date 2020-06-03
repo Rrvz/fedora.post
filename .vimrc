@@ -1563,7 +1563,6 @@ let g:coc_global_extensions = [
   \ 'coc-emmet',
   \ 'coc-eslint',
   \ 'coc-explorer',
-  \ 'coc-highlight',
   \ 'coc-html',
   \ 'coc-lists',
   \ 'coc-json',
