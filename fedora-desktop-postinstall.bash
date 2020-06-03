@@ -274,6 +274,15 @@ sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" "$_File0"
 mkdir -p ~/.local/share/{icons,themes}
 sudo dnf install yaru-gtk3-theme flat-remix-gtk3-theme
 
+# tweaks for gnome
+
+# set tilix as the default terminal
+gsettings set org.gnome.desktop.default-applications.terminal exec tilix
+
+# install gnome extensions from terminal
+
+
+
 # ---------------------------------------------------------------------------
 
 # disabled
