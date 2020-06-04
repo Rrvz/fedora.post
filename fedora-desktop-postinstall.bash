@@ -56,7 +56,7 @@ sudo dnf -y install unrar p7zip p7zip-plugins tar
 # imagenes las mejores :)
 sudo dnf -y install converseen gimp
 
-# text editor
+# Source code editors
 sudo dnf -y install \
 atom \
 https://az764295.vo.msecnd.net/stable/d69a79b73808559a91206d73d7717ff5f798f23c/code-1.45.0-1588868440.el7.x86_64.rpm
