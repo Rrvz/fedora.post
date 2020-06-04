@@ -71,7 +71,26 @@ sudo dnf install -y cmake gcc-c++ make python3-devel ncurses-compat-libs \
     automake cmake gcc gcc-c++ kernel-devel cmake python-devel python3-devel
 
 # install vim 8.4
-sudo dnf install -y neovim vim vim-X11 xclip xsel
+sudo dnf install -y vim vim-X11
+
+# vim-plug for vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+sudo dnf install -y neovim # latexmk
+
+# dependencies/utilities for vim/neovim
+sudo dnf install xclip xsel
+pip install pynvim
+npm install -g npm
+# gem install neovim
+
+# init for neovim
+mkdir -p ~/.config/nvim/ && touch ~/.config/nvim/init.vim
+
+# vim-plug for neovim
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # pip install adddons for vim and neovim
 pip install ueberzug --user
@@ -104,8 +123,12 @@ cp ranger/*.py . && rm -rf ranger
 sudo dnf install nodejs npm -y
 sudo npm install -g yarn
 
-# install language server refactor for python
+# install language servers refactor for python
 pip install rope --user
+sudo npm i -g bash-language-server
+
+
+
 
 # core packages
 sudo dnf install -y \
@@ -281,6 +304,13 @@ gsettings set org.gnome.desktop.default-applications.terminal exec tilix
 #sudo gsettings set org.gnome.desktop.default-applications.terminal exec tilix
 
 # install gnome extensions from terminal
+
+
+#
+
+# install snapd
+sudo dnf install -y snapd
+
 
 
 # ---------------------------------------------------------------------------
