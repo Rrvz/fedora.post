@@ -28,7 +28,6 @@ sudo dnf install -y \
 
 # update to all system
 sudo dnf update -y
-
 sudo dnf install dnf-utils -y
 
 # install main packages
@@ -77,6 +76,7 @@ sudo dnf install -y vim vim-X11
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+# install neovim, no latex because I do not need it
 sudo dnf install -y neovim # latexmk
 
 # dependencies/utilities for vim/neovim
@@ -98,6 +98,7 @@ pip uninstall -y pillow
 pip install pillow-simd --user -y
 
 # devicons for ranger
+
 # version 1.9.2 not working with image preview and ranger
 # sudo dnf install -y ranger
 # working it is wayland that is not compatible with euberzug
@@ -126,9 +127,6 @@ sudo npm install -g yarn
 # install language servers refactor for python
 pip install rope --user
 sudo npm i -g bash-language-server
-
-
-
 
 # core packages
 sudo dnf install -y \
