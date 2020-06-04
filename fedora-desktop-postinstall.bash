@@ -44,8 +44,11 @@ sudo dnf -y install gstreamer-plugins-base gstreamer1-plugins-base \
 sudo dnf -y install ffmpeg2theora ffmpeg mencoder
 sudo dnf -y install libdvdread libdvdnav lsdvd libdvdcss
 
-# install for ipv6 radvd git and other and mailx
-sudo dnf install -y radvd tcpdump git gitk diff colordiff asciinema
+# install for ipv6 radvd git subversion
+sudo dnf install -y radvd tcpdump
+
+# install for git subversion
+sudo dnf install -y git gitk colordiff diffutils subversion
 
 # send mail from local
 sudo dnf install -y mailx sendmail
@@ -92,26 +95,48 @@ mkdir -p ~/.config/nvim/ && touch ~/.config/nvim/init.vim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# pip install adddons for vim and neovim
+# pip install adddons for ranger vim/neovim
 pip install ueberzug --user
 pip uninstall -y pillow
 pip install pillow-simd --user -y
 
-# devicons for ranger
+# create directory for compile or source software
+mkdir -p ~/.config/source_log
 
+
+# Wed 03 Jun 2020 11:31:36 PM AST
 # version 1.9.2 not working with image preview and ranger
 # sudo dnf install -y ranger
+pip install ranger-fm --user
 # working it is wayland that is not compatible with euberzug
+# ranger requirements
+pip install flake8 pylint pytest --user
 
-git clone https://github.com/ranger/ranger.git && cd ranger
-sudo make install
-cd .. && rm -rf ranger
+# # install ranger from source/git
+# cd /tmp/
+# git clone https://github.com/ranger/ranger.git ; cd ranger
+# sudo make install
+# cp install_log.txt ~/.config/source_log/ranger_install_log
+# cd .. && sudo rm -rf ranger
 
-~/.config/ranger/plugins/ranger_devicons
-make install
+# unistall ranger from source
+# sudo rm `cat ranger_install_log`
 
-ranger --copy-config=all rc-temp
-map xx chain shell vim -p ~/.config/ranger/rc.conf; source ~/.config/ranger/rc.conf
+# devicons for ranger
+# ranger --copy-config=all
+# ranger --copy-config=rc
+
+git clone https://github.com/alexanderjeurissen/ranger_devicons \
+    ~/.config/ranger/plugins/ranger_devicons
+echo "default_linemode devicons" >> $HOME/.config/ranger/rc.conf
+
+# not wroking for pip and rpm version, yes for source
+# ~/.config/ranger/plugins/ranger_devicons
+# make install
+
+# all config from ranger, need testing
+# ranger --copy-config=all rc-temp
+# map xx chain shell vim -p ~/.config/ranger/rc.conf; source ~/.config/ranger/rc.conf
 
 # colorscheme for ranger
 cd ~/.config/ranger
@@ -119,6 +144,10 @@ git clone https://github.com/ranger/colorschemes.git
 cd ~/.config/ranger/colorschemes
 git clone https://github.com/RougarouTheme/ranger
 cp ranger/*.py . && rm -rf ranger
+
+# make own colorschemes
+context.py
+
 
 # install NodeJS and yarn
 sudo dnf install nodejs npm -y
@@ -233,9 +262,7 @@ sudo pip install Pygments
 mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts
 curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
-
 curl -fLo "Hack Regular Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
-
 curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
 
 # Reset font cache on Linux
@@ -243,6 +270,62 @@ if which fc-cache >/dev/null 2>&1 ; then
     echo "Resetting font cache, this may take a moment..."
     fc-cache -f "$font_dir"
 fi
+
+# install fontforge for patchfonts
+sudo dnf install fontforge -y;
+
+# patch your own font with font-patcher
+# Thu 04 Jun 2020 11:21:38 AM AST
+# https://github.com/ryanoasis/nerd-fonts#font-patcher
+
+pip install git+git://github.com/HR/github-clone#egg=ghclone --user
+
+mkdir font-patcher; cd font-patcher
+ghclone https://github.com/ryanoasis/nerd-fonts/tree/master/src/glyphs
+
+curl -L https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/font-patcher --output font-patcher
+
+# clone of file and using svn
+# And to clone just use the export parameter with fake-dir:
+# trunk between the repository and the subdirectory, example:
+# svn export [repository]/trunk/[subdirectory]
+# https://en.terminalroot.com.br/how-to-clone-only-a-subdirectory-with-git-or-svn/
+cd ~; rm -rf nerd-fonts; mkdir nerd-fonts; cd nerd-fonts
+svn export https://github.com/ryanoasis/nerd-fonts/trunk/src/glyphs src/glyphs
+svn export https://github.com/ryanoasis/nerd-fonts/trunk/font-patcher
+
+# # function for automate
+# git-svn(){
+#   if [[ ! -z "$1" && ! -z "$2" ]]; then
+#           echo "Starting clone/copy ..."
+#           repo=$(echo $1 | sed 's/\/$\|.git$//')
+#           svn export "$repo/trunk/$2"
+#   else
+#           echo "Use: git-svn <repository> <subdirectory>"
+#   fi
+# }
+#
+# git-svn [repository] [subdirectory]
+# git-svn https://github.com/ryanoasis/nerd-fonts src/glyphs
+
+# download font default gnome firefox
+curl -O https://www.fontsquirrel.com/fonts/download/dejavu-serif
+unzip dejavu-serif -d dejavu-serif-directory
+rm -rf dejavu-serif; mv dejavu-serif-directory dejavu-serif
+#
+mkdir unpatched-fonts
+cd ~; cd nerd-fonts
+# python font-patcher dejavu-serif/DejaVuSerif.ttf
+python font-patcher -c dejavu-serif/DejaVuSerif.ttf
+
+# # depth and partial clone
+# cd ~; rm -rf nerd-fonts; mkdir nerd-fonts; cd nerd-fonts
+# git init
+# git remote add origin https://github.com/ryanoasis/nerd-fonts
+# # git config core.sparsecheckout true
+# echo "src/glyphs" >> .git/info/sparse-checkout
+# echo "font" >> .git/info/sparse-checkout
+# git pull --depth=1 origin master
 
 # Setup enpass (password manager)
 cd /etc/yum.repos.d/
@@ -273,7 +356,6 @@ sudo dnf install -y gnome-extensions-app
 # mode for scroll size to 110111
 
 #curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
-
 
 # missing zshrc
 
@@ -345,9 +427,6 @@ sudo dnf install -y snapd
 # sudo dnf install -y python-pip python2-pip python3-pip git
 # sudo pip install --upgrade pip
 # sudo pip3 install --upgrade pip
-
-# install fontforge
-# sudo dnf install fontforge;
 
 # Chafa command line image converter and viewer
 # sudo dnf install -y autoconf automake libtool gtk-doc glib2-devel ImageMagick-devel
