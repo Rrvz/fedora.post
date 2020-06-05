@@ -148,6 +148,9 @@ cp ranger/*.py . && rm -rf ranger
 # make own colorschemes
 context.py
 
+# install pywal
+# pending to search more
+# pip install pywal --user
 
 # install NodeJS and yarn
 sudo dnf install nodejs npm -y
