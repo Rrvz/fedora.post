@@ -104,7 +104,6 @@ let g:repl_predefine_python = {
 
 " Open new line below and above current line
 " nnoremap <leader>o o<esc>
-"
 " nnoremap <leader>O O<esc>
 
 " Jump list (to newer position)
@@ -115,9 +114,11 @@ let g:repl_predefine_python = {
 " xnoremap jk <Esc>
 " cnoremap jk <C-c>
 
-" Save / save
-inoremap <C-s> <C-O>:update<cr>
-nnoremap <C-s>     :update<cr>
+" save on insert mode
+" never use in terminal control + s, because suspend use another mapping
+" inoremap <leader>w <c-o>:update<cr>
+" inoremap <C-s> <C-O>:update<cr>
+" nnoremap <C-s>     :update<cr>
 " nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
 " file save
@@ -384,6 +385,10 @@ Plug 'dracula/vim'
 Plug 'jacoborus/tender.vim'
 Plug 'kcierzan/termina'
 
+" Using plug
+Plug 'dylanaraps/wal.vim'
+" colorscheme wal
+
 
 " -----------------------------------------------------------------------------
 " Writing pluging installers block
@@ -513,9 +518,9 @@ Plug 'juliosueiras/vim-terraform-completion'
 " -----------------------------------------------------------------------------
 
 " Use release branch
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Or latest tag
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Or build from source code by use yarn: https://yarnpkg.com
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
@@ -523,17 +528,21 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 " Ranger for neovim and vim
 " -----------------------------------------------------------------------------
 
-" Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
-" Make Ranger replace netrw and be the file explorer
-" let g:rnvimr_ex_enable = 1
+Plug 'francoiscabrol/ranger.vim'
+" let g:NERDTreeHijackNetrw = 0 " add this line if you use NERDTree
+" let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
+let g:ranger_map_keys = 0
+" map <leader>ranger :Ranger<CR>
+nmap <space>r :Ranger<cr>
+" if using neovim
+Plug 'rbgrouleff/bclose.vim'
 
+" ranger floating only ork in neovim
+" Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+" " Make Ranger replace netrw and be the file explorer
+" let g:rnvimr_ex_enable = 1
 " nmap <space>r :RnvimrToggle<CR>
 
-Plug 'francoiscabrol/ranger.vim'
-" let g:NERDTreeHijackNetrw = 0 ""// add this line if you use NERDTree
-" let g:ranger_replace_netrw = 1 ""// open ranger when vim open a directory
-let g:ranger_map_keys = 0
-map <leader>rangea :Ranger<CR>
 
 " git messenger
 " Plug 'rhysd/git-messenger.vim'
@@ -797,7 +806,7 @@ let g:gitgutter_signs = 0
 "If you don't want vim-gitgutter to set up any mappings at all, use this:
 let g:gitgutter_map_keys = 0
 
-" Manual Mappings for gitgutter
+" Manual mappings for gitgutter
 nmap <leader>r1 :GitGutterSignsToggle<cr>
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
@@ -1488,7 +1497,6 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-
 " Snippet for VSCode
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -1503,7 +1511,6 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-
 " Opening the configuration file
 function! SetupCommandAbbrs(from, to)
   exec 'cnoreabbrev <expr> '.a:from
@@ -1512,13 +1519,9 @@ function! SetupCommandAbbrs(from, to)
 endfunction
 
 " Use C to open coc config
-call SetupCommandAbbrs('C', 'CocConfig')
-
+" call SetupCommandAbbrs('C', 'CocConfig')
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
-
-
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 
 " nmap <silent> <C-d> <Plug>(coc-cursors-word)*
 " xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
@@ -1591,7 +1594,11 @@ let g:coc_global_extensions = [
   \ 'coc-yaml',
 \ ]
 
+"coc.preferences.colorSupport": false,
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 nnoremap <Plug>(coc-rename) :<C-u>call CocActionAsync('rename')<CR>
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" CocCommand document.renameCurrentWord
 " }}}
 
 " -----------------------------------------------------------------------------
@@ -1616,7 +1623,6 @@ set autoread                " eeload files if changed externally
 " set nofoldenable        "dont fold by default
 " set foldtext=MyFoldText()
 " set fillchars=vert:\|
-
 
 " ViM Terminal colours
 if has('termguicolors')
