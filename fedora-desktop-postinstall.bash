@@ -67,6 +67,9 @@ https://az764295.vo.msecnd.net/stable/d69a79b73808559a91206d73d7717ff5f798f23c/c
 # Recorder, player, and downloader
 sudo dnf install -y vlc shutter youtube-dl
 
+# podman, buildah, kubernetes, minikube and not sure about docker.
+sudo dnf install podman buildah -y
+
 # Developers packages and cmake to power your compile time ;)
 sudo dnf groupinstall -y "Development Tools" "X Software Development"
 sudo dnf install -y cmake gcc-c++ make python3-devel ncurses-compat-libs \
@@ -146,7 +149,7 @@ git clone https://github.com/RougarouTheme/ranger
 cp ranger/*.py . && rm -rf ranger
 
 # make own colorschemes
-context.py
+# context.py
 
 # install pywal
 # pending to search more
