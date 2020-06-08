@@ -68,6 +68,28 @@ https://az764295.vo.msecnd.net/stable/d69a79b73808559a91206d73d7717ff5f798f23c/c
 sudo dnf install -y vlc shutter youtube-dl
 
 # podman, buildah, kubernetes, minikube and not sure about docker.
+sudo yum install -y \
+  btrfs-progs-devel \
+  conmon \
+  containernetworking-cni \
+  device-mapper-devel \
+  git \
+  glib2-devel \
+  glibc-devel \
+  glibc-static \
+  go \
+  golang-github-cpuguy83-md2man \
+  gpgme-devel \
+  iptables \
+  libassuan-devel \
+  libgpg-error-devel \
+  libseccomp-devel \
+  libselinux-devel \
+  make \
+  pkgconfig \
+  runc \
+  containers-common
+
 sudo dnf install podman buildah -y
 
 # Developers packages and cmake to power your compile time ;)
@@ -242,6 +264,14 @@ Str3='SAVEHIST=8000000'
 
 [ -f "$File0" ] && sed -i "/$Str0/c"$Str1"" $File0 || echo "$MsgStr0"
 [ -f "$File0" ] && sed -i "/$Str2/c"$Str3"" $File0 || echo "$MsgStr0"
+
+# zsh manual plugins
+# podman
+mkdir ~/.oh-my-zsh/plugins/podman ; cd ~/.oh-my-zsh/plugins/podman
+curl -O https://raw.githubusercontent.com/containers/libpod/master/completions/zsh/_podman
+
+# for bluidah
+# mkdir ~/.oh-my-zsh/plugins/buildah ; cd ~/.oh-my-zsh/plugins/buildah
 
 # Command-line fuzzy finder
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
