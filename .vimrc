@@ -5,8 +5,6 @@
 
 " press za in test normal mode to fold and unfolds
 "
-" call NERDTreeHighlightFile('sh', 'gray', 'none', '#b999c6', 'NONE')
-" call NERDTreeHighlightFile('bash', 'gray', 'none', '#b999c6', 'NONE')
 " -----------------------------------------------------------------------------
 " Disabled mappings{{{
 map s <Nop>
@@ -361,6 +359,8 @@ Plug 'tpope/vim-fugitive'
 " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-surround'
 
+" for Gbrowse to work
+Plug 'tpope/vim-rhubarb'
 
 " -----------------------------------------------------------------------------
 " Colours, Colorschemes and themes for vim
