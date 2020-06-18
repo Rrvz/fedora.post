@@ -57,7 +57,8 @@ rm -rf gpg-key-rsa
 
 # Get pgp short signature
 # gpg --list-sigs | grep -A3 'pub   dsa'| tail -n -1| awk -F ' ' '{print $3}'
-gpg --list-sigs | grep -A3 'pub   rsa'| tail -n -1| awk -F ' ' '{print $3}'
+_git_signing_key=`gpg --list-sigs | grep -A3 'pub   rsa' \
+    | tail -n -1| awk -F ' ' '{print $3}'`
 
 # sing all the commits and use the gpg key
 git config --global commit.gpgSign true
@@ -66,16 +67,25 @@ git config --global user.signingkey $_git_signing_key
 # gpg --armor --export $_git_signing_key | xclip -selection clipboard
 
 # generate file on /tmp
-cd /tmp
-gpg --armor --export $_git_signing_key > rsa-key
 
-# display user display
-echo 'execute this command on your awesome terminal'
-echo 'open your favorite SCM: gitlab or github you decide! '
-echo '\n This file will be deleted in one minute for your sake security'
-echo xclip -selection clipboard < rsa-key
+# display user displa
+printf 'Open your favorite SCM via web browser: gitlab and/or github you decide!
+and paste the public key where it belongs\n
+    This public key will be copy to your clipboard then forgotten for your security sake'
 
-rm /tmp/rsa-key | at now +1m
+#
+_func_gpg_keyid() {
+    local _git_signing_key=`gpg --list-sigs | grep -A3 'pub   rsa' \
+    | tail -n -1| awk -F ' ' '{print $3}'`
+
+    gpg --armor --export $_git_signing_key | xclip -selection clipboard
+}
+
+_func_gpg_keyid
+
+printf '\n \n gpg --armor --export $_git_signing_key | xclip -selection clipboard'
+
+# gpg --armor --export $_git_signing_key | xclip -selection clipboard
 
 # command to grab keyid
 # gpg --list-secret-keys --keyid-format long \
