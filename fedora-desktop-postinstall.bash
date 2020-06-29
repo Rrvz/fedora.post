@@ -7,9 +7,9 @@ _check_user() {
     this scrip will not work for the current user.'
     local _message_1="Running as a normal user for $USER"
 
-    [[ "$EUID" = $1 ]] && {
-        echo $_message_0 && exit ;} ||
-        echo $_message_1
+    [[ "$EUID" = $1 ]] \
+        && { echo $_message_0 && exit ;} \
+        || echo $_message_1
 }
 _check_user '0'
 
@@ -408,9 +408,8 @@ sudo dnf install -y firefox thunderbird
 sudo dnf install -y tilix tilix-nautilus
 
 # Fix tilix issue VTE Configuration
-
-#File0='~/.zshrc'
-#[ -f "$File0" ] && sudo bash -c "cat >> .zshrv" <<-'EOF'
+#File0='$HOME/.zshrc'
+#[ -f "$File0" ] && sudo bash -c "cat >> .zshrc" <<-'EOF'
 
 #if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 #        source /etc/profile.d/vte.sh
@@ -474,6 +473,8 @@ sudo dnf install -y qt3-devel libXi-devel gcc-c++
 # hwinfo and others
 sudo dnf install -y hwinfo
 
+# Unit testing for bash and zsh
+sudo dnf install shunit2 -y
 
 # ---------------------------------------------------------------------------
 
