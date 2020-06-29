@@ -435,7 +435,7 @@ sudo dnf install -y gnome-extensions-app
 git config --global user.email "$_my_email_0"
 git config --global user.name "$_my_name"
 git config --global commit.gpgSign true
-
+git config --global user.signingkey $_git_signing_key
 
 # disable wayland and use x11 must reboot to take effect
 # use the function ins_bef
