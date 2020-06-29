@@ -1,9 +1,28 @@
 #!/usr/bin/env bash
 
+# Function to check if is a specific user
+[[ "$EUID" = 0 ]] && {
+    _message_0='Please must run as normal user or sime of the feature in
+    this scrip will not work for the current user.'
+    echo $_message_0 && exit $1 ;} ||
+    _message_1="Running as a normal user"
+    echo $_message_1
+
+# change hostname
+sudo hostname set-hostname ryzen
+
 # Add to file in sudoers directory
 sudo bash -c "cat > /etc/sudoers.d/users" <<-'EOF'
 %wheel  ALL=(ALL)   NOPASSWD: ALL
 EOF
+
+# check if user is root
+[[ "$EUID" = 0 ]] && {
+    _message_0='Please must run as normal user or sime of the feature in
+    this scrip will not work for the current user.'
+    echo $_message_0 && exit $1 ;} ||
+    _message_1="Running as a normal user for $USER"
+    echo $_message_1
 
 #Fix dnf problem unable to install because a : No match for argument:
 #gir1.2-clutter, error: Unable to find a match
@@ -34,6 +53,21 @@ sudo dnf install dnf-utils -y
 sudo dnf install -y kernel-devel kernel-headers gcc dkms acpid libglvnd-glx \
     libglvnd-opengl libglvnd-devel pkgconfig
 
+# install virtualization packages
+sudo dnf group install -y --with-optional virtualization
+sudo systemctl start libvirtd
+sudo systemctl enable libvirtd
+
+# install stores: flatpak, snapd
+# install flatpak
+sudo dnf install -y flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# flatpak install flathub com.spotify.Client
+# flatpak install flathub com.visualstudio.code
+
+# install snapd
+sudo dnf install -y snapd
+
 # codes
 sudo dnf -y install gstreamer-plugins-base gstreamer1-plugins-base \
     gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer1-plugins-ugly \
@@ -46,6 +80,9 @@ sudo dnf -y install libdvdread libdvdnav lsdvd libdvdcss
 
 # install for ipv6 radvd git subversion
 sudo dnf install -y radvd tcpdump
+
+# istall swpan, send, expect and xdotool
+sudo dnf install -y spawn expect xdotool
 
 # install for git subversion
 sudo dnf install -y git gitk colordiff diffutils subversion
@@ -60,9 +97,12 @@ sudo dnf -y install unrar p7zip p7zip-plugins tar
 sudo dnf -y install converseen gimp
 
 # Source code editors
+# sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+# sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+#
+
 sudo dnf -y install \
 atom \
-https://az764295.vo.msecnd.net/stable/d69a79b73808559a91206d73d7717ff5f798f23c/code-1.45.0-1588868440.el7.x86_64.rpm
 
 # Recorder, player, and downloader
 sudo dnf install -y vlc shutter youtube-dl
@@ -108,8 +148,8 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 sudo dnf install -y neovim # latexmk
 
 # dependencies/utilities for vim/neovim
-sudo dnf install xclip xsel
-pip install pynvim
+sudo dnf install -y xclip xsel
+pip install pynvim --user
 npm install -g npm
 # gem install neovim
 
@@ -314,19 +354,17 @@ sudo dnf install fontforge -y;
 # Thu 04 Jun 2020 11:21:38 AM AST
 # https://github.com/ryanoasis/nerd-fonts#font-patcher
 
-pip install git+git://github.com/HR/github-clone#egg=ghclone --user
-
-mkdir font-patcher; cd font-patcher
-ghclone https://github.com/ryanoasis/nerd-fonts/tree/master/src/glyphs
-
-curl -L https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/font-patcher --output font-patcher
+# pip install git+git://github.com/HR/github-clone#egg=ghclone --user
+# mkdir font-patcher; cd font-patcher
+# ghclone https://github.com/ryanoasis/nerd-fonts/tree/master/src/glyphs
+# curl -L https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/font-patcher --output font-patcher
 
 # clone of file and using svn
 # And to clone just use the export parameter with fake-dir:
 # trunk between the repository and the subdirectory, example:
 # svn export [repository]/trunk/[subdirectory]
 # https://en.terminalroot.com.br/how-to-clone-only-a-subdirectory-with-git-or-svn/
-cd ~; rm -rf nerd-fonts; mkdir nerd-fonts; cd nerd-fonts
+cd $HOME && rm -rf nerd-fonts && mkdir nerd-fonts && cd nerd-fonts
 svn export https://github.com/ryanoasis/nerd-fonts/trunk/src/glyphs src/glyphs
 svn export https://github.com/ryanoasis/nerd-fonts/trunk/font-patcher
 
@@ -345,12 +383,10 @@ svn export https://github.com/ryanoasis/nerd-fonts/trunk/font-patcher
 # git-svn https://github.com/ryanoasis/nerd-fonts src/glyphs
 
 # download font default gnome firefox
+cd $HOME/nerd-fonts
 curl -O https://www.fontsquirrel.com/fonts/download/dejavu-serif
 unzip dejavu-serif -d dejavu-serif-directory
 rm -rf dejavu-serif; mv dejavu-serif-directory dejavu-serif
-#
-mkdir unpatched-fonts
-cd ~; cd nerd-fonts
 # python font-patcher dejavu-serif/DejaVuSerif.ttf
 python font-patcher -c dejavu-serif/DejaVuSerif.ttf
 
@@ -409,9 +445,14 @@ _Str1='WaylandEnable=false'
 
 sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" "$_File0"
 
+# install gnome stuff post
+sudo dnf install -y gnome-tweak-tool \
+    remmina-gnome-session.x86_64
+
+
 # themes
 mkdir -p ~/.local/share/{icons,themes}
-sudo dnf install yaru-gtk3-theme flat-remix-gtk3-theme
+sudo dnf install -y yaru-gtk3-theme flat-remix-gtk3-theme
 
 # tweaks for gnome
 
@@ -422,11 +463,19 @@ gsettings set org.gnome.desktop.default-applications.terminal exec tilix
 # install gnome extensions from terminal
 
 
-#
+# cgroups v2 is not woking for kubernetes, docker, snap and kind, and kvm
+# so must be downgrade it until a patch for it is done
+sudo dnf install -y grubby && sudo grubby \
+  --update-kernel=ALL \
+  --args="systemd.unified_cgroup_hierarchy=0"
 
-# install snapd
-sudo dnf install -y snapd
+# compile kernel for new hardware
+sudo dnf install -y gcc flex make bison openssl-devel elfutils-libelf-devel
+sudo dnf install -y fedpkg fedora-packager rpmdevtools ncurses-devel pesign grubby
+sudo dnf install -y qt3-devel libXi-devel gcc-c++
 
+# hwinfo and others
+sudo dnf install -y hwinfo
 
 
 # ---------------------------------------------------------------------------
@@ -493,3 +542,22 @@ sudo dnf install -y snapd
 # fi
 # " >> $File_X3
 # fi
+
+
+# invoke function from other user or using sudo
+# function1(){
+#    echo `whoami`
+# }
+# export -f function1
+# # su root -c "bash -c function1"
+# exit 0
+
+# function myfunc() {
+#     whoami
+#     echo First parameter is $1
+# }
+#
+# myfunc foo
+# _Declare_0=`declare -f myfunc`
+#
+# sudo bash -c "$_Declare_0; myfunc bar"
