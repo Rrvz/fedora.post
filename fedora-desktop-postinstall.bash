@@ -98,14 +98,13 @@ sudo dnf -y install converseen gimp
 # sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 #
 
-sudo dnf -y install \
-atom \
+sudo dnf -y install atom
 
 # Recorder, player, and downloader
 sudo dnf install -y vlc shutter youtube-dl
 
 # podman, buildah, kubernetes, minikube and not sure about docker.
-sudo yum install -y \
+sudo dnf install -y \
   btrfs-progs-devel \
   conmon \
   containernetworking-cni \
@@ -127,7 +126,8 @@ sudo yum install -y \
   runc \
   containers-common
 
-sudo dnf install podman buildah -y
+# podman, buildag and toolbox
+sudo dnf install podman buildah toolbox -y
 
 # Developers packages and cmake to power your compile time ;)
 sudo dnf groupinstall -y "Development Tools" "X Software Development"
@@ -253,12 +253,18 @@ sudo npm install -g vtop
 # chmod 600 ~/.ssh/*
 # chmod 644 ~/.ssh/*.pub
 
-# setup zsh
+# setup zsh and chsh
 sudo dnf install -y util-linux-user zsh acpi
 # install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Fix plain URl without quotes not working in zsh due magic functions
+# automatic change shell for zsh or bash for root and current user
+sudo chsh -s $(which zsh)
+sudo chsh -s $(which zsh) $USER
+
+# echo $EUID
+# Fix plain URl without quotes not working in zsh due magic functionssh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # sed "/$Str0/a $Str1" $File0 | tac| tail -n 10|tac
 
 # install lazygit

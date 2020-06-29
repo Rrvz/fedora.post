@@ -1,32 +1,5 @@
-echo
+#!/usr/bin/env bash
 
-mode
+rm -rf ~/.oh-my-zsh/
+echo y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-node
-
-test
-
-echo
-
-echo
-
-test
-
-test
-
-node
-node
-
-
-
-node
-node
-node
-node
-node
-node
-node
-node
-node
-
-node
