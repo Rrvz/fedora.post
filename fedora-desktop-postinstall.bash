@@ -1,28 +1,25 @@
 #!/usr/bin/env bash
 
 # Function to check if is a specific user
-[[ "$EUID" = 0 ]] && {
-    _message_0='Please must run as normal user or sime of the feature in
+# Function test if user root
+_check_user() {
+    local _message_0='Please must run as normal user or sime of the feature in
     this scrip will not work for the current user.'
-    echo $_message_0 && exit $1 ;} ||
-    _message_1="Running as a normal user"
-    echo $_message_1
+    local _message_1="Running as a normal user for $USER"
 
-# change hostname
-sudo hostname set-hostname ryzen
+    [[ "$EUID" = $1 ]] && {
+        echo $_message_0 && exit ;} ||
+        echo $_message_1
+}
+_check_user '0'
 
 # Add to file in sudoers directory
 sudo bash -c "cat > /etc/sudoers.d/users" <<-'EOF'
 %wheel  ALL=(ALL)   NOPASSWD: ALL
 EOF
 
-# check if user is root
-[[ "$EUID" = 0 ]] && {
-    _message_0='Please must run as normal user or sime of the feature in
-    this scrip will not work for the current user.'
-    echo $_message_0 && exit $1 ;} ||
-    _message_1="Running as a normal user for $USER"
-    echo $_message_1
+# change hostname
+sudo hostnamectl set-hostname ryzen
 
 #Fix dnf problem unable to install because a : No match for argument:
 #gir1.2-clutter, error: Unable to find a match
@@ -30,7 +27,7 @@ _File0="/etc/dnf/dnf.conf"
 _Str0="strict="
 _Str1="strict=False"
 if [ ! -z $(grep "$_Str0" "$_File0") ]; then
-    if [ ! -z $(grep "$Str1" "$_File0") ]; then
+    if [ ! -z $(grep "$_Str1" "$_File0") ]; then
         echo "$Str1 value is already in file"
     else
         sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" $_File0
