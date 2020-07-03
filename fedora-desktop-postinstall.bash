@@ -1,17 +1,127 @@
 #!/usr/bin/env bash
 
+# Functions definition
+_check_if_file_exits(){
+    # messages
+    # positional parameters
+    local _file_0=$1
+    # commands
+    # [ -f "$_file_0" ] && `$_msg_0` || `$_msg_1`
+    [ -f "$_file_0" ]
+}
+
+# _file_0='file.css'
+# _check_if_file_exists $_file_0
+# declare for sudo/root usage
+# _Declare_0=`declare -f _check_if_file_exists
+
+_check_if_file_writable(){
+    # messages
+    local _msg_0="File writable."
+    local _msg_1="Error file not writable."
+    # positional parameters
+    local _file_0=$1
+    # commands
+    [ -w "$_file_0" ] && echo $_msg_0 || echo $_msg_1
+}
+# _file_0='file.css'
+# _check_if_file_writable $_file_0
+
+# function to check if string is in file.
+_check_single_string_in_file() {
+    # messages
+    local _msg_0="String found."
+    local _msg_1="String not found."
+    # positional parameters
+    local _str_0=$1
+    local _file_0=$2
+    # commands
+    [[ -n $(grep "$_str_0" "$_file_0") ]] && echo $_msg_0 || echo $_msg_1
+}
+# _check_single_string_in_file best /etc/dnf/dnf.conf
+
+# function to change string if exists in file.
+# unset -f _change_single_string_all_occurences_lines _change_single_string_first_occurence_lines
+_change_single_string_all_occurences_lines () {
+    # messages
+    local _msg_0="Error file not exits/writable or string nof found."
+    # positional parameters
+    local _str_0=$1
+    local _str_1=$2
+    local _file_0=$3
+    # commands: check if file exists then, change the line if not append it.
+    [[ -f "$_file_0" && -w "$_file_0" && -n $(grep "$_str_0" "$_file_0") ]] \
+        && sed -i.bk --follow-symlinks "/$_str_0/c"$_str_1"" $_file_0 \
+        || echo "$_msg_0"
+}
+_change_single_string_first_occurence_lines () {
+    # messages
+    local _msg_0="Error file not exits/writable or string nof found."
+    # positional parameters
+    local _str_0=$1
+    local _str_1=$2
+    local _file_0=$3
+    # commands: check if file exists then, change the line if not append it.
+    [[ -f "$_file_0" && -w "$_file_0" && -n $(grep "$_str_0" "$_file_0") ]] \
+        && sed -i.bk --follow-symlinks "0,/$_str_0/c"$_str_1"" $_file_0 \
+        || echo "$_msg_0"
+}
+#  export -f _change_string_in_file_f_w
+
+_change_single_string_first_occurence () {
+    # messages
+    local _msg_0="Error file not exits/writable or string nof found."
+    # positional parameters
+    local _str_0=$1
+    local _str_1=$2
+    local _file_0=$3
+    # commands: check if file exists then, change the line if not append it.
+    [[ -f "$_file_0" && -w "$_file_0" && -n $(grep "$_str_0" "$_file_0") ]] \
+        && sed -i.bk --follow-symlinks "s/$_str_0/$_str_1/1" $_file_0 \
+        || echo "$_msg_0"
+}
+
+_change_string_if_exists_append_if_not () {
+    # messages
+    # local _msg_1="value added to $_file_0"
+    local _msg_2="value is already in file"
+    local _msg_0="Error file not exits/writable or string nof found."
+    # positional parameters
+    local _str_0=$1
+    local _str_1=$2
+    local _file_0=$3
+    # commands: check if file exists then, change the line if not append it.
+    [[ -f "$_file_0" && -w "$_file_0" && -n $(grep "$_str_0" "$_file_0") ]] \
+        && { [[ -n `grep "$_str_1" "$_file_0"` ]] && echo "$_msg_2" \
+            || sed -i.bk --follow-symlinks "/$_str_0/c"$_str_1"" $_file_0 ;} \
+        || bash -c "echo "$_str_1" >> $_file_0"
+}
+
+# _file_0="/etc/dnf/dnf.conf"
+# _str_0="strict="
+# _str_1="strict=False"
+# _change_string_if_exists_append_if_not $_str_0 $_str_1 $_file_0
+
 # Function to check if is a specific user
 # Function test if user root
-_check_user() {
-    local _message_0='Please must run as normal user or sime of the feature in
+_if_user_match_exit_0() {
+    local _msg_0='Please must run as normal user or sime of the feature in
     this scrip will not work for the current user.'
     local _message_1="Running as a normal user for $USER"
 
     [[ "$EUID" = $1 ]] \
-        && { echo $_message_0 && exit ;} \
+        && { echo $_msg_0 && exit ;} \
         || echo $_message_1
 }
-_check_user '0'
+# invoke function to check for user root/EUID/ID=0
+# _if_user_match_exit_0 '0'
+
+
+# end of functions
+
+# Script begins
+# invoke function to check for user root/EUID/ID=0
+_if_user_match_exit_0 '0'
 
 # Add to file in sudoers directory
 sudo bash -c "cat > /etc/sudoers.d/users" <<-'EOF'
@@ -23,20 +133,31 @@ sudo hostnamectl set-hostname ryzen
 
 #Fix dnf problem unable to install because a : No match for argument:
 #gir1.2-clutter, error: Unable to find a match
-_File0="/etc/dnf/dnf.conf"
-_Str0="strict="
-_Str1="strict=False"
-if [ ! -z $(grep "$_Str0" "$_File0") ]; then
-    if [ ! -z $(grep "$_Str1" "$_File0") ]; then
-        echo "$Str1 value is already in file"
-    else
-        sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" $_File0
-    fi
-else
-sudo bash -c "echo "$_Str1" >> /etc/dnf/dnf.conf"
-echo "$_Str1 value added to $_File0"
-fi
 
+# execute function to check
+_file_0="/etc/dnf/dnf.conf"
+_str_0="strict="
+_str_1="strict=False"
+
+_change_string_if_exists_append_if_not $_str_0 $_str_1 $_file_0 ||
+_Declare_0=`declare -f _change_string_if_exists_append_if_not` &&
+sudo bash -c "$_Declare_0; _change_string_if_exists_append_if_not $_str_0 $_str_1 $_file_0"
+
+# old style
+# _file_0="/etc/dnf/dnf.conf"
+# _str_0="strict="
+# _str_1="strict=False"
+# if [ ! -z $(grep "$_str_0" "$_file_0") ]; then
+#     if [ ! -z $(grep "$_str_1" "$_file_0") ]; then
+#         echo "$_Str1 value is already in file"
+#     else
+#         sudo sed -i.bk --follow-symlinks "/$_str_0/c $_str_1" $_file_0
+#     fi
+# else
+# sudo bash -c "echo "$_str_1" >> /etc/dnf/dnf.conf"
+# echo "$_str_1 value added to $_file_0"
+# fi
+#
 # add RPM-Fusion to system-wide
 sudo dnf install -y \
     https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
@@ -265,24 +386,24 @@ sudo chsh -s $(which zsh) $USER
 # echo $EUID
 # Fix plain URl without quotes not working in zsh due magic functionssh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# sed "/$Str0/a $Str1" $File0 | tac| tail -n 10|tac
+# sed "/$_str_0/a $_str_1" $_file_0 | tac| tail -n 10|tac
 
 # install lazygit
 sudo dnf copr enable atim/lazygit -y
 sudo dnf install -y lazygit
 
 # Define variables to automate
-_File0="zshrc"
-_Str0='export ZSH='
-_Str1="DISABLE_MAGIC_FUNCTIONS=true"
+_file_0="zshrc"
+_str_0='export ZSH='
+_str_1="DISABLE_MAGIC_FUNCTIONS=true"
 
 _ins_bef(){
 
-local _File0="$3"
-local _Str0="$1"
-local _Str1="$2"
+local _file_0="$3"
+local _str_0="$1"
+local _str_1="$2"
 
-sed -i.bk --follow-symlinks "/$_Str0/i $_Str1" "$_File0"
+sed -i.bk --follow-symlinks "/$_str_0/i $_str_1" "$_file_0"
 
 # display usage message and exit in case not arguments are not pass
 _display_usage(){
@@ -295,18 +416,18 @@ _display_usage(){
 
 }
 
-_ins_bef $_Str0 $_Str1 $_File0
+_ins_bef $_str_0 $_str_1 $_file_0
 
 # History size for zsh and bash
-File0="$HOME/.oh-my-zsh/lib/history.zsh"
-MsgStr0='File not found'
-Str0='HISTSIZE='
-Str1='HISTSIZE=9000000'
-Str2='SAVEHIST='
-Str3='SAVEHIST=8000000'
+_file_0="$HOME/.oh-my-zsh/lib/history.zsh"
+_msg_0='File not found'
+_str_0='HISTSIZE='
+_str_1='HISTSIZE=9000000'
+_str_2='SAVEHIST='
+_str_3='SAVEHIST=8000000'
 
-[ -f "$File0" ] && sed -i "/$Str0/c"$Str1"" $File0 || echo "$MsgStr0"
-[ -f "$File0" ] && sed -i "/$Str2/c"$Str3"" $File0 || echo "$MsgStr0"
+[ -f "$_file_0" ] && sed -i "/$_str_0/c"$_str_1"" $_file_0 || echo "$_msg_0"
+[ -f "$_file_0" ] && sed -i "/$_str_2/c"$_str_3"" $_file_0 || echo "$_msg_0"
 
 # zsh manual plugins
 # podman
@@ -414,8 +535,8 @@ sudo dnf install -y firefox thunderbird
 sudo dnf install -y tilix tilix-nautilus
 
 # Fix tilix issue VTE Configuration
-#File0='$HOME/.zshrc'
-#[ -f "$File0" ] && sudo bash -c "cat >> .zshrc" <<-'EOF'
+#_file_0='$HOME/.zshrc'
+#[ -f "$_file_0" ] && sudo bash -c "cat >> .zshrc" <<-'EOF'
 
 #if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 #        source /etc/profile.d/vte.sh
@@ -441,11 +562,11 @@ git config --global user.signingkey $_git_signing_key
 
 # disable wayland and use x11 must reboot to take effect
 # use the function ins_bef
-_File0="/etc/gdm/custom.conf"
-_Str0='WaylandEnable='
-_Str1='WaylandEnable=false'
+_file_0="/etc/gdm/custom.conf"
+_str_0='WaylandEnable='
+_str_1='WaylandEnable=false'
 
-sudo sed -i.bk --follow-symlinks "/$_Str0/c $_Str1" "$_File0"
+sudo sed -i.bk --follow-symlinks "/$_str_0/c $_str_1" "$_file_0"
 
 # install gnome stuff post
 sudo dnf install -y gnome-tweak-tool \
@@ -563,5 +684,8 @@ sudo dnf install shunit2 -y
 #
 # myfunc foo
 # _Declare_0=`declare -f myfunc`
-#
 # sudo bash -c "$_Declare_0; myfunc bar"
+
+# search and replace: the 3s, means the thrid line not the third time that occurs,
+# and the /2 or /g after the for the matching line.
+# sed "3s/"mit"/'algo'/2" license
