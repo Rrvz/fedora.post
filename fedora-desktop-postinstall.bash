@@ -134,7 +134,7 @@ sudo hostnamectl set-hostname ryzen
 #Fix dnf problem unable to install because a : No match for argument:
 #gir1.2-clutter, error: Unable to find a match
 
-# execute function to check
+# execute function to add string as normal user or sudo/root.
 _file_0="/etc/dnf/dnf.conf"
 _str_0="strict="
 _str_1="strict=False"
@@ -378,6 +378,10 @@ sudo npm install -g vtop
 sudo dnf install -y util-linux-user zsh acpi
 # install Oh My Zsh
 echo y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# plugins for oh-my-zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # automatic change shell for zsh or bash for root and current user
 sudo chsh -s $(which zsh)
