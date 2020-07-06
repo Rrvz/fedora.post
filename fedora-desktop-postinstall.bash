@@ -607,6 +607,9 @@ sudo dnf install -y hwinfo
 # Unit testing for bash and zsh
 sudo dnf install shunit2 -y
 
+# Enable ssh or disabled it.
+sudo systemctl start sshd && sudo systemctl enable sshd
+
 # ---------------------------------------------------------------------------
 
 # disabled
