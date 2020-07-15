@@ -382,6 +382,7 @@ echo y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/m
 # plugins for oh-my-zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/gunzy83/packer-zsh-completion.git ~/.oh-my-zsh/plugins/packer
 
 # automatic change shell for zsh or bash for root and current user
 sudo chsh -s $(which zsh)
