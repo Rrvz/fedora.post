@@ -608,6 +608,9 @@ sudo dnf install -y hwinfo
 # Unit testing for bash and zsh
 sudo dnf install shunit2 -y
 
+# install jq for json processing
+sudo dnf install -y jq
+
 # Enable ssh or disabled it.
 sudo systemctl start sshd && sudo systemctl enable sshd
 
