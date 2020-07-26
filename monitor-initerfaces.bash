@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
 
-sudo dnf install bash-completion mlocate vim tmux net-tools -y
+# sudo dnf install bash-completion mlocate vim tmux net-tools -y
 
 # Creation of bash script for Active network Interfaces
-sudo bash -c "cat > /usr/local/sbin/monitor-interfaces.bash" <<-'EOF'
+sudo bash -c "cat > /usr/local/sbin/list-interfaces.bash" <<-'EOF'
 #!/usr/bin/env bash
 _array_interfaces_0=( $(ls -1 /sys/class/net -I lo) )
 _array_IPv6=( $(printf "\\\6{%s} - " "${_array_interfaces_0[@]}") )
 _array_IPv4=( $(printf "\\\4{%s} - " "${_array_interfaces_0[@]}") )
 
-bash -c "cat > /etc/issue" <<-IEOF_0
-\S \l - Kernel \r on an \m
-
+[[ -d /etc/issue.d ]] || mkdir -p /etc/issue.d
+bash -c "cat > /etc/issue.d/interfaces.issue" <<-IEOF_0
 IPv6: ${_array_IPv6[@]}
-IPv4: "${_array_IPv4[@]}
+IPv4: ${_array_IPv4[@]}
 
 IEOF_0
 EOF
@@ -23,16 +22,19 @@ sudo bash -c "cat > /usr/local/sbin/monitor-interfaces.bash" <<-'EOF'
 #!/usr/bin/env bash
 
 _file_0="/tmp/watchfile_0"
+_file_1="/etc/issue.d/interfaces.issue"
+_script_0="/usr/local/sbin/list-interfaces.bash"
 _commands_0="ls /sys/class/net/ -I lo"
 
+[[ -f "${_file_1}" ]] || bash ${_script_0}
 [[ -f "${_file_0}" ]] || bash -c "${_commands_0}" > "${_file_0}"
 [[ `cat "${_file_0}"` == `${_commands_0}` ]] \
-    || bash /usr/local/sbin/monitor-interfaces.bash
+    || bash ${_script_0}
 bash -c "${_commands_0}" > "${_file_0}"
 EOF
 
 # Set permissions for the script files.
-sudo chmod 744 /usr/local/sbin/monitor-interfaces.bash
+sudo chmod 744 /usr/local/sbin/list-interfaces.bash
 sudo chmod 744 /usr/local/sbin/monitor-interfaces.bash
 
 # Create systemd services for Active Interfaces
@@ -63,6 +65,7 @@ Unit=monitor-interfaces.service
 WantedBy=timers.target
 EOF
 
+sudo bash /usr/local/sbin/list-interfaces.bash
 sudo systemctl daemon-reload
 sudo systemctl enable --now monitor-interfaces.timer
 # sudo systemctl status monitor-interfaces.timer -l --no-pager
