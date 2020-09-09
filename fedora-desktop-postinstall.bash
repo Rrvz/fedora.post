@@ -105,7 +105,7 @@ _change_string_if_exists_append_if_not () {
 # Function to check if is a specific user
 # Function test if user root
 _if_user_match_exit_0() {
-    local _msg_0='Please must run as normal user or sime of the feature in
+    local _msg_0='Please must run as normal user or some parts of
     this scrip will not work for the current user.'
     local _message_1="Running as a normal user for $USER"
 
@@ -139,9 +139,10 @@ _file_0="/etc/dnf/dnf.conf"
 _str_0="strict="
 _str_1="strict=False"
 
-_change_string_if_exists_append_if_not $_str_0 $_str_1 $_file_0 ||
-_Declare_0=`declare -f _change_string_if_exists_append_if_not` &&
-sudo bash -c "$_Declare_0; _change_string_if_exists_append_if_not $_str_0 $_str_1 $_file_0"
+_change_string_if_exists_append_if_not $_str_0 $_str_1 $_file_0 || \
+    _Declare_0=`declare -f _change_string_if_exists_append_if_not` &&
+sudo bash -c "$_Declare_0; \
+    _change_string_if_exists_append_if_not $_str_0 $_str_1 $_file_0"
 
 # old style
 # _file_0="/etc/dnf/dnf.conf"

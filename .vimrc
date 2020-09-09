@@ -543,6 +543,8 @@ Plug 'rbgrouleff/bclose.vim'
 " let g:rnvimr_ex_enable = 1
 " nmap <space>r :RnvimrToggle<CR>
 
+Plug 'simnalamburt/vim-mundo'
+nnoremap <F8> :MundoToggle<CR>
 
 " git messenger
 " Plug 'rhysd/git-messenger.vim'
@@ -1666,8 +1668,19 @@ highlight Normal guibg=NONE ctermbg=NONE
 " Annoying temporary files
 set backupdir=/tmp//,.
 set directory=/tmp//,.
-if v:version >= 703
-  set undodir=/tmp//,.
+
+" Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    if !isdirectory($HOME . "/.vim/tmp")
+        call mkdir($HOME . "/.vim/tmp", "p", 0760)
+    endif
+
+    if !isdirectory($HOME . "/.vim/undo")
+        call mkdir($HOME . "/.vim/undo", "p", 0760)
+    endif
+
+    set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
+    set undofile
 endif
 
 " display a warning if fileformat isnt unix
@@ -1789,9 +1802,13 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " With this mapping in your vimrc, you can easily enter a command to substitute
 " all occurrences of the word under the cursor:
-nnoremap <Leader>soo :%s/\<<C-r><C-w>\>/
-nnoremap <Leader>s11 "hy:%s/<C-r>h//gc<left><left><left>
+nnoremap <Leader>ref :%s/\<<C-r><C-w>\>/<C-r><C-w>/g<left><left>
+" nnoremap <Leader>soo :%s/\<<C-r><C-w>\>/
+" nnoremap <Leader>s11 "hy:%s/<C-r>h//gc<left><left><left>
+" vnoremap <Leader>r "hy:%s/<C-r>h/<C-r>h//gc<left><left><left>
+" nnoremap <leader>r yiw:%s/\<<C-r><C-w>\>//g<left><left>
 " vnoremap <Leader>s11 y<ESC>/<c-r>"<CR>
+"
 " -----------------------------------------------------------------------------
 "  My .vimrc plugin and funtions that need to be at the bottom,
 "  each time you mod listen to started from the bottorm now we're here
